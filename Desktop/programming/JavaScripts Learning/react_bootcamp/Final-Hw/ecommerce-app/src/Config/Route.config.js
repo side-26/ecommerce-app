@@ -3,5 +3,6 @@ export const PATHS = {
     HOME: '/',
     LOGIN: '/login',
     DASHBOARD: '/dashboard',
-    NOTFOUND:'/*'
+    NOTFOUND:'/*',
+    SHOPPING_CART:"/shoppingCart"
 }

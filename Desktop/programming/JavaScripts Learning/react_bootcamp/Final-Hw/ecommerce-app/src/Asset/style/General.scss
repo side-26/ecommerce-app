@@ -1,0 +1,31 @@
+@import "./_fonts.scss";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    direction: rtl;
+    font-family: "IranSansRegular";
+}
+
+#root {
+    min-height: 1000vh;
+}
+
+input {
+    font-family: sans-serif!important;
+}
+
+h1,
+h2,
+h3 {
+    font-family: "IranSansBold";
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+}

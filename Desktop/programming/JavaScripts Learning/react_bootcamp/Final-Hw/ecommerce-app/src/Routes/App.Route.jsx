@@ -8,12 +8,14 @@ import ErrorPage from '../Pages/404.page/404.page'
 import ProtetedRoute from './Protected.Route/Protected.Route'
 import DashboardPage from '../Pages/Admin-Dashboard.page/Dashboard.page'
 import {PATHS} from '../Config/Route.config';
+import ShoppingCart from '../Pages/ShppingCart.page/ShoppingCart.page';
 ;
 
 export default function AppRoute() {
     return <Routes>
         <Route path='' element={<PublicRoute />}>
             <Route path={PATHS.HOME} element={<HomePage />} />{' '}
+            <Route path={PATHS.SHOPPING_CART} element={<ShoppingCart/>}/>
         </Route>{' '}
         <Route path='' element={<PrivateRoute />}>
             <Route path={PATHS.DASHBOARD} element={<DashboardPage />} />{' '}

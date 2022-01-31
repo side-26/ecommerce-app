@@ -1,0 +1,93 @@
+.container {
+    position: relative;
+    padding: 2rem 5rem;
+    &-header {
+        margin: 1rem 0;
+        border-bottom: 3px solid #ccc;
+        &-title {
+            color: #ff1313;
+            font-size: 1.8rem;
+            // margin-bottom: .5rem;
+            position: relative;
+            display: flex;
+            align-items: baseline;
+            width: max-content;
+            &::after {
+                content: "";
+                bottom: -5%;
+                height: 3px;
+                background-color: #ff1313;
+                width: 100%;
+                right: 0;
+                position: absolute;
+            }
+            &-countProduct {
+                margin-right: .3rem;
+                width: 25px;
+                height: 25px;
+                background-color: #ff1313;
+                border-radius: 50%;
+                font-size: 1.5rem;
+                color: #fff;
+                // text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+    .main_sidebar_container {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        .main {
+            width: 70%;
+            background-color: #fff;
+            min-height: 5rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        .sidebar {
+            top: 0;
+            width: 28%;
+            background-color: #fff;
+            min-height: 5rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: .5rem;
+            .price-container {
+                display: flex;
+                justify-content: space-between;
+                span {
+                    color: #cdcdcd;
+                    font-size: 1.2rem;
+                }
+                strong {
+                    color: #212121;
+                }
+                margin-bottom: .5rem;
+            }
+            .dicount-container {
+                display: flex;
+                justify-content: space-between;
+                span {
+                    color: #cdcdcd;
+                    font-size: 1.2rem;
+                }
+                strong {
+                    color: #ff1313;
+                }
+                position: relative;
+                &::after {
+                    content: "";
+                    height: 2px;
+                    background-color: #ccc;
+                    width: 100%;
+                    position: absolute;
+                    right: 0;
+                    bottom: -10%;
+                }
+            }
+        }
+    }
+}

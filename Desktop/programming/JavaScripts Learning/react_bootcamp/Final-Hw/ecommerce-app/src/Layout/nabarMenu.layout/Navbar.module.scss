@@ -1,0 +1,62 @@
+body {
+    background-color: #f2f2f2;
+}
+
+.header {
+    font-family: 'IranSans' !important;
+    background-color: #737373 !important;
+    top: 0;
+    .top-nav {
+        display: flex;
+        justify-content: space-between;
+        .right-sect {
+            width: 40%;
+            display: flex;
+            align-items: center;
+            figure {
+                height: 70px;
+            }
+            .search-bar {
+                width: 70%;
+            }
+        }
+        .left-sect {
+            width: 13%;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    .bottom-nav {
+        .location-link {
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            font-family: "IranSansBold";
+            color: #0d0d0d;
+            font-size: .8rem;
+        }
+        button {}
+    }
+    .product-type-menu {
+        position: absolute;
+        top: 100%;
+        display: flex;
+        .faction-product {
+            &-menu {
+                li {
+                    transition: all .35s ease-in-out;
+                    a {
+                        color: #aaa;
+                        transition: all .35s ease-in-out;
+                    }
+                    // margin-right: 1rem;
+                    padding: .5rem .5rem .5rem 4.5rem;
+                    &:hover {
+                        background-color: #eee;
+                    }
+                }
+            }
+        }
+    }
+}

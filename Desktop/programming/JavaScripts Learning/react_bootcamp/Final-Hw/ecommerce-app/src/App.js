@@ -1,6 +1,9 @@
 import { BrowserRouter as Router } from 'react-router-dom'
 import AppRoute from './Routes/App.Route'
-// import { useState } from 'react'
+import './Asset/style/General.scss';
+import Navbar from './Layout/nabarMenu.layout/Navbar';
+
+
 
 
 
@@ -12,6 +15,7 @@ function App() {
         <Router>
         <AppRoute/>
         </Router>
+        // <Navbar/>
       }{' '}
     </>
   )
