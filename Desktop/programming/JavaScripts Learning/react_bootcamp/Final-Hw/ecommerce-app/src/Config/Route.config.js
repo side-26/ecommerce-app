@@ -6,4 +6,7 @@ export const PATHS = {
     DASHBOARD: '/dashboard',
     SHOPPING_CART:"/shoppingCart",
     USERFORM:"/userForm",
+    PRODUCTS:"/products",
+    PRODUCT:"/product",
+    PAYRESULT:"/payresult"
 }

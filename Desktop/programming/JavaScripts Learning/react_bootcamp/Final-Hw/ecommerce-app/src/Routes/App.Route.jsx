@@ -10,13 +10,17 @@ import DashboardPage from '../Pages/Admin-Dashboard.page/Dashboard.page'
 import {PATHS} from '../Config/Route.config';
 import ShoppingCart from '../Pages/ShppingCart.page/ShoppingCart.page';
 import Userform from '../Pages/UserForm.page/UserForm.page';
+import ProductPage from '../Pages/Product.page/Product.page';
+import ProductGroupPage from '../Pages/ProductsGroup.page/Product.Group.page';
+import ResultPage from '../Pages/Result.page/Result.page';
 ;
 
 export default function AppRoute() {
     return <Routes>
         <Route path='' element={<PublicRoute />}>
             <Route path={PATHS.HOME} element={<HomePage />} />{' '}
-            <Route path={PATHS.SHOPPING_CART} element={<ShoppingCart/>}/>
+            <Route path={PATHS.PRODUCT} element={<ProductPage/>}/>
+            <Route path={PATHS.PRODUCTS} element={<ProductGroupPage/>}/>
         </Route>{' '}
         <Route path='' element={<PrivateRoute />}>
             <Route path={PATHS.DASHBOARD} element={<DashboardPage />} />{' '}
@@ -25,7 +29,10 @@ export default function AppRoute() {
         <Route path='' element={<ProtetedRoute />}>
             <Route path={PATHS.LOGIN} element={<LoginPage />} />{' '}
             <Route path={PATHS.USERFORM} element={<Userform/>}/>
+            <Route path={PATHS.PAYRESULT} element={<ResultPage/>}/>
+            <Route path={PATHS.SHOPPING_CART} element={<ShoppingCart/>}/>
         </Route>{' '}
         <Route path={PATHS.NOTFOUND} element={<ErrorPage />} />
+        
     </Routes>;
 }
