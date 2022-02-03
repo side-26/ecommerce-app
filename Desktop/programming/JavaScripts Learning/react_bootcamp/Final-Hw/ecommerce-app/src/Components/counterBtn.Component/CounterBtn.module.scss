@@ -1,0 +1,16 @@
+.Counterbtn {
+    background-color: #ff1313;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .25s ease-in-out;
+    &:hover {
+        background-color: #e60000;
+    }
+}

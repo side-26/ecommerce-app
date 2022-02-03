@@ -43,18 +43,19 @@
         .main {
             width: 70%;
             background-color: #fff;
-            min-height: 5rem;
+            max-height: 30rem;
             border-radius: 8px;
             border: 1px solid #ccc;
+            overflow-y: auto;
         }
         .sidebar {
             top: 0;
             width: 28%;
             background-color: #fff;
-            min-height: 5rem;
+            height: max-content;
             border-radius: 8px;
             border: 1px solid #ccc;
-            padding: .5rem;
+            padding: 1rem .5rem;
             .price-container {
                 display: flex;
                 justify-content: space-between;
@@ -70,6 +71,7 @@
             .dicount-container {
                 display: flex;
                 justify-content: space-between;
+                margin-bottom: 1rem;
                 span {
                     color: #cdcdcd;
                     font-size: 1.2rem;
@@ -87,6 +89,91 @@
                     right: 0;
                     bottom: -10%;
                 }
+            }
+            .total_price-container {
+                margin: .8rem 0;
+                display: flex;
+                justify-content: space-between;
+                font-size: 1.4rem;
+            }
+            .description {
+                color: #aaa;
+                font-size: .8rem;
+            }
+            .buy-btn {
+                font-family: "IranSansRegular";
+                background-color: #ff1313;
+                width: 100%;
+                margin: 1rem 0;
+                font-size: 1.2rem;
+            }
+            .warn-btn {
+                font-size: 1.1rem;
+                color: #2196F3;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .container {
+        padding: 2rem 2rem;
+        .main_sidebar_container {
+            flex-direction: row;
+            .main {
+                width: 64%;
+            }
+            .sidebar {
+                width: 34%;
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    .container {
+        padding: 2rem 1rem;
+        .main_sidebar_container {
+            flex-direction: row;
+            .main {
+                width: 64%;
+            }
+            .sidebar {
+                width: 34%;
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .container {
+        padding: 2rem 1rem;
+        .main_sidebar_container {
+            flex-direction: row;
+            .main {
+                width: 49%;
+            }
+            .sidebar {
+                width: 48%;
+                text-align: center;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 510px) {
+    .container {
+        padding: 2rem 1rem;
+        .main_sidebar_container {
+            flex-direction: column;
+            .main {
+                width: 100%;
+                margin: 2rem 0;
+            }
+            .sidebar {
+                width: 100%;
             }
         }
     }

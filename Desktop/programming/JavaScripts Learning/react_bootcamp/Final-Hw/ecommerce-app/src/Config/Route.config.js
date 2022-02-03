@@ -1,8 +1,9 @@
 
 export const PATHS = {
+    NOTFOUND:'/*',
     HOME: '/',
     LOGIN: '/login',
     DASHBOARD: '/dashboard',
-    NOTFOUND:'/*',
-    SHOPPING_CART:"/shoppingCart"
+    SHOPPING_CART:"/shoppingCart",
+    USERFORM:"/userForm",
 }

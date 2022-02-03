@@ -1,0 +1,85 @@
+.shopping-card {
+    background-color: #eee;
+    margin: 1rem .5rem;
+    display: flex;
+    align-items: center;
+    .card-title {
+        h3 {
+            font-size: 1.2rem;
+        }
+        span {
+            color: #aaa;
+            font-size: .9rem;
+            font-family: "IranSansBold";
+        }
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .card-info {
+        width: 5%;
+        text-align: center;
+    }
+    .card-product-count {
+        margin: 0 auto;
+        display: flex;
+        width: 10%;
+        justify-content: space-between;
+        align-items: center;
+        span {
+            font-size: 1.3rem;
+        }
+        button {
+            margin: .5rem 0;
+        }
+    }
+    .card-product-price {
+        margin: 0 auto;
+        font-size: 1.4rem;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .shopping-card {
+        .card-product-price {
+            text-align: start;
+        }
+        .card-product-count {
+            flex-direction: row;
+        }
+    }
+}
+
+@media only screen and (max-width: 1020px) {
+    .shopping-card {
+        .card-product-price {
+            text-align: center;
+        }
+        .card-product-count {
+            flex-direction: column;
+        }
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .shopping-card {
+        flex-direction: column;
+        .card-title {
+            width: 100%;
+            align-items: center;
+        }
+        .card-info {
+            margin: .5rem 0;
+            width: 100%;
+        }
+        .card-product-count {
+            margin: .5rem 0;
+            width: 50%;
+            flex-direction: row;
+        }
+        .card-product-price {
+            margin: 1rem 0;
+        }
+    }
+}

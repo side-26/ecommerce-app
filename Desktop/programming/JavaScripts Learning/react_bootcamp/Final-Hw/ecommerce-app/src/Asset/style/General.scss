@@ -8,7 +8,7 @@
 }
 
 #root {
-    min-height: 1000vh;
+    min-height: 100vh;
 }
 
 input {
@@ -28,4 +28,9 @@ li {
 img {
     height: 100%;
     width: 100%;
+}
+
+label {
+    font-family: "IranSansRegular" !important;
+    font-size: 1.1rem !important;
 }

@@ -9,6 +9,7 @@ import ProtetedRoute from './Protected.Route/Protected.Route'
 import DashboardPage from '../Pages/Admin-Dashboard.page/Dashboard.page'
 import {PATHS} from '../Config/Route.config';
 import ShoppingCart from '../Pages/ShppingCart.page/ShoppingCart.page';
+import Userform from '../Pages/UserForm.page/UserForm.page';
 ;
 
 export default function AppRoute() {
@@ -19,9 +20,11 @@ export default function AppRoute() {
         </Route>{' '}
         <Route path='' element={<PrivateRoute />}>
             <Route path={PATHS.DASHBOARD} element={<DashboardPage />} />{' '}
+            
         </Route>{' '}
         <Route path='' element={<ProtetedRoute />}>
             <Route path={PATHS.LOGIN} element={<LoginPage />} />{' '}
+            <Route path={PATHS.USERFORM} element={<Userform/>}/>
         </Route>{' '}
         <Route path={PATHS.NOTFOUND} element={<ErrorPage />} />
     </Routes>;
