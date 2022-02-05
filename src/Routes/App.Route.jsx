@@ -13,7 +13,7 @@ import Userform from '../Pages/UserForm.page/UserForm.page';
 import ProductPage from '../Pages/Product.page/Product.page';
 import ProductGroupPage from '../Pages/ProductsGroup.page/Product.Group.page';
 import ResultPage from '../Pages/Result.page/Result.page';
-;
+
 
 export default function AppRoute() {
     return <Routes>

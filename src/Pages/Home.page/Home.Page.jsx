@@ -14,7 +14,7 @@ export default class HomePage extends Component {
       </title>
     </Helmet>
     {/* header */}
-          <Navbar/>
+         <Navbar/>
 
     </>;
   }

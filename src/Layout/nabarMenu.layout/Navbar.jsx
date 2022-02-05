@@ -22,11 +22,13 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import style from './Navbar.module.scss';
 import logoSrc from '../../Asset/img/car-logo.png';
 import { PATHS } from '../../Config/Route.config';
-;
 
-;
 
 export default function Navbar() {
+    const Navigate=()=>{
+        const path=JSON.parse(localStorage.getItem("IsRegister"))?PATHS.DASHBOARD:PATHS.LOGIN;
+        navigate(path);
+    }
     const navigate=useNavigate()
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
@@ -90,7 +92,7 @@ export default function Navbar() {
                 </Search>
                 </div>
                 <div className={`${style["left-sect"]}`}>
-                <IconButton onClick={()=>{navigate(PATHS.LOGIN)}} size="small"
+                <IconButton onClick={()=>{Navigate()}} size="small"
                     edge="start"
                     color="inherit"
                     aria-label="open drawer"
