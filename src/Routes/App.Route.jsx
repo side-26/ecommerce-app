@@ -13,6 +13,9 @@ import Userform from '../Pages/UserForm.page/UserForm.page';
 import ProductPage from '../Pages/Product.page/Product.page';
 import ProductGroupPage from '../Pages/ProductsGroup.page/Product.Group.page';
 import ResultPage from '../Pages/Result.page/Result.page';
+import OrderproductPage from '../Pages/Admin-Dashboard.page/Components/OrderProduct.page';
+import InventoryPage from '../Pages/Admin-Dashboard.page/Components/Inventory.page';
+import ProductsPage from '../Pages/Admin-Dashboard.page/Components/Products.page';
 
 
 export default function AppRoute() {
@@ -23,7 +26,11 @@ export default function AppRoute() {
             <Route path={PATHS.PRODUCTS} element={<ProductGroupPage/>}/>
         </Route>{' '}
         <Route path='' element={<PrivateRoute />}>
-            <Route path={PATHS.DASHBOARD} element={<DashboardPage />} />{' '}
+            <Route path={PATHS.DASHBOARD} element={<DashboardPage />} >
+                <Route path={PATHS.NestedRoute.INVENTORY} element={<InventoryPage/>}/>
+                <Route path={PATHS.NestedRoute.ORDERS} element={<OrderproductPage/>}/>
+                <Route path={PATHS.NestedRoute.PRODUCTS} element={<ProductsPage/>}/>
+            </Route>
             
         </Route>{' '}
         <Route path='' element={<ProtetedRoute />}>

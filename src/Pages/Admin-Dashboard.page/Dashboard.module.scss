@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    .main {
+        width: 96%;
+        padding: 3rem;
+    }
+}
+
+@media only screen and (max-width: 780px) {
+    .container {
+        .main {
+            width: 87%;
+            padding: 3rem 1rem;
+        }
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .container {
+        .main {
+            width: 76%;
+            padding: 3rem 1rem;
+        }
+    }
+}

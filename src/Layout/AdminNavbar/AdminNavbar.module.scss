@@ -42,10 +42,11 @@
 }
 
 // responsive
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 780px) {
     .navbar-sidebar {
         width: 65px!important;
         &-menu {
+            height: 70%;
             .navbar-sidebar-menu-item {
                 display: none !important;
             }

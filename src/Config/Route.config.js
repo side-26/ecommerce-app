@@ -8,5 +8,10 @@ export const PATHS = {
     USERFORM:"/userForm",
     PRODUCTS:"/products",
     PRODUCT:"/product",
-    PAYRESULT:"/payresult"
+    PAYRESULT:"/payresult",
+    NestedRoute:{
+        ORDERS:"orders",
+        INVENTORY:"inventory",
+        PRODUCTS:"products"
+    }
 }

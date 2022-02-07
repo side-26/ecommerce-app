@@ -34,3 +34,19 @@ label {
     font-family: "IranSansRegular" !important;
     font-size: 1.1rem !important;
 }
+
+tr {
+    transition: all .35s ease-in-out !important;
+    cursor: auto;
+}
+
+td {
+    font-family: "IranSansRegular" !important;
+    font-size: 1.1rem !important;
+    transition: all .35s ease-in-out !important;
+}
+
+th {
+    font-family: "IranSansBold" !important;
+    font-size: 1.2rem !important;
+}

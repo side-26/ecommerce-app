@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import rtlPlugin from 'stylis-plugin-rtl';
 import createCache from '@emotion/cache';
 import AppBar from '@mui/material/AppBar';
@@ -8,25 +9,19 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import HomeSharpIcon from '@mui/icons-material/HomeSharp';
 import Avatar from '@mui/material/Avatar';
-import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { CacheProvider, useTheme } from '@emotion/react';
-import BallotIcon from '@mui/icons-material/Ballot';
-import InventorySharpIcon from '@mui/icons-material/InventorySharp';
-import Badge from '@mui/material/Badge';
-import style from './AdminNavbar.module.scss';
-const AdminNavbar = () => {
-    const theme = useTheme();
+import { CacheProvider } from '@emotion/react';
+
+const AdminNavbar = ({onclickFu}) => {
+const navigate=useNavigate();
     const cacheRtl = createCache({
         key: 'muirtl',
         stylisPlugins: [rtlPlugin],
     });
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
-    const [scale, Setscale] = useState(false);
     const settings = ['صفحه اصلی', 'خروج از حساب کاربری'];
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -34,9 +29,7 @@ const AdminNavbar = () => {
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
-    const handleOpenAdminSidebar = () => {
-        Setscale(!scale);
-    }
+    
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
@@ -56,6 +49,7 @@ const AdminNavbar = () => {
     return (
         <CacheProvider value={cacheRtl}>
 
+            <>
             <AppBar position="sticky" sx={{ backgroundColor: "#737373" }}>
                 <Toolbar>
                     <IconButton
@@ -64,7 +58,7 @@ const AdminNavbar = () => {
                         color="inherit"
                         aria-label="open drawer"
                         sx={{ mr: 2 }}
-                        onClick={handleOpenAdminSidebar}
+                        onClick={()=>onclickFu()}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -107,38 +101,10 @@ const AdminNavbar = () => {
                     </Box>
                 </Toolbar>
 
+            
             </AppBar>
-            <aside className={`${style["navbar-sidebar"]} ${scale && style["scale"]}`}>
-                <ul className={`${style["navbar-sidebar-menu"]}`}>
-                    <IconButton size='large' sx={{ color: "#fff" }}>
-                        <Badge sx={{ mr: 2, fontSize: "2rem" }} anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'right',
-                        }} color="primary">
-                            <HomeSharpIcon sx={{ fontSize: "2rem" }} />
-                        </Badge>
-                        {scale && <span className={`${style["navbar-sidebar-menu-item"]}`}>خانه</span>}
-                    </IconButton>
-                    <IconButton size='large' sx={{ color: "#fff" }}>
-                        <Badge sx={{ mr: 2, fontSize: "2rem" }} badgeContent={scale ? 0 : 10}  anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'right',
-                        }} color="primary"><ProductionQuantityLimitsIcon sx={{ fontSize: "2rem" }} /></Badge> {scale && <span className={`${style["navbar-sidebar-menu-item"]}`}>محصولات<span className={`${style["count-container"]}`}>10</span></span>}
-                    </IconButton>
-                    <IconButton size='large' sx={{ color: "#fff" }}>
-                        <Badge sx={{ mr: 2, fontSize: "2rem" }} badgeContent={scale ? 0 : 10} anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'right',
-                        }} color="primary">
-                            <BallotIcon sx={{ fontSize: "2rem" }} />
-                        </Badge>
-                        {scale && <span className={`${style["navbar-sidebar-menu-item"]}`}>سفارشات<span className={`${style["count-container"]}`}>10</span></span>}
-                    </IconButton>
-                    <IconButton size='large' sx={{ color: "#fff" }}>
-                        <InventorySharpIcon sx={{ mr: 2, fontSize: "2rem" }} /> {scale && <span className={`${style["navbar-sidebar-menu-item"]}`}>موجودی و قیمت</span>}
-                    </IconButton>
-                </ul>
-            </aside>
+            </>
+            
         </CacheProvider>
     );
 }
