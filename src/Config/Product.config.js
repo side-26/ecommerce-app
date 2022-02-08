@@ -33,4 +33,11 @@ export const TableData={
         {name:"تویوتا GT86",country:"ژاپن", category:" کوپه", id:5 ,year:"2013",company:"تویوتا"},
         {name:"تویوتا GT86",country:"ژاپن", category:" کوپه", id:5 ,year:"2013",company:"تویوتا"},
     ],
+    orders:[
+        {name:"موستانگ شلبی",person:"mahdi rashidi", category:" کوپه", id:1 ,year:"2013",deliverd:false},
+        {name:" lx سمند",person:"mammad mammadi", category:"سدان خانوادگی", id:2 ,year:"2001",deliverd:false},
+        {name:"بی ام دابیو e46", person:"ali alii", category:"سدان کوپه", id:3 ,year:"2005",deliverd:true},
+        {name:"بنز s500",person:"mohammad hossien karimzadeh", category:"سدان فول سایز", id:4 ,year:"2021",deliverd:true},
+        {name:"تویوتا GT86",person:"ali nasirian", category:" کوپه", id:5 ,year:"2013",deliverd:true},
+    ]
 }
