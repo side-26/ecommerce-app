@@ -125,7 +125,7 @@ server.post([
   }
   const {username, role, name} = req.user;
   jwt.sign({username, role, name}, AUTH_JWT_SECRET, AUTH_JWT_OPTIONS, (err, token) => {
-    if (err) return next(err);
+    if (err) return next(error);
     res.json({token});
   });
 });

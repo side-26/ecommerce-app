@@ -8,3 +8,15 @@
         color: #212121;
     }
 }
+
+.table-container {
+    width: 80% !important;
+    margin: 0 auto;
+    height: clamp(30rem, 5rem, 30rem);
+    overflow-y: auto;
+}
+
+table thead {
+    position: sticky;
+    top: 0;
+}
