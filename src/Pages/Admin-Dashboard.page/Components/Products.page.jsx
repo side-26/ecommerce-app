@@ -9,20 +9,23 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 // import { TableData } from '../../../Config/Product.config';
-import axios from 'axios';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
 import { Avatar, IconButton } from '@mui/material';
-import { Get } from "../../../Api/Products.api"
 import style from './Styles.Pages/Products.module.scss';
 import { BASE_URL } from '../../../Config/Url.config';
+import {fetchProductsRequest,fetchProductRequest} from '../../../Redux/Actions.Redux/Products.Action/Products.Action';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 const ProductsPage = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [TableData, SetData] = useState([])
+    const products=useSelector(state=>state.products);
+    const product=useSelector(state=>state.product);
+    const dispatch=useDispatch();
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -30,15 +33,19 @@ const ProductsPage = () => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-    useEffect(() => {
+    useEffect( () => {
+        
         // SetData)
-        (async function(){
-            const products= await(Get(BASE_URL));
-            SetData(products);
-        })()
-
-    }, []);
-    console.log(TableData);
+        // (async function(){
+        //     const products= await(Get(BASE_URL));
+        //     SetData(products);
+        // })()
+        dispatch(fetchProductsRequest(BASE_URL));
+        dispatch(fetchProductRequest(BASE_URL,1));
+        // Get(BASE_URL).then(res=>SetData(res));
+    },[]);
+    console.log(products);
+    console.log(product);
     return (
         <>
             <Helmet>
@@ -63,7 +70,7 @@ const ProductsPage = () => {
               .map((row) 
           ) */}
                         {(
-                            TableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         ).map((item) => (
                             <TableRow
                                 key={item.id}
@@ -85,7 +92,7 @@ const ProductsPage = () => {
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 20]}
                             colSpan={4}
-                            count={TableData.length}
+                            count={products.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             onPageChange={handleChangePage}

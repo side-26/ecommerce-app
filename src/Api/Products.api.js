@@ -12,6 +12,18 @@ export const Get = async (BASE_URL) => {
 
 
 }
+export const GetProduct = async (BASE_URL,productId) => {
+
+  return await axios.get(`${BASE_URL}/products/${productId}`)
+    .then(res => {
+      const products = res.data;
+      return products
+    }).catch(err => {
+      return err
+    });
+
+
+}
 export const Post = async (BASE_URL, data, ProductId) => {
   await axios.post(`${BASE_URL}/products/${ProductId}`, data)
     .then(res => {
