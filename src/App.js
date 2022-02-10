@@ -4,14 +4,12 @@ import './Asset/style/General.scss';
 function App() {
   return (
     <>
-      {' '}
-      {
-        <Router>
-        <AppRoute/>
-        </Router>
-        // <Avatar ImgSrc={src}/>
-        
-      }{' '}
+
+      <Router>
+        <AppRoute />
+      </Router>
+
+
     </>
   )
 }
