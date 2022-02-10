@@ -1,10 +1,11 @@
 
 import {FETCHING_PRODUCTS,FETCHING_SPESEFIC_PRODOCT} from '../../Type.actions';
-import {Get,GetProduct} from '../../../Api/Products.api';
+import {Products} from '../../../Api/Products.api';
+import {Product} from '../../../Api/Product.api';
 export const fetchProductsRequest=(BASE_URL)=>{
     return async (dispatch,getState)=>{ 
         let products=[...getState().products];
-      const responses= await Get(BASE_URL).then( res=>{
+      const responses= await Products.Get(BASE_URL).then( res=>{
           return res
         }
         )
@@ -15,8 +16,8 @@ export const fetchProductsRequest=(BASE_URL)=>{
 }
 export const fetchProductRequest=(BASE_URL,ID)=>{
     return async (dispatch,getState)=>{ 
-        let product=[...getState().product];
-      const response= await GetProduct(BASE_URL,ID).then( res=>{
+        let product=getState().product;
+      const response= await Product.Get(BASE_URL,ID).then( res=>{
           return res
         }
         )
