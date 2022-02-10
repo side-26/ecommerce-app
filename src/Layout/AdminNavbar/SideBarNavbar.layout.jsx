@@ -13,7 +13,8 @@ import style from './AdminNavbar.module.scss';
 import { PATHS } from '../../Config/Route.config';
 import { useSelector } from 'react-redux';
 const SidebarnavbarLayout = ({ scale }) => {
-    const products=useSelector(state=>state.products);
+    const products=useSelector(state=>state.products.products);
+    const Orders=useSelector(state=>state.orders.orders);
     const cacheRtl = createCache({
         key: 'muirtl',
         stylisPlugins: [rtlPlugin],
@@ -39,13 +40,13 @@ const SidebarnavbarLayout = ({ scale }) => {
                         }} color="primary"><ProductionQuantityLimitsIcon sx={{ fontSize: "2rem" }} /></Badge> {scale && <span className={`${style["navbar-sidebar-menu-item"]}`}>محصولات<span className={`${style["count-container"]}`}>{products.length}</span></span>}
                     </IconButton>
                     <IconButton size='large' sx={{ color: "#fff" }} onClick={()=>navigate(PATHS.NestedRoute.ORDERS)}>
-                        <Badge sx={{ mr: 2, fontSize: "2rem" }} badgeContent={scale ? 0 : 10} anchorOrigin={{
+                        <Badge sx={{ mr: 2, fontSize: "2rem" }} badgeContent={scale ? 0 : Orders.length} anchorOrigin={{
                             vertical: 'bottom',
                             horizontal: 'right',
                         }} color="primary">
                             <BallotIcon sx={{ fontSize: "2rem" }} />
                         </Badge>
-                        {scale && <span className={`${style["navbar-sidebar-menu-item"]}`}>سفارشات<span className={`${style["count-container"]}`}>10</span></span>}
+                        {scale && <span className={`${style["navbar-sidebar-menu-item"]}`}>سفارشات<span className={`${style["count-container"]}`}>{Orders.length}</span></span>}
                     </IconButton>
                     <IconButton size='large' sx={{ color: "#fff" }} onClick={()=>navigate(PATHS.NestedRoute.INVENTORY)}>
                         <InventorySharpIcon sx={{ mr: 2, fontSize: "2rem" }} /> {scale && <span className={`${style["navbar-sidebar-menu-item"]}`}>موجودی و قیمت</span>}

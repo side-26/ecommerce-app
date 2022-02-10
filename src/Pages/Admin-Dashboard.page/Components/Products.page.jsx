@@ -23,7 +23,7 @@ import { useSelector } from 'react-redux';
 const ProductsPage = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const products=useSelector(state=>state.products);
+    const products=useSelector(state=>state.products.products);
     const product=useSelector(state=>state.product);
     const dispatch=useDispatch();
     const handleChangePage = (event, newPage) => {
@@ -45,7 +45,7 @@ const ProductsPage = () => {
         // Get(BASE_URL).then(res=>SetData(res));
     },[]);
     const persian = require('persian');
-    console.log(persian.toPersian("4569"));
+    // console.log(persian.toPersian("4569"));
     console.log(product);
     return (
         <>

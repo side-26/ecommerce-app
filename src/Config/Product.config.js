@@ -33,22 +33,17 @@
 //         { name: "تویوتا GT86", country: "ژاپن", category: " کوپه", id: 600, year: "2013", company: "تویوتا" },
 //         { name: "تویوتا GT86", country: "ژاپن", category: " کوپه", id: 504, year: "2013", company: "تویوتا" },
 //     ],
-//     orders: [
-//         { name: "10/6/1400", person: "مهدی رشیدی", totalPrice: 21000000, id: 1, year: "2013", deliverd: false },
-//         { name: "11/7/1400", person: "محمد محمدی", totalPrice: 32505251, id: 2, year: "2001", deliverd: false }, 
-//         { name: "11/7/1400", person: "محمد محمدی", totalPrice: 32505251, id: 3, year: "2001", deliverd: false },
-//         { name: "11/7/1400", person: "محمد محمدی", totalPrice: 32505251, id: 4 ,year: "2001", deliverd: false }, 
-//         { name: "11/7/1400", person: "محمد محمدی", totalPrice: 32505251, id: 5, year: "2001", deliverd: false },
-//         { name: "14/8/1400", person: "علی ضیایی", totalPrice: 45621006, id: 6, year: "2005", deliverd: true },
-//         { name: "17/9/1400", person: "محمد حسین کریم زاده اصل😂", totalPrice: 897456200, id: 7, year: "2021", deliverd: true },
-//         { name: "12/10/1400", person: "محمد حسین کریم زاده فرع", totalPrice: 8585858500, id: 8, year: "2013", deliverd: true },
-//         { name: "17/9/1400", person: "محمد حسین کریم زاده اصل😂", totalPrice: 897456200, id: 9, year: "2021", deliverd: true },
-//         { name: "12/10/1400", person: "محمد حسین کریم زاده فرع", totalPrice: 8585858500, id: 10, year: "2013", deliverd: true },
-//         { name: "17/9/1400", person: "محمد حسین کریم زاده اصل😂", totalPrice: 897456200, id: 11, year: "2021", deliverd: true },
-//         { name: "12/10/1400", person: "محمد حسین کریم زاده فرع", totalPrice: 8585858500, id: 12, year: "2013", deliverd: true },
-//         { name: "17/9/1400", person: "محمد حسین کریم زاده اصل😂", totalPrice: 897456200, id: 13, year: "2021", deliverd: true },
-//         { name: "12/10/1400", person: "محمد حسین کریم زاده فرع", totalPrice: 8585858500, id: 15, year: "2013", deliverd: true },
-//         { name: "17/9/1400", person: "محمد حسین کریم زاده اصل😂", totalPrice: 897456200, id: 16, year: "2021", deliverd: true },
-//         { name: "12/10/1400", person: "محمد حسین کریم زاده فرع", totalPrice: 8585858500, id: 17, year: "2013", deliverd: true },
-//     ]
+   const orders= [
+        { orderTime: "10/6/1400", name: "مهدی رشیدی", totalPrice: 21000000, id: 1, year: "2013", deliverd: "" },
+        { orderTime: "11/7/1400", name: "محمد محمدی", totalPrice: 32505251, id: 2, year: "2001", deliverd: "" }, 
+        { orderTime: "11/7/1400", name: "ناصر حجازی", totalPrice: 32505251, id: 3, year: "2001", deliverd: "" },
+        { orderTime: "11/7/1400", name: "علی یوسفی", totalPrice: 32505251, id: 4 ,year: "2001", deliverd: "" }, 
+        { orderTime: "11/7/1400", name: "محمدرضا عابد زاده", totalPrice: 32505251,id:5, deliverd:"21/8/2022"},
+        { orderTime: "11/7/1400", name: "امیر عابد زاده", totalPrice: 32505251,id:6, deliverd:""},
+        { orderTime: "17/9/1400", name: "علی رشیدی😂", totalPrice: 897456200, id: 8,  deliverd: "21/7/2022" },
+        { orderTime: "12/10/1400", name: "علی رهبر", totalPrice: 8585858500, id: 9,  deliverd: "21/10/2021" },
+        { orderTime: "17/9/1400", name: "حامد برادران", totalPrice: 897456200, id: 10,  deliverd: "21/5/2021" },
+        { orderTime: "17/9/1400", name: "فرهاد مجیدی", totalPrice: 897456200, id: 11,  deliverd: "21/5/2020" },
+
+    ]
 // }

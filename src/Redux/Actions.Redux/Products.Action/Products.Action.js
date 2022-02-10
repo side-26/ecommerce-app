@@ -4,7 +4,7 @@ import {Products} from '../../../Api/Products.api';
 import {Product} from '../../../Api/Product.api';
 export const fetchProductsRequest=(BASE_URL)=>{
     return async (dispatch,getState)=>{ 
-        let products=[...getState().products];
+        let products=[...getState().products.products];
       const responses= await Products.Get(BASE_URL).then( res=>{
           return res
         }

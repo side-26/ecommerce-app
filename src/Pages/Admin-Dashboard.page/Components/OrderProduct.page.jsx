@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import MainHeader from '../../../Components/dashboardMain_Header.Component/Main_Header.Component';
 import Table from '@mui/material/Table';
@@ -8,23 +9,28 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { TableData } from '../../../Config/Product.config';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import AssignmentTurnedInSharpIcon from '@mui/icons-material/AssignmentTurnedInSharp';
 import Tooltip from '@mui/material/Tooltip';
-import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
-import { Avatar, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
+import { fetchOrdersRequest } from '../../../Redux/Actions.Redux/Orders.Actions/Orders.Action';
+import { BASE_URL } from '../../../Config/Url.config';
 import style from './Styles.Pages/OrderProduct.module.scss';
 const OrderproductPage = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [deliverd, setDeliverd] = useState(true)
     const [filterd, setFilterd] = useState([]);
+    const orders = useSelector(state => state.orders.orders);
+    // const products=useSelector(state=>state.orders.orders);
+    const dispatch = useDispatch();
+    const persian = require('persian');
     useEffect(() => {
-        setFilterd(TableData.orders.filter(order => order.deliverd == deliverd))
-
-    }, [deliverd]);
+        dispatch(fetchOrdersRequest(BASE_URL));
+        setFilterd(orders)
+    }, []);
+    console.log(filterd);
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -59,12 +65,13 @@ const OrderproductPage = () => {
               .map((row) 
           ) */}
                         {(
-                            filterd
+                            orders.filter(item=>item.deliverd===deliverd).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            
                         ).map((item) => (
                             <TableRow key={item.id}>
-                                <TableCell align='right'>{item.person}</TableCell>
-                                <TableCell align='right'>{item.totalPrice}</TableCell>
                                 <TableCell align='right'>{item.name}</TableCell>
+                                <TableCell align='right'>{persian.toPersian(item.totalPrice)}</TableCell>
+                                <TableCell align='right'>{item.orderTime}</TableCell>
                                 <TableCell align='right'><Tooltip title="بررسی سفارشات">
                                     <IconButton sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
                                 </Tooltip></TableCell>
@@ -84,18 +91,18 @@ const OrderproductPage = () => {
                             // </TableRow>
                         ))}
                     </TableBody>
-                    {/* <TableFooter className={style["table-footer"]}>
+                    <TableFooter className={style["table-footer"]}>
                         <TablePagination
-                            rowsPerPageOptions={[10, 25, 100]}
-                            component="div"
-                            count={TableData.products.length}
+                            rowsPerPageOptions={[5, 10, 20]}
+                            colSpan={3}
+                            count={orders.filter(item=>item.deliverd===deliverd).length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             onPageChange={handleChangePage}
                             onRowsPerPageChange={handleChangeRowsPerPage}
 
                         />
-                    </TableFooter> */}
+                    </TableFooter>
                 </Table>
             </TableContainer>
         </>

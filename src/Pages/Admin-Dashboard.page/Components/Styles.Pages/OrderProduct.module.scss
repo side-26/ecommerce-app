@@ -12,8 +12,17 @@
 .table-container {
     width: 80% !important;
     margin: 0 auto;
-    height: clamp(30rem, 5rem, 30rem);
+    height: 25rem !important;
     overflow-y: auto;
+}
+
+tfoot {
+    div {
+        direction: ltr !important;
+    }
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
 }
 
 table thead {

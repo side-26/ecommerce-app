@@ -11,20 +11,18 @@ import Paper from '@mui/material/Paper';
 // import { TableData } from '../../../Config/Product.config';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
-import Tooltip from '@mui/material/Tooltip';
-import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
-import { Avatar, IconButton } from '@mui/material';
+
 import style from './Styles.Pages/Inventory.module.scss';
 import { BASE_URL } from '../../../Config/Url.config';
-import { fetchProductsRequest, fetchProductRequest } from '../../../Redux/Actions.Redux/Products.Action/Products.Action';
+import { fetchProductsRequest } from '../../../Redux/Actions.Redux/Products.Action/Products.Action';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 const InventoryPage = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const products = useSelector(state => state.products);
-    const product = useSelector(state => state.product);
+    const products = useSelector(state => state.products.products);
+    const persian = require('persian');
+    // const product = useSelector(state => state.product);
     const [BtnAble, SetBtnAble] = useState(true);
     const [hiddenInput, SethiddenInput] = useState(true);
     const dispatch = useDispatch();
@@ -85,9 +83,9 @@ const InventoryPage = () => {
                                 <TableCell align="right" scope="row">
                                     {item["modelName"]}
                                 </TableCell>
-                                <TableCell align="right">{item["price"]}</TableCell>
+                                <TableCell align="right">{persian.toPersian(item["price"])}</TableCell>
                                 <TableCell sx={{ cursor: "pointer" }}  align="right">
-                                    {hiddenInput&&<span onClick={() => handelChangeVisibility()}>{item.count}</span>}
+                                    {hiddenInput&&<span onClick={() => handelChangeVisibility()}>{persian.toPersian(item.count)}</span>}
                                 <input type="number" className={`${style["changable-input"]} ${!hiddenInput && style["hidden"]}`} defaultValue={item.count} onChange={e => handleChangeCountInput(e)} />
                                 </TableCell>
 
