@@ -44,7 +44,8 @@ const ProductsPage = () => {
         dispatch(fetchProductRequest(BASE_URL,1));
         // Get(BASE_URL).then(res=>SetData(res));
     },[]);
-    console.log(products);
+    const persian = require('persian');
+    console.log(persian.toPersian("4569"));
     console.log(product);
     return (
         <>
