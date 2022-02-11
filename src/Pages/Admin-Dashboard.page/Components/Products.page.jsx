@@ -78,7 +78,7 @@ const ProductsPage = () => {
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    <Avatar src={item["thumbnail"]} />
+                                    <Avatar src={`${BASE_URL}${item["thumbnail"]}`} />
                                 </TableCell>
                                 <TableCell align="right">{item["modelName"]}</TableCell>
                                 <TableCell align="right">{item.SubCategory["name"]}/{item.brand}</TableCell>
