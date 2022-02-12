@@ -17,26 +17,30 @@ import { IconButton } from '@mui/material';
 import { fetchOrdersRequest } from '../../../Redux/Actions.Redux/Orders.Actions/Orders.Action';
 import { BASE_URL } from '../../../Config/Url.config';
 import style from './Styles.Pages/OrderProduct.module.scss';
+import { useSearchParams } from 'react-router-dom';
 const OrderproductPage = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [deliverd, setDeliverd] = useState(true)
     const [filterd, setFilterd] = useState([]);
+    const [searchParams] = useSearchParams();
     const orders = useSelector(state => state.orders.orders);
     // const products=useSelector(state=>state.orders.orders);
     const dispatch = useDispatch();
     const persian = require('persian');
     useEffect(() => {
         dispatch(fetchOrdersRequest(BASE_URL));
-        setFilterd(orders)
+        setFilterd(orders);
+        
     }, []);
-    console.log(filterd);
+    
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
     const handelDeliverd = (val) => {
         setDeliverd(val);
     }
+    console.log(deliverd)
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
@@ -76,19 +80,6 @@ const OrderproductPage = () => {
                                     <IconButton sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
                                 </Tooltip></TableCell>
                             </TableRow>
-                            // <TableRow
-                            //     key={item.id}
-                            //     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            // >
-                            //     <TableCell align="right">{item.person}</TableCell>
-                            //     <TableCell align="right"  scope="row">
-                            //         {item.totalPrice}
-                            //     </TableCell>
-                            //     <TableCell align="right">{item.name}</TableCell>
-                            //     <TableCell align="right"> <Tooltip title="بررسی سفارشات">
-                            //         <IconButton sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
-                            //     </Tooltip> </TableCell>
-                            // </TableRow>
                         ))}
                     </TableBody>
                     <TableFooter className={style["table-footer"]}>
