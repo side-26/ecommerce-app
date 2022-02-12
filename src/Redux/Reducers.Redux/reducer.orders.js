@@ -6,7 +6,7 @@ export const OrderReducer = (state = initialState, action) => {
     case FETCHING_ORDERS:
       return {...state,orders:[...action.payload]}
     case FETCHING_ORDER:
-      return {...state,product:action.payload}
+      return {...state,order:action.payload}
     default:
       return state
   }

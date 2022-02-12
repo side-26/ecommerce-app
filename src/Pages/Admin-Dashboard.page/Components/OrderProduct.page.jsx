@@ -15,32 +15,40 @@ import AssignmentTurnedInSharpIcon from '@mui/icons-material/AssignmentTurnedInS
 import Tooltip from '@mui/material/Tooltip';
 import { IconButton } from '@mui/material';
 import { fetchOrdersRequest } from '../../../Redux/Actions.Redux/Orders.Actions/Orders.Action';
+import { changeModalsState } from '../../../Redux/Actions.Redux/Modals.Actions/Modals';
 import { BASE_URL } from '../../../Config/Url.config';
 import style from './Styles.Pages/OrderProduct.module.scss';
-import { useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
+import Infomodal from '../../../Components/Modals.Components/InfoModal.Component/InfoModal.component';
 const OrderproductPage = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [deliverd, setDeliverd] = useState(true)
     const [filterd, setFilterd] = useState([]);
-    const [searchParams] = useSearchParams();
+    const [orderId, setorderId] = useState(0);
+    const [showModal, setshowModal] = useState(0);
     const orders = useSelector(state => state.orders.orders);
-    // const products=useSelector(state=>state.orders.orders);
+    const modalState=useSelector(state=>state.modalBool.infoModal);
     const dispatch = useDispatch();
+    const [search]=useSearchParams()
     const persian = require('persian');
     useEffect(() => {
         dispatch(fetchOrdersRequest(BASE_URL));
         setFilterd(orders);
         
     }, []);
+    const handelShowModal=(id)=>{
+        dispatch(changeModalsState(true))
+        setorderId(id)
+    }
     
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
     const handelDeliverd = (val) => {
-        setDeliverd(val);
+        setDeliverd(!deliverd)
     }
-    console.log(deliverd)
+    console.log(search.get("deliverd"))
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
@@ -77,7 +85,7 @@ const OrderproductPage = () => {
                                 <TableCell align='right'>{persian.toPersian(item.totalPrice)}</TableCell>
                                 <TableCell align='right'>{item.orderTime}</TableCell>
                                 <TableCell align='right'><Tooltip title="بررسی سفارشات">
-                                    <IconButton sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
+                                    <IconButton onClick={()=>handelShowModal(item.id)} sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
                                 </Tooltip></TableCell>
                             </TableRow>
                         ))}
@@ -96,6 +104,7 @@ const OrderproductPage = () => {
                     </TableFooter>
                 </Table>
             </TableContainer>
+            {modalState&&<Infomodal orderId={orderId} />}
         </>
     );
 }

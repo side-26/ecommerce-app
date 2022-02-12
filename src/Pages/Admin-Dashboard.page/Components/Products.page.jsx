@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import MainHeader from '../../../Components/dashboardMain_Header.Component/Main_Header.Component';
 import Table from '@mui/material/Table';
+
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -104,6 +105,7 @@ const ProductsPage = () => {
                     </TableFooter>
                 </Table>
             </TableContainer>
+            
         </>
     );
 }

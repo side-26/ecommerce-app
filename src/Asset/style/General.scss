@@ -15,6 +15,11 @@ input {
     font-family: sans-serif!important;
 }
 
+label {
+    font-family: "IranSansRegular" !important;
+    font-size: 1.1rem !important;
+}
+
 h1,
 h2,
 h3 {
@@ -28,11 +33,6 @@ li {
 img {
     height: 100%;
     width: 100%;
-}
-
-label {
-    font-family: "IranSansRegular" !important;
-    font-size: 1.1rem !important;
 }
 
 tr {
@@ -49,4 +49,10 @@ td {
 th {
     font-family: "IranSansBold" !important;
     font-size: 1.2rem !important;
+}
+
+tfoot {
+    div {
+        direction: ltr !important;
+    }
 }
