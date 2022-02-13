@@ -2,6 +2,7 @@
     transition: all .35s ease-in-out;
     position: fixed;
     top: 0;
+    left: 0;
     height: 100%;
     width: 100%;
     z-index: 10;
@@ -9,6 +10,7 @@
         height: 100%;
         width: 100%;
         top: 0;
+        left: 0;
         position: absolute;
         background-color: #73737369;
         z-index: -1;
@@ -18,7 +20,7 @@
         height: 100%;
         .modal-inner {
             width: 35%;
-            margin: 6rem auto;
+            margin: 7rem auto;
             background-color: #fff;
             border-radius: 15px;
             &-header {

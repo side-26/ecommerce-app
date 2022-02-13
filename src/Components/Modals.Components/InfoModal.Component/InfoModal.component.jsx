@@ -64,7 +64,7 @@ const Infomodal = ({orderId,show}) => {
                                 onChange={handleChange}
                                 textColor="primary"
                                 className={style["tab-group"]}
-                                indicatorColor="primary"
+                                indicatorColor="secondery"
                                 aria-label="secondary tabs example"
                                 sx={{ color: "#aaa", fontFamily: "IranSansRegular" }}
                             >

@@ -28,20 +28,20 @@ const OrderproductPage = () => {
     const [orderId, setorderId] = useState(0);
     const [showModal, setshowModal] = useState(0);
     const orders = useSelector(state => state.orders.orders);
-    const modalState=useSelector(state=>state.modalBool.infoModal);
+    const modalState = useSelector(state => state.modalBool.infoModal);
     const dispatch = useDispatch();
-    const [search]=useSearchParams()
+    const [search] = useSearchParams()
     const persian = require('persian');
     useEffect(() => {
         dispatch(fetchOrdersRequest(BASE_URL));
         setFilterd(orders);
-        
+
     }, []);
-    const handelShowModal=(id)=>{
+    const handelShowModal = (id) => {
         dispatch(changeModalsState(true))
         setorderId(id)
     }
-    
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -77,15 +77,15 @@ const OrderproductPage = () => {
               .map((row) 
           ) */}
                         {(
-                            orders.filter(item=>item.deliverd===deliverd).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            
+                            orders.filter(item => item.deliverd === deliverd).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+
                         ).map((item) => (
                             <TableRow key={item.id}>
                                 <TableCell align='right'>{item.name}</TableCell>
                                 <TableCell align='right'>{persian.toPersian(item.totalPrice)}</TableCell>
                                 <TableCell align='right'>{item.orderTime}</TableCell>
                                 <TableCell align='right'><Tooltip title="بررسی سفارشات">
-                                    <IconButton onClick={()=>handelShowModal(item.id)} sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
+                                    <IconButton onClick={() => handelShowModal(item.id)} sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
                                 </Tooltip></TableCell>
                             </TableRow>
                         ))}
@@ -94,7 +94,7 @@ const OrderproductPage = () => {
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 20]}
                             colSpan={3}
-                            count={orders.filter(item=>item.deliverd===deliverd).length}
+                            count={orders.filter(item => item.deliverd === deliverd).length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             onPageChange={handleChangePage}
@@ -104,7 +104,7 @@ const OrderproductPage = () => {
                     </TableFooter>
                 </Table>
             </TableContainer>
-            {modalState&&<Infomodal orderId={orderId} />}
+            {modalState && <Infomodal orderId={orderId} />}
         </>
     );
 }
