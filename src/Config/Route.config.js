@@ -6,7 +6,7 @@ export const PATHS = {
     DASHBOARD: '/dashboard',
     SHOPPING_CART:"/shoppingCart",
     USERFORM:"/userForm",
-    PRODUCTS:"/products",
+    PRODUCTS:"/categories",
     PRODUCT:"/product",
     PAYRESULT:"/payresult",
     NestedRoute:{

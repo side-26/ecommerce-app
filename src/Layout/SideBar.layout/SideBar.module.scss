@@ -1,0 +1,47 @@
+.menu-sidebar-container {
+    transition: all 0.35s ease-in-out;
+    // display: flex;
+    // align-items: center;
+    z-index: 10;
+    position: sticky;
+    top: 0%;
+    right: 0;
+    background-color: var(--bg-color);
+    width: 230px;
+    height: 100vh;
+    overflow-y: auto;
+    .menu-sidebar {
+        padding: 1.5rem;
+        .menu-container {
+            .menu {
+                h3 {
+                    font-size: 1.3rem;
+                    color: var(--main-color);
+                }
+                .sub-menu {
+                    padding: 1rem 2rem;
+                    li {
+                        padding: 0.5rem 0;
+                        font-size: 1.05rem;
+                        a {
+                            color: var(--txt-color);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// condition style
+.hidden {
+    transform: translateX(100%);
+}
+
+// responsive
+@media only screen and (max-width: 991px) {
+    .menu-sidebar-container {
+        position: fixed;
+        top: 12%;
+    }
+}

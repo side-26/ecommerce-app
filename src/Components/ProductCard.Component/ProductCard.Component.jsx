@@ -1,15 +1,16 @@
 import React from 'react';
-import src from '../../Asset/img/33134.jpg'
 import Imgcontainer from './modules/imgContainer.Component';
 import Productinfo from './modules/ProductInfo.Conponent';
 import Polygon from './modules/polygon.Component';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {BASE_URL} from '../../Config/Url.config';
 import style from './ProductCard.module.scss'
-const Productcard = ({productId}) => {
+const ProductCard = ({productObj}) => {
+    const persian = require('persian');
     return (
-        <section className={style["Card"]}>
+        <section key={productObj.id} className={style["Card"]}>
                <div className={style["card-photo-container"]}>
-               <Imgcontainer imgSrc={src} clss={style["card-photo"]}/>
+               <Imgcontainer imgSrc={`${BASE_URL}${productObj["thumbnail"]}`} clss={style["card-photo"]}/>
                <div className={style['card-photo-container-layer']}>
                    <div className={style["buying-container"]}>
                    <ShoppingCartIcon sx={{color:"#fff",fontSize:"2rem"}}/>
@@ -19,17 +20,17 @@ const Productcard = ({productId}) => {
                </div>
                <div className={style["card-body"]}>
                    <div className={style["card-body-title"]}>
-                       <h5>موستانگ</h5>
-                       <h6>شلبی</h6>
+                       <h5>{productObj.modelName}</h5>
+                       <h6>{productObj.brand}</h6>
                    </div>
                <div className={style["Card-price-container"]}>
-               <Polygon clss={style["card-price"]} childern="1000"/>
+               <Polygon clss={style["card-price"]} childern={`${persian.toPersian(productObj.price)} تومان`}/>
                </div>
 
                </div>
-               <Productinfo size={"سدان"} type={"کوپه"} clss={style["card-info"]}/>
+               <Productinfo size={productObj.SubCategory["name"]} country={productObj.country} type={productObj.Gearbox} clss={style["card-info"]}/>
         </section>
     );
 }
 
-export default Productcard;
+export default ProductCard;

@@ -8,6 +8,9 @@
             transition: all .8s ease-in-out;
             height: 100%;
             // overflow: hidden;
+            img {
+                height: 230px;
+            }
         }
         &-layer {
             transition: all .8s ease-in-out;
@@ -48,8 +51,8 @@
             filter: blur(3px);
         }
     }
-    width: 20%;
-    margin: 2rem 2rem;
+    width: 28%;
+    margin: 1.5rem 1.5rem;
     overflow: hidden;
     border-radius: 5px;
     background-color: #fff;
@@ -80,14 +83,15 @@
         }
         .Card-price-container {
             .card-price {
-                padding: 0.5rem;
+                padding: 0.3rem;
                 transition: all 0.8s ease-in-out;
+                -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
                 clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
                 color: #fff;
                 background-color: #ff1313;
-                font-size: 1.3rem;
+                font-size: 1.2rem;
                 cursor: pointer;
-                width: 80px;
+                width: 130px;
                 text-align: center;
                 &:hover {
                     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
@@ -110,5 +114,27 @@
                 color: #ff1313;
             }
         }
+    }
+}
+
+// responsive
+@media only screen and (max-width: 2000px) {
+    .Card {
+        width: 28%;
+        margin: 1.5rem auto;
+    }
+}
+
+@media only screen and (max-width: 899px) {
+    .Card {
+        width: 45%;
+        margin: 1.5rem auto;
+    }
+}
+
+@media only screen and (max-width: 490px) {
+    .Card {
+        width: 90%;
+        margin: 1.5rem auto;
     }
 }

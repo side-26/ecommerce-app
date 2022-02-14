@@ -7,11 +7,11 @@ import Sidebar from './Layout/SideBar.layout/SideBar';
 function App() {
   return (
     <>
-      <Sidebar/>
-      {/* <Router>
+      {/* <Sidebar/> */}
+      <Router>
         <AppRoute />
-      </Router> */}
-      <Productcard/>
+      </Router>
+      {/* <Productcard/> */}
 
     </>
   )

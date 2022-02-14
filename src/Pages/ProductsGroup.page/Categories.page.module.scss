@@ -1,0 +1,96 @@
+.container {
+    display: flex;
+    // align-items: center;
+    justify-content: space-between;
+    .main {
+        width: 84%;
+        .header-main {
+            padding: 3rem 2rem;
+            font-size: 1.8rem;
+            text-align: center;
+            .title {
+                display: inline-block;
+                font-size: 2.8rem;
+                clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+                background-color: var(--main-color);
+                min-width: 12rem;
+                text-align: center;
+                color: var(--txt-color3);
+            }
+            .hidden-title {
+                display: none;
+                font-size: 3rem;
+            }
+        }
+        .pages-container {
+            background-color: var(--txt-color3);
+            border-radius: 3rem;
+            display: flex;
+            width: 30%;
+            margin: 1rem auto;
+            align-items: center;
+            justify-content: space-between;
+            padding: .2rem 1rem;
+            font-size: 1.2rem;
+            li {
+                padding: 0 .5rem;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: all .35s ease-in-out;
+                &:hover {
+                    background-color: var(--main-color);
+                    color: var(--txt-color3);
+                }
+            }
+            .active-page-btn {
+                background-color: var(--main-color);
+                color: var(--txt-color3);
+            }
+            .disabled-page-btn {
+                color: #aaa !important;
+            }
+        }
+    }
+}
+
+// responsive
+@media only screen and (max-width: 1300px) {
+    .container {
+        .main {
+            .pages-container {
+                width: 40%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .container {
+        justify-content: space-between;
+        .main {
+            width: 100%;
+            .pages-container {
+                width: 50%;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .container {
+        .main {
+            .header-main {
+                .title {
+                    width: 10rem !important;
+                    display: none;
+                }
+                .hidden-title {
+                    display: inline-block;
+                }
+            }
+            .pages-container {
+                width: 80%;
+            }
+        }
+    }
+}

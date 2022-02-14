@@ -11,7 +11,7 @@ import {PATHS} from '../Config/Route.config';
 import ShoppingCart from '../Pages/ShppingCart.page/ShoppingCart.page';
 import Userform from '../Pages/UserForm.page/UserForm.page';
 import ProductPage from '../Pages/Product.page/Product.page';
-import ProductGroupPage from '../Pages/ProductsGroup.page/Product.Group.page';
+import CategoriesPage from '../Pages/ProductsGroup.page/Categories.Page';
 import ResultPage from '../Pages/Result.page/Result.page';
 import OrderproductPage from '../Pages/Admin-Dashboard.page/Components/OrderProduct.page';
 import InventoryPage from '../Pages/Admin-Dashboard.page/Components/Inventory.page';
@@ -23,7 +23,7 @@ export default function AppRoute() {
         <Route path='' element={<PublicRoute />}>
             <Route path={PATHS.HOME} element={<HomePage />} />{' '}
             <Route path={PATHS.PRODUCT} element={<ProductPage/>}/>
-            <Route path={PATHS.PRODUCTS} element={<ProductGroupPage/>}/>
+            <Route path={PATHS.PRODUCTS} element={<CategoriesPage/>}/>
         </Route>{' '}
         <Route path='' element={<PrivateRoute />}>
             <Route path={PATHS.DASHBOARD} element={<DashboardPage />} >

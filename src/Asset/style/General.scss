@@ -1,29 +1,44 @@
-@import "./_fonts.scss";
+@import './_fonts.scss';
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     direction: rtl;
-    font-family: "IranSansRegular";
+    font-family: 'IranSansRegular';
+}
+
+:root {
+    --main-color: #ff1313;
+    --secondry-color: #737373;
+    --third-color: #ccc;
+    --txt-color: #212121;
+    --txt-color2: #191919;
+    --txt-color3: #fff;
+    --bg-color: #f9f9f9;
 }
 
 #root {
     min-height: 100vh;
+    background-color: #d8d6d6;
 }
 
 input {
-    font-family: sans-serif!important;
+    font-family: sans-serif !important;
 }
 
 label {
-    font-family: "IranSansRegular" !important;
+    font-family: 'IranSansRegular' !important;
     font-size: 1.1rem !important;
+}
+
+a {
+    text-decoration: none;
 }
 
 h1,
 h2,
 h3 {
-    font-family: "IranSansBold";
+    font-family: 'IranSansBold';
 }
 
 li {
@@ -36,18 +51,18 @@ img {
 }
 
 tr {
-    transition: all .35s ease-in-out !important;
+    transition: all 0.35s ease-in-out !important;
     cursor: auto;
 }
 
 td {
-    font-family: "IranSansRegular" !important;
+    font-family: 'IranSansRegular' !important;
     font-size: 1.1rem !important;
-    transition: all .35s ease-in-out !important;
+    transition: all 0.35s ease-in-out !important;
 }
 
 th {
-    font-family: "IranSansBold" !important;
+    font-family: 'IranSansBold' !important;
     font-size: 1.2rem !important;
 }
 
