@@ -8,11 +8,10 @@ const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
 const jwt = require('jsonwebtoken');
 const AUTH_JWT_SECRET = 'TOP-SECRET';
-const AUTH_JWT_OPTIONS = {expiresIn: 2 * 60};
+const AUTH_JWT_OPTIONS = {expiresIn: 30 * 60};
 
 // Load DB file for Authentication middleware and endpoints
 const DB = JSON.parse(fs.readFileSync(path.join(__dirname, './db.json'), 'utf-8'));
-
 // Authorization Middleware
 server.use((req, res, next) => {
   const protections = DB.protection || {};
@@ -123,7 +122,7 @@ server.post([
   if (req.url === '/auth/refresh-token') {
     if (!req.user) return res.status(400).send('Token Required!');
   }
-  const {username, role, name} = req.user;
+  const {username, role, name,error} = req.user;
   jwt.sign({username, role, name}, AUTH_JWT_SECRET, AUTH_JWT_OPTIONS, (err, token) => {
     if (err) return next(error);
     res.json({token});

@@ -1049,8 +1049,8 @@
     ],
     "protection": {
         "products.get": false,
-        "orders.post": true,
-        "upload": true,
+        "orders.post": false,
+        "upload": false,
         "products": "admin",
         "orders": "admin",
         "users": "admin",

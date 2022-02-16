@@ -15,11 +15,29 @@
     --txt-color2: #191919;
     --txt-color3: #fff;
     --bg-color: #f9f9f9;
+    --border-color: "#f2f2f2";
+    --ck-toolbar_grouping: {
+        flex-wrap: wrap;
+    }
+    ;
 }
 
 #root {
     min-height: 100vh;
     background-color: #d8d6d6;
+    // overflow-x: hidden;
+}
+
+.ck.ck-toolbar.ck-toolbar_grouping>.ck-toolbar__items {
+    flex-wrap: wrap !important;
+}
+
+.ck.ck-dropdown .ck-button.ck-dropdown__button:not(.ck-button_with-text) {
+    display: none;
+}
+
+.ck.ck-toolbar .ck-file-dialog-button {
+    display: none;
 }
 
 input {
