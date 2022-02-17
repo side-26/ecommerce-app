@@ -3,16 +3,21 @@ import Select from 'react-select';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
+import {changeEditModalState} from '../../../Redux/Actions.Redux/Modals.Actions/Modals'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import CancelSharpIcon from '@mui/icons-material/CancelSharp';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import style from './EditModal.module.scss'
 import { Input, TextField } from '@mui/material';
 import axios from 'axios';
+import style from './EditModal.module.scss'
+import { useDispatch, useSelector } from 'react-redux';
 const EditmodalCompnent = () => {
+     const dispatch = useDispatch();
+    const subCategory= useSelector(state=>state.products.subCategory);
+    const show= useSelector(state=>state.modalBool.infoModal);
     const [value, setValue] = useState("");
     const [p, setp] = useState("");
     const [imageVal, setImageval] = useState("")
@@ -34,6 +39,10 @@ const EditmodalCompnent = () => {
     const handelchange = (e) => {
         setValue(e.target.value)
     }
+    const handleShow=()=>{
+            dispatch(changeEditModalState(true))
+            console.log(show)
+    }
     const handelclick = () => {
         setNewvalue(!newvalue);
         setValue("")
@@ -50,12 +59,13 @@ const EditmodalCompnent = () => {
             console.log(result.data.filename) 
         })
     }
+    console.log(show)
     const handelChangeupload = (e) => {
     }
     // console.log(imageVal);
     return (
-        <CacheProvider value={cacheRtl}>
-            <section className={style["modal-container"]}>
+        <section className={`${style["modal-container"]} ${!show&&style["hidden"]}`}>
+                <CacheProvider value={cacheRtl}>
                 <div className={style["modal-layer"]}>
 
                 </div>
@@ -63,7 +73,7 @@ const EditmodalCompnent = () => {
                     <div className={style["modal"]}>
                         <div className={style["modal-header"]}>
                             <span>ویرایش کالا</span>
-                            <IconButton sx={{ color: "var(--main-color)" }} size='large' aria-label="delete">
+                            <IconButton onClick={()=>handleShow(true)} sx={{ color: "var(--main-color)" }} size='large' aria-label="delete">
                                 <CancelSharpIcon />
                             </IconButton>
                         </div>
@@ -98,8 +108,8 @@ const EditmodalCompnent = () => {
                         </div>
                     </div>
                 </section>
-            </section>
         </CacheProvider>
+            </section>
     );
 }
 

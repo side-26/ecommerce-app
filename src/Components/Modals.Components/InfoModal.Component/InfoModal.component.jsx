@@ -18,7 +18,6 @@ const DeliverdBtn = styled(Button)({
     backgroundColor: "red"
 })
 const Infomodal = ({orderId,show}) => {
-    const [ModalOpen, setModalOpen] = useState(true);
     const [place, setPlace] = useState(1);
     const [value, setValue] = useState(0);
     const orderObj = useSelector(state => state.orders.order);
@@ -42,14 +41,14 @@ const Infomodal = ({orderId,show}) => {
         <section className={`${style["modal-container"]} ${!modalState && style["hidden"]}`}>
             <div className={style["modal-layer"]}>
             </div>
-            <div onClick={() => handelCloseModal(show)} className={style["modal-body"]}>
+            <div onClick={() => handelCloseModal()} className={style["modal-body"]}>
                 <section onClick={e => { e.stopPropagation() }} className={style["modal-inner"]}>
                     <div className={style["modal-inner-header"]}>
                         <Typography sx={{ fontFamily: "IranSansBold" }}>نمایش سفارشات</Typography>
                         <IconButton
                             size="large"
                             edge="start"
-                            onClick={() => handelCloseModal(show)}
+                            onClick={() => handelCloseModal()}
                             aria-label="menu"
                             sx={{ color: "red", }}
                         >

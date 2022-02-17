@@ -7,3 +7,10 @@ export const changeModalsState=(val)=>{
         // products= Get(BASE_URL);
     };
 }
+export const changeEditModalState=(val)=>{
+    return async (dispatch,getState)=>{ 
+        let ModalState=getState().modalBool.editModal;
+        ModalState=val;
+       await dispatch({type:SHOW_EDIT_MODAL,payload:ModalState});
+    };
+}

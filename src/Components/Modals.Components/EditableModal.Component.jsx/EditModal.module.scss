@@ -1,16 +1,17 @@
 .modal-container {
     position: absolute;
     width: 100%;
-    background-color: var(--bg-color);
+    background-color: #737373a6;
     top: 0;
     left: 0;
     min-height: 100vh;
+    z-index: 10;
     .modal-section {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100%;
-        width: 100%;
+        min-height: 100vh;
         .modal {
             background-color: var(--txt-color3);
             width: 30%;
@@ -62,6 +63,11 @@
             }
         }
     }
+}
+
+// rendering style
+.hidden {
+    display: none !important;
 }
 
 // responsive
