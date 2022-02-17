@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeModalsState } from '../../../Redux/Actions.Redux/Modals.Actions/Modals';
-import { fetchOrderRequest } from "../../../Redux/Actions.Redux/Orders.Actions/Orders.Action";
+// import { fetchOrderRequest } from "../../../Redux/Actions.Redux/Orders.Actions/Orders.Action";
 import { BASE_URL } from "../../../Config/Url.config";
 import { styled } from '@mui/material/styles';
 import CancelSharpIcon from '@mui/icons-material/CancelSharp';
@@ -33,7 +33,7 @@ const Infomodal = ({orderId,show}) => {
         setValue(modalState);
     };
     useEffect(() => {
-        dispatch(fetchOrderRequest(BASE_URL, orderId));
+        // dispatch(fetchOrderRequest(BASE_URL, orderId));
     }, [])
     console.log(orderId)
 
