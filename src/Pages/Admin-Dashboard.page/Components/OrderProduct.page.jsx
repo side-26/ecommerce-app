@@ -17,30 +17,30 @@ import { IconButton } from '@mui/material';
 import { fetchOrdersRequest } from '../../../Redux/Actions.Redux/Orders.Actions/Orders.Action';
 import { BASE_URL } from '../../../Config/Url.config';
 import style from './Styles.Pages/OrderProduct.module.scss';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 const OrderproductPage = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [deliverd, setDeliverd] = useState(true)
-    const [filterd, setFilterd] = useState([]);
     const [searchParams] = useSearchParams();
     const orders = useSelector(state => state.orders.orders);
     // const products=useSelector(state=>state.orders.orders);
     const dispatch = useDispatch();
+    const navigate=useNavigate()
     const persian = require('persian');
     useEffect(() => {
-        dispatch(fetchOrdersRequest(BASE_URL));
-        setFilterd(orders);
+        dispatch(fetchOrdersRequest(BASE_URL,`?deliverd=${searchParams.get("deliverd")?searchParams.get("deliverd"):true}`));
         
-    }, []);
+    }, [searchParams]);
     
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
     const handelDeliverd = (val) => {
-        setDeliverd(val);
+        setDeliverd(val)
+        navigate(`?deliverd=${val}`)
     }
-    console.log(deliverd)
+    console.log(orders)
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
@@ -69,12 +69,12 @@ const OrderproductPage = () => {
               .map((row) 
           ) */}
                         {(
-                            orders.filter(item=>item.deliverd===deliverd).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            orders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             
                         ).map((item) => (
                             <TableRow key={item.id}>
                                 <TableCell align='right'>{item.name}</TableCell>
-                                <TableCell align='right'>{persian.toPersian(item.totalPrice)}</TableCell>
+                                <TableCell align='right'>{item.totalPrice}</TableCell>
                                 <TableCell align='right'>{item.orderTime}</TableCell>
                                 <TableCell align='right'><Tooltip title="بررسی سفارشات">
                                     <IconButton sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
@@ -86,7 +86,7 @@ const OrderproductPage = () => {
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 20]}
                             colSpan={3}
-                            count={orders.filter(item=>item.deliverd===deliverd).length}
+                            count={orders.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             onPageChange={handleChangePage}

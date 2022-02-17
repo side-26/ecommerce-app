@@ -1,9 +1,9 @@
 import {FETCHING_ORDER,FETCHING_ORDERS} from '../../Type.actions';
 import {orders} from '../../../Api/Orders.api'
-export const fetchOrdersRequest=(BASE_URL)=>{
+export const fetchOrdersRequest=(BASE_URL,filtering)=>{
     return async (dispatch,getState)=>{ 
         let Orders=[...getState().orders.orders];
-      const responses= await orders.get(BASE_URL).then( res=>{
+      const responses= await orders.get(BASE_URL,filtering).then( res=>{
           return res
         }
         )
