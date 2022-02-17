@@ -3,9 +3,9 @@
     padding: 2rem 5rem;
     &-header {
         margin: 1rem 0;
-        border-bottom: 3px solid #ccc;
+        border-bottom: 3px solid var(--third-color);
         &-title {
-            color: #ff1313;
+            color: var(--main-color);
             font-size: 1.8rem;
             // margin-bottom: .5rem;
             position: relative;
@@ -16,7 +16,7 @@
                 content: "";
                 bottom: -5%;
                 height: 3px;
-                background-color: #ff1313;
+                background-color: var(--main-color);
                 width: 100%;
                 right: 0;
                 position: absolute;
@@ -25,10 +25,10 @@
                 margin-right: .3rem;
                 width: 25px;
                 height: 25px;
-                background-color: #ff1313;
+                background-color: var(--main-color);
                 border-radius: 50%;
                 font-size: 1.5rem;
-                color: #fff;
+                color: var(--txt-color3);
                 // text-align: center;
                 display: flex;
                 align-items: center;
@@ -42,19 +42,19 @@
         justify-content: space-between;
         .main {
             width: 70%;
-            background-color: #fff;
+            background-color: var(--txt-color3);
             max-height: 30rem;
             border-radius: 8px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--third-color);
             overflow-y: auto;
         }
         .sidebar {
             top: 0;
             width: 28%;
-            background-color: #fff;
+            background-color: var(--txt-color3);
             height: max-content;
             border-radius: 8px;
-            border: 1px solid #ccc;
+            border: 1px solid var(--third-color);
             padding: 1rem .5rem;
             .price-container {
                 display: flex;
@@ -64,7 +64,7 @@
                     font-size: 1.2rem;
                 }
                 strong {
-                    color: #212121;
+                    color: var(--txt-color);
                 }
                 margin-bottom: .5rem;
             }
@@ -77,13 +77,13 @@
                     font-size: 1.2rem;
                 }
                 strong {
-                    color: #ff1313;
+                    color: var(--main-color);
                 }
                 position: relative;
                 &::after {
                     content: "";
                     height: 2px;
-                    background-color: #ccc;
+                    background-color: var(--third-color);
                     width: 100%;
                     position: absolute;
                     right: 0;
@@ -97,12 +97,12 @@
                 font-size: 1.4rem;
             }
             .description {
-                color: #aaa;
+                color: var(--fourth-color);
                 font-size: .8rem;
             }
             .buy-btn {
                 font-family: "IranSansRegular";
-                background-color: #ff1313;
+                background-color: var(--main-color);
                 width: 100%;
                 margin: 1rem 0;
                 font-size: 1.2rem;

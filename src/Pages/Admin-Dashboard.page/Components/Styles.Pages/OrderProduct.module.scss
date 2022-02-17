@@ -5,7 +5,7 @@
     align-items: center;
     &-title {
         font-size: 1.7rem;
-        color: #212121;
+        color: var(--txt-color);
     }
 }
 
@@ -22,7 +22,7 @@ tfoot {
     }
     position: sticky;
     bottom: 0;
-    background-color: #fff;
+    background-color: var(--txt-color3)
 }
 
 table thead {

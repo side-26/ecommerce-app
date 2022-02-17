@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Product = {
-  async Get(BASE_URL, productId) {
+  async Get(BASE_URL, productId=1) {
 
     return await axios.get(`${BASE_URL}/products/${productId}`)
       .then(res => {

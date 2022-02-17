@@ -30,13 +30,13 @@ export const fetchProductsLengthRequest = (BASE_URL,pageInfo) => {
 }
 export const fetchProductRequest = (BASE_URL, ID) => {
     return async (dispatch, getState) => {
-        let product = getState().product;
+        let product = {...getState().product};
         const response = await Product.Get(BASE_URL, ID).then(res => {
             return res
         }
         )
         product = response;
-        dispatch({ type: FETCHING_SPESEFIC_PRODOCT, payload: product });
+       await dispatch({ type: FETCHING_SPESEFIC_PRODOCT, payload: product });
         // products= Get(BASE_URL);
     };
 }

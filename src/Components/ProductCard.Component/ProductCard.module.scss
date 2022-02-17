@@ -59,7 +59,7 @@
     .card-body {
         position: relative;
         &::after {
-            background-color: #aaa;
+            background-color: var(--fourth-color);
             width: 100%;
             position: absolute;
             height: 1px;
