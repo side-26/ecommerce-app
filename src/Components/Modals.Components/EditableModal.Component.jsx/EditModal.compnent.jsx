@@ -15,7 +15,7 @@ import axios from 'axios';
 const EditmodalCompnent = () => {
     const [value, setValue] = useState("");
     const [p, setp] = useState("");
-    const [imageVal,setImageval]=useState("")
+    const [imageVal, setImageval] = useState("")
     const [newvalue, setNewvalue] = useState(false);
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
@@ -42,19 +42,15 @@ const EditmodalCompnent = () => {
         key: 'muirtl',
         stylisPlugins: [rtlPlugin],
     });
-    const handelUploadPhoto= async(e)=>{
+    const handelUploadPhoto = (e) => {
         e.preventDefault();
-        console.log(imageVal);
-       const res=await axios.post("http://localhost:3002/upload",{imageVal}).then(result=>{
-            return result.data
+        let data = new FormData();
+        data.append("image",e.target.image.files[0])
+        axios.post("http://localhost:3002/upload", data).then(result => {
+            console.log(result.data.filename) 
         })
-        console.log(res)
     }
-    const handelChangeupload=(e)=>{
-        const c=document.getElementById("hello")
-        let data=new FormData(c);
-        console.log(data);
-        setImageval(data);
+    const handelChangeupload = (e) => {
     }
     // console.log(imageVal);
     return (
@@ -73,8 +69,8 @@ const EditmodalCompnent = () => {
                         </div>
                         <div className={style["modal-body"]}>
                             <div className={style["img-uplodaer-container"]}>
-                                <form onSubmit={e=>handelUploadPhoto(e)} id="hello">
-                                    <input type="file" onChange={e=>handelChangeupload(e)} />
+                                <form onSubmit={e => handelUploadPhoto(e)} id="hello">
+                                    <input name='image' type="file" onChange={e => handelChangeupload(e)} />
                                     <button type='submit'>
                                         اپلود عکس
                                     </button>

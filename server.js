@@ -1,17 +1,27 @@
 const jsonServer = require('json-server');
+const cors = require('cors');
 const server = jsonServer.create();
 const router = jsonServer.router('db.json');
-const middlewares = jsonServer.defaults();
+const middlewares = jsonServer.defaults({ noCors: true });
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
 const jwt = require('jsonwebtoken');
 const AUTH_JWT_SECRET = 'TOP-SECRET';
-const AUTH_JWT_OPTIONS = {expiresIn: 30 * 60};
+const AUTH_JWT_OPTIONS = {expiresIn: 10};
+
+// TODO: vaghti token nis, 200 mide
+// TODO: vaghti token nist, invalid nade (login api)
+// TODO: besorat pishfarz token baraye har api niaz nabashe vali baraye ye seri api niaz bash be sorat dasti set she
+// TODO: Handle 404 error message
+// TODO: Refactor refresh token mechanism
 
 // Load DB file for Authentication middleware and endpoints
 const DB = JSON.parse(fs.readFileSync(path.join(__dirname, './db.json'), 'utf-8'));
+
+server.use(cors());
+
 // Authorization Middleware
 server.use((req, res, next) => {
   const protections = DB.protection || {};
@@ -25,7 +35,11 @@ server.use((req, res, next) => {
   if (!token) return next();
 
   jwt.verify(token, AUTH_JWT_SECRET, (err, decoded) => {
-    if (err) return res.status(400).send(err.name === 'TokenExpiredError' ? 'Token Expired!' : 'Invalid Token!');
+    if (err) {
+      console.log('res: ', JSON.stringify(err));
+
+      return res.status(401).send(err.name === 'TokenExpiredError' ? 'Token Expired!' : 'Invalid Token');
+    }
     req.user = decoded;
     if (!protectionRule) return next(); // no authorization is needed
     const authorized = protectionRule === true || protectionRule === decoded.role;
@@ -122,9 +136,9 @@ server.post([
   if (req.url === '/auth/refresh-token') {
     if (!req.user) return res.status(400).send('Token Required!');
   }
-  const {username, role, name,error} = req.user;
+  const {username, role, name} = req.user;
   jwt.sign({username, role, name}, AUTH_JWT_SECRET, AUTH_JWT_OPTIONS, (err, token) => {
-    if (err) return next(error);
+    if (err) return next(err);
     res.json({token});
   });
 });

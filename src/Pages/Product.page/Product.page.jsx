@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BASE_URL } from '../../Config/Url.config';
 import { fetchProductRequest } from '../../Redux/Actions.Redux/Products.Action/Products.Action'
+import { calculateCounter } from '../../Redux/Actions.Redux/ordersCount.Actions/Count.Actions'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Helmet } from 'react-helmet';
 import rtlPlugin from 'stylis-plugin-rtl';
@@ -12,7 +13,6 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Rating from '@mui/material/Rating';
-import Paper from '@mui/material/Paper';
 import { Button, IconButton } from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
@@ -21,33 +21,31 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import first from '../../Asset/img/16527.jpg';
-import second from '../../Asset/img/33134.jpg';
-import shird from '../../Asset/img/53507.jpg';
-import fourth from '../../Asset/img/257008.jpg';
 import "./styles.css";
 import style from './ProductSsection.module.scss';
-import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
 
 const ProductPage = ({ props }) => {
-    let product = useSelector(state => state.products.product);
+    const product = useSelector(state => state.products.product);
+    const counter = useSelector(state => state.customerCount.count)
     const [productId, setproductId] = useSearchParams();
     const dispatch = useDispatch();
-    const [pro, setpro] = useState({})
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    const [Count, setCount] = useState(1);
     const [Show, setShow] = useState(false);
-    const handelBuy = (e, val) => {
-        setCount(Count + val)
+    const handelBuy = (val) => {
+        dispatch(calculateCounter(val));
+        if (counter >0)
+            setShow(true)
+        else
+            setShow(false)
     }
     useEffect(() => {
-        dispatch(fetchProductRequest(BASE_URL, productId.get("product")))
+        dispatch(fetchProductRequest(BASE_URL, productId.get("product")));
     }, []);
     const handelInput = (e) => {
 
     }
-    console.log(product)
+    console.log( counter)
     const cacheRtl = createCache({
         key: 'muirtl',
         stylisPlugins: [rtlPlugin],
@@ -55,7 +53,7 @@ const ProductPage = ({ props }) => {
     try {
         return (
             <>
-            <Helmet><title>صفحه مشخصات و خرید و محصول </title></Helmet>
+                <Helmet><title>{product.modelName} صفحه مشخصات و خرید و خودرو </title></Helmet>
                 <Navbar />
                 <section className={`${style["container"]}`}>
                     <main className={style["main"]}>
@@ -71,7 +69,7 @@ const ProductPage = ({ props }) => {
                                         color="inherit"
                                         href="/getting-started/installation/"
                                     >
-                                        {product.SubCategory["name"]&&product.SubCategory["name"]}
+                                        {product.SubCategory["name"] && product.SubCategory["name"]}
                                     </Link>
                                     <Typography color="text.primary">{product.modelName}</Typography>
                                 </Breadcrumbs>
@@ -87,10 +85,19 @@ const ProductPage = ({ props }) => {
                                 <p>{product.description}</p>
                             </div>
                             <div className={style["product-price-container"]}>
-                                <div className={Show && style["product-price"]}>
-
-                                    <Button sx={{ backgroundColor: "var(--main-color)", fontFamily: "IranSansBold", height: "3rem" }} variant="contained">افزودن به سبد</Button>
-                                </div>
+                            {counter>0&& <div className={style["product-price"]}>
+                                    <IconButton sx={{color:"var(--main-color)"}} onClick={() => handelBuy(1)}>
+                                        <AddIcon/>
+                                    </IconButton>
+                                        <span>{counter}</span>
+                                    <IconButton sx={{color:"var(--main-color)"}} onClick={() => handelBuy(-1)}>
+                                        <RemoveIcon/>
+                                    </IconButton>
+                                </div>}
+                                    {
+                                        counter===0&& 
+                                        <Button onClick={() => handelBuy(1)} sx={{ backgroundColor: "var(--main-color)", fontFamily: "IranSansBold", height: "3rem" }} variant="contained">افزودن به سبد</Button>
+                                    }
                             </div>
                         </div>
                         <div className={style["slidebar-container"]}>
@@ -108,7 +115,7 @@ const ProductPage = ({ props }) => {
                                 <SwiperSlide>
                                     <img src={`${BASE_URL}${product["thumbnail"]}`} alt='hello' />
                                 </SwiperSlide>
-                                {product["image"].map(img => (<SwiperSlide>
+                                {product["image"].map(img => (<SwiperSlide >
                                     <img src={`${BASE_URL}${img}`} alt={img} />
                                 </SwiperSlide>))}
 
@@ -125,7 +132,7 @@ const ProductPage = ({ props }) => {
                                 <SwiperSlide>
                                     <img src={`${BASE_URL}${product["thumbnail"]}`} alt='hello' />
                                 </SwiperSlide>
-                                {product.image&&product.image.map(img => (<SwiperSlide>
+                                {product.image && product.image.map(img => (<SwiperSlide>
                                     <img src={`${BASE_URL}${img}`} alt={img} />
                                 </SwiperSlide>))}
                             </Swiper>
@@ -137,9 +144,9 @@ const ProductPage = ({ props }) => {
     } catch (error) {
         return (
             <>
-                
+
                 <h1>ارور داریم</h1>
-                
+
             </>
         )
     }

@@ -26,6 +26,7 @@ export const Products = {
 
 
   },
+  
 // 
 //   Post = async (BASE_URL, data, ProductId) => {
 //     await axios.post(`${BASE_URL}/products/${ProductId}`, data)
