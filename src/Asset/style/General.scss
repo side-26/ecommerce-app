@@ -1,24 +1,64 @@
-@import "./_fonts.scss";
+@import './_fonts.scss';
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     direction: rtl;
-    font-family: "IranSansRegular";
+    font-family: 'IranSansRegular';
+}
+
+:root {
+    --main-color: #ff1313;
+    --secondry-color: #737373;
+    --third-color: #ccc;
+    --fourth-color: #aaa;
+    --txt-color: #212121;
+    --txt-color2: #191919;
+    --txt-color3: #fff;
+    --bg-color: #f9f9f9;
+    --border-color: #f2f2f2;
+    --bg-color1: #19191988;
+    --ck-toolbar_grouping: {
+        flex-wrap: wrap;
+    }
+    ;
 }
 
 #root {
     min-height: 100vh;
+    background-color: #d8d6d6;
+    // overflow-x: hidden;
+}
+
+.ck.ck-toolbar.ck-toolbar_grouping>.ck-toolbar__items {
+    flex-wrap: wrap !important;
+}
+
+.ck.ck-dropdown .ck-button.ck-dropdown__button:not(.ck-button_with-text) {
+    display: none;
+}
+
+.ck.ck-toolbar .ck-file-dialog-button {
+    display: none;
 }
 
 input {
-    font-family: sans-serif!important;
+    font-family: sans-serif !important;
+}
+
+label {
+    font-family: 'IranSansRegular' !important;
+    font-size: 1.1rem !important;
+}
+
+a {
+    text-decoration: none;
 }
 
 h1,
 h2,
 h3 {
-    font-family: "IranSansBold";
+    font-family: 'IranSansBold';
 }
 
 li {
@@ -30,23 +70,24 @@ img {
     width: 100%;
 }
 
-label {
-    font-family: "IranSansRegular" !important;
-    font-size: 1.1rem !important;
-}
-
 tr {
-    transition: all .35s ease-in-out !important;
+    transition: all 0.35s ease-in-out !important;
     cursor: auto;
 }
 
 td {
-    font-family: "IranSansRegular" !important;
+    font-family: 'IranSansRegular' !important;
     font-size: 1.1rem !important;
-    transition: all .35s ease-in-out !important;
+    transition: all 0.35s ease-in-out !important;
 }
 
 th {
-    font-family: "IranSansBold" !important;
+    font-family: 'IranSansBold' !important;
     font-size: 1.2rem !important;
+}
+
+tfoot {
+    div {
+        direction: ltr !important;
+    }
 }

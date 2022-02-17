@@ -3,8 +3,8 @@ body {
 }
 
 .header {
-    font-family: 'IranSans' !important;
-    background-color: #737373 !important;
+    font-family: 'IranSansRegular' !important;
+    background-color: var(--secondry-color) !important;
     top: 0;
     .top-nav {
         display: flex;
@@ -47,7 +47,7 @@ body {
                 li {
                     transition: all .35s ease-in-out;
                     a {
-                        color: #aaa;
+                        color: var(--fourth-color);
                         transition: all .35s ease-in-out;
                     }
                     // margin-right: 1rem;

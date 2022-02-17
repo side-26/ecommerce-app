@@ -7,12 +7,10 @@ import AppBar from '@mui/material/AppBar';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { typography } from '@mui/system';
 import Badge from '@mui/material/Badge';
 import DirectionsCarFilledSharpIcon from '@mui/icons-material/DirectionsCarFilledSharp';
 import SettingsSuggestSharpIcon from '@mui/icons-material/SettingsSuggestSharp';
@@ -22,9 +20,11 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import style from './Navbar.module.scss';
 import logoSrc from '../../Asset/img/car-logo.png';
 import { PATHS } from '../../Config/Route.config';
+import { useSelector } from 'react-redux';
 
 
 export default function Navbar() {
+    const counter=useSelector(state=>state.customerCount.count)
     const Navigate=()=>{
         const path=JSON.parse(localStorage.getItem("IsRegister"))?PATHS.DASHBOARD:PATHS.LOGIN;
         navigate(path);
@@ -106,7 +106,7 @@ export default function Navbar() {
                     color="inherit"
                     aria-label="open drawer"
                     sx={{ mr: 0 }}>
-                    <Badge color="error" badgeContent={0} max={10}>
+                    <Badge color="error" badgeContent={counter} max={10}>
                         <ShoppingCartIcon />
 
                     </Badge>

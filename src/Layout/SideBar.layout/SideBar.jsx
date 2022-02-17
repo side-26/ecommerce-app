@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { BASE_URL } from '../../Config/Url.config'
+import { fetchCategoryRequest, fetchsubCategoryRequest } from '../../Redux/Actions.Redux/Products.Action/Products.Action';
+import { PATHS } from '../../Config/Route.config';
+
 import style from './SideBar.module.scss';
-const Sidebar = () => {
+const Sidebar = ({ show }) => {
+    const category = useSelector(state => state.products.category);
+    const subCategory = useSelector(state => state.products.subCategory);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchCategoryRequest(BASE_URL))
+        dispatch(fetchsubCategoryRequest(BASE_URL))
+    }, [])
+    console.log(show);
     return (
-        <>
-            
-        </>
+
+        <aside className={`${style["menu-sidebar-container"]} ${!show&&style["hidden"]}`}>
+            <div className={style["menu-sidebar"]}>
+                <div className={style["menu-container"]}>
+                    <ul className={style["menu"]}>
+                        {category.map(item => (<li key={item.id}>
+                            <h3>{item.name}</h3>
+                            <ul className={style["sub-menu"]}>
+                                {subCategory.filter(el => el.category === item.id).map(itemlink => (<li key={itemlink.name}><NavLink to={`${PATHS.PRODUCTS}?SubCategory=${itemlink.name}`}>{itemlink.name}</NavLink></li>))}
+                            </ul>
+                        </li>))}
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
     );
 }
 

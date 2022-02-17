@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import Modal from '../../Components/Modals.Components/InfoModal.Component/InfoModal.component'
 
-export default class ErrorPage extends Component {
-    render() {
-        return <div>
+export const ErrorPage=()=> {
+   
+        return (
+            <div>
             <h1>404 not found please check your connecion...</h1>
-        </div>;
-    }
+            <Modal orderId={3}/>
+        </div>
+        );
 }
