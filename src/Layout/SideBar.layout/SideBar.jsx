@@ -22,9 +22,9 @@ const Sidebar = ({ show }) => {
                 <div className={style["menu-container"]}>
                     <ul className={style["menu"]}>
                         {category.map(item => (<li key={item.id}>
-                            <h3>{item.name}</h3>
+                            <h3><NavLink to={`${PATHS.PRODUCTS}?category=${item.name}`}>{item.name}</NavLink></h3>
                             <ul className={style["sub-menu"]}>
-                                {subCategory.filter(el => el.category === item.id).map(itemlink => (<li key={itemlink.name}><NavLink to={`${PATHS.PRODUCTS}?SubCategory=${itemlink.name}`}>{itemlink.name}</NavLink></li>))}
+                                {subCategory.filter(el => el.category === item.id).map(itemlink => (<li className={style["link"]} key={itemlink.name}><figure><img src={`${BASE_URL}${itemlink.icon}`} alt="hello" /></figure><NavLink to={`${PATHS.PRODUCTS}?SubCategory=${itemlink.name}&category=${item.name}`}>{itemlink.name}</NavLink></li>))}
                             </ul>
                         </li>))}
                     </ul>

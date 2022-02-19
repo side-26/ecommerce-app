@@ -24,8 +24,8 @@ const CategoriesPage = () => {
     // following the API or data you're working with.
     // ?SubCategory.name=کراس%20اوور&_page=1&_limit=20
     useEffect(() => {
-        dispatch(fetchProductsLengthRequest(BASE_URL,`SubCategory.name=${categoryParams.get("SubCategory")}&_page=${currentPage + 1}&_limit=6`));
-        dispatch(fetchProductsRequest(BASE_URL, `SubCategory.name=${categoryParams.get("SubCategory")}&_page=${currentPage + 1}&_limit=6`));
+        dispatch(fetchProductsLengthRequest(BASE_URL,`SubCategory.name=${categoryParams.get("SubCategory")?categoryParams.get("SubCategory"):"کراس اوور"}&_page=${currentPage + 1}&_limit=6`));
+        dispatch(fetchProductsRequest(BASE_URL, `SubCategory.name=${categoryParams.get("SubCategory")?categoryParams.get("SubCategory"):"کراس اوور"}&_page=${currentPage + 1}&_limit=6`));
     }, [currentPage, categoryParams])
     console.log(categoryParams.get("SubCategory"));
     const handelShowSideBar = () => {
@@ -44,7 +44,7 @@ const CategoriesPage = () => {
                 </IconButton>
                 <main className={style["main"]}>
                     <div className={style["header-main"]}>
-                        <h3>کالاهای گروه <span className={style["hidden-title"]}>{categoryParams.get("SubCategory")}</span> <Polygon clss={style["title"]} childern={categoryParams.get("SubCategory")} /></h3>
+                        <h3>کالاهای گروه <span className={style["hidden-title"]}>{categoryParams.get("SubCategory")}</span> <Polygon clss={style["title"]} childern={categoryParams.get("SubCategory")?categoryParams.get("SubCategory"):"کراس اوور"} /></h3>
                     </div>
                     <ProductSsection obj={products} />
                     <ReactPaginate

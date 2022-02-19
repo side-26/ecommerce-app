@@ -26,6 +26,13 @@
                         a {
                             color: var(--txt-color);
                         }
+                        display:flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        figure {
+                            width: 30px;
+                            height: 30px;
+                        }
                     }
                 }
             }
