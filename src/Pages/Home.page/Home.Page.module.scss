@@ -70,7 +70,9 @@
             }
         }
         .btn-group-container {
-            padding: 5rem 5rem 0 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 5rem 5rem 0 5rem;
             button {
                 transition: all 0.35s ease;
                 margin: 0 0.5rem;

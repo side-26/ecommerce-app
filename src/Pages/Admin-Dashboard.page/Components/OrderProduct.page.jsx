@@ -18,7 +18,7 @@ import { fetchOrdersRequest } from '../../../Redux/Actions.Redux/Orders.Actions/
 import { changeModalsState } from '../../../Redux/Actions.Redux/Modals.Actions/Modals';
 import { BASE_URL } from '../../../Config/Url.config';
 import style from './Styles.Pages/OrderProduct.module.scss';
-import { useParams, useSearchParams } from 'react-router-dom';
+import {  useSearchParams } from 'react-router-dom';
 import Infomodal from '../../../Components/Modals.Components/InfoModal.Component/InfoModal.component';
 const OrderproductPage = () => {
     const [page, setPage] = useState(0);
@@ -26,7 +26,6 @@ const OrderproductPage = () => {
     const [deliverd, setDeliverd] = useState(true)
     const [filterd, setFilterd] = useState([]);
     const [orderId, setorderId] = useState(0);
-    const [showModal, setshowModal] = useState(0);
     const orders = useSelector(state => state.orders.orders);
     const modalState = useSelector(state => state.modalBool.infoModal);
     const dispatch = useDispatch();

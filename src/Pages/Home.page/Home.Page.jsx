@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Navbar from '../../Layout/nabarMenu.layout/Navbar';
 import { fetchProductsRequest } from '../../Redux/Actions.Redux/Products.Action/Products.Action';
@@ -17,6 +17,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { BASE_URL } from '../../Config/Url.config'
 import style from './Home.Page.module.scss';
+
 // ?SubCategory.name=کوپه&_limit=6
 
 const HomePage = () => {
@@ -62,6 +63,9 @@ const HomePage = () => {
               <Button proId={2} onClick={(e) => handelSubCategory(e)} sx={{ borderColor: "#212121", color: "#212121", fontFamily: "IranSansBold", fontSize: "1.1rem" }} variant="outlined">سدان</Button>
               <Button proId={3} onClick={(e) => handelSubCategory(e)} sx={{ borderColor: "#212121", color: "#212121", fontFamily: "IranSansBold", fontSize: "1.1rem" }} variant="outlined">کوپه</Button>
             </div>
+            <NavLink to={PATHS.PRODUCTS}>
+              محصولات بیشتر
+            </NavLink>
           </div>
           <section className={style["product-part-container"]}>
             <ProductSection obj={products} />

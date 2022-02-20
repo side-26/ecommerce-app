@@ -5,7 +5,7 @@ export const calculateCounter=(Val)=>{
         if(Count<0)
             dispatch({type:CALCULATE_NUMBER_OF_PRODUCT,payload:0});
         else
-            dispatch({type:CALCULATE_NUMBER_OF_PRODUCT,payload:Count+Val});
+            dispatch({type:CALCULATE_NUMBER_OF_PRODUCT,payload:Val+Count});
             
         // products= Get(BASE_URL);
     };
