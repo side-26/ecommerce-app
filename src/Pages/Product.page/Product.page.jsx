@@ -37,7 +37,7 @@ const ProductPage = ({ props }) => {
     const [Val, setval] = useState(0);
     const [newval, setnewval] = useState([])
     const handelBuy = (value) => {
-        console.log(our);
+        console.log();
         const Order = localStorage.getItem("order")
         setval(value + Val)
         let arr = []
@@ -48,12 +48,12 @@ const ProductPage = ({ props }) => {
         } else {
             arr = JSON.parse(Order);
         }
-        if (our === undefined) {
+        if (localObj === undefined) {
             
             setOrderArr({ "id": product.id, "value": Val + value })
         }
         else {
-                setOrderArr({ "id": product.id, "value": our.value + value })
+                setOrderArr({ "id": product.id, "value": localObj.value + value })
 
         }
         dispatch(calculateCounter(value));
@@ -103,7 +103,7 @@ const ProductPage = ({ props }) => {
     // const handelInput = (e) => {
     const localObj = (newval && newval.filter(item => item !== undefined)).find(obj => obj.id === product.id);
     // }
-    console.log(our)
+    console.log()
     const cacheRtl = createCache({
         key: 'muirtl',
         stylisPlugins: [rtlPlugin],
