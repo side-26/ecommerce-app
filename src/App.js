@@ -13,7 +13,7 @@ function App() {
     const dispatch=useDispatch();
   useEffect(() => {
     const ordersCount = localStorage.getItem("order");
-    if (ordersCount !== undefined) {
+    if (ordersCount !== null) {
         let Arr = JSON.parse(ordersCount).filter(item => item !== null);
         const sum = Arr.reduce(function (accumulateur, valeurCourante) {
             return accumulateur + valeurCourante.value;

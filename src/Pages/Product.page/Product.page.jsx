@@ -32,7 +32,7 @@ const ProductPage = ({ props }) => {
     const [productId, setproductId] = useSearchParams();
     const dispatch = useDispatch();
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    const [Show, setShow] = useState(false);
+    const [Show, setShow] = useState(0);
     const [OrderArr, setOrderArr] = useState()
     const [Val, setval] = useState(0);
     const [newval, setnewval] = useState([])
@@ -46,42 +46,28 @@ const ProductPage = ({ props }) => {
             // if (Val < product.count) {
             // }
         } else {
-            arr = JSON.parse(Order)
+            arr = JSON.parse(Order);
         }
         if (our === undefined) {
             
             setOrderArr({ "id": product.id, "value": Val + value })
         }
         else {
-            
-            setOrderArr({ "id": product.id, "value": our.value + value })
+                setOrderArr({ "id": product.id, "value": our.value + value })
+
         }
-        dispatch(calculateCounter(value))
-        // getUniqueListBy(arr, "id")
-        console.log(arr);
-        // dispatch(calculateCounter(value))
-
-        // if (Val < product.count) {
-        //     dispatch(calculateCounter(value))
-
-        //     // localStorage.setItem("order",JSON.stringify(or));
-        //     if (Val > 0) {
-        //         setShow(true)
-
-
-        //     }
-        //     else {
-        //         setShow(false)
-        //     }
-        // }
+        dispatch(calculateCounter(value));
+        // console.log(arr);
     }
     useEffect(() => {
-        let x = JSON.parse(localStorage.getItem("order"))
-        x = x.filter(item => item !== undefined);
-        if (x[x.length - 1] !== null) {
-            setnewval(x)
-            // setnewval()
-        }
+        let ordersStorage = localStorage.getItem("order");
+        // if (ordersStorage!==undefined||ordersStorage.length!==0) {
+        //     ordersStorage=JSON.parse(ordersStorage);
+        //     ordersStorage = ordersStorage.filter(item => item !== undefined);
+        //     setnewval(ordersStorage)
+        //     // setnewval()
+        // }
+        // console.log(ordersStorage)
         dispatch(fetchProductRequest(BASE_URL, productId.get("product")));
     }, []);
     useEffect(() => {
@@ -100,20 +86,24 @@ const ProductPage = ({ props }) => {
             arr = arr.filter(item => item.id !== product.id)
             arr = [...arr, OrderArr]
             arr.find(item => item.id === product.id)
+            arr = arr.filter(item => item.value >0)
         }
         arr = arr.filter(item => item !== null);
         let newArr=arr.filter(item=>item!==undefined)
         setnewval(newArr)
+        console.log(arr);
         const sum = newArr.reduce(function (accumulateur, valeurCourante) {
             return accumulateur + valeurCourante.value;
         }, 0);
         // console.log(c)
-        localStorage.setItem("order", JSON.stringify(newArr))
-    }, [Val, OrderArr,dispatch]);
+            localStorage.setItem("order", JSON.stringify(newArr))
+
+        
+    }, [Val, OrderArr]);
     // const handelInput = (e) => {
-    const our = (newval && newval.filter(item => item !== undefined)).find(obj => obj.id === product.id);
-    console.log(our);
+    const localObj = (newval && newval.filter(item => item !== undefined)).find(obj => obj.id === product.id);
     // }
+    console.log(our)
     const cacheRtl = createCache({
         key: 'muirtl',
         stylisPlugins: [rtlPlugin],
@@ -137,7 +127,7 @@ const ProductPage = ({ props }) => {
                                         color="inherit"
                                         href="/getting-started/installation/"
                                     >
-                                        {product.SubCategory["name"] && product.SubCategory["name"]}
+                                        {/* {product.SubCategory["name"] && product.SubCategory["name"]} */}
                                     </Link>
                                     <Typography color="text.primary">{product.modelName}</Typography>
                                 </Breadcrumbs>
@@ -153,17 +143,17 @@ const ProductPage = ({ props }) => {
                                 <p>{product.description}</p>
                             </div>
                             <div className={style["product-price-container"]}>
-                                {our && (our.value > 0 || Val > 0) && <div className={style["product-price"]}>
-                                    <IconButton disabled={our.value >= product.id} sx={{ color: "var(--main-color)" }} onClick={() => handelBuy(1)}>
+                                {localObj && (localObj.value > 0 || Val > 0) && <div className={style["product-price"]}>
+                                    <IconButton disabled={localObj.value >= product.price} sx={{ color: "var(--main-color)" }} onClick={() => handelBuy(1)}>
                                         <AddIcon />
                                     </IconButton>
-                                    <span>{our.length === 0 ? Val : our.value}</span>
+                                    <span>{localObj.length === 0 ? Val : localObj.value}</span>
                                     <IconButton sx={{ color: "var(--main-color)" }} onClick={() => handelBuy(-1)}>
                                         <RemoveIcon />
                                     </IconButton>
                                 </div>}
                                 {
-                                    (!our ? Val === 0 : our.value === 0) &&
+                                    (!localObj?Val === 0 : localObj.value === 0) &&
                                     <Button onClick={() => handelBuy(1)} sx={{ backgroundColor: "var(--main-color)", fontFamily: "IranSansBold", height: "3rem" }} variant="contained">افزودن به سبد</Button>
                                 }
                             </div>

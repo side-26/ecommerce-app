@@ -47,6 +47,15 @@
             border-radius: 8px;
             border: 1px solid var(--third-color);
             overflow-y: auto;
+            .header-of-cart {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem 1.5rem;
+                h4 {
+                    font-size: 1.5rem;
+                }
+            }
         }
         .sidebar {
             top: 0;
