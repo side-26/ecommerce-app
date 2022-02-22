@@ -1,8 +1,8 @@
 import React from 'react';
-import { Product } from '../../../Api/Product.api';
 import Counterbtn from '../../../Components/counterBtn.Component/CounterBtn.Component';
 import Avatar from '../../../Components/imageLogo.Component/Avatar';
-import { BASE_URL } from '../../../Config/Url.config'
+import { BASE_URL } from '../../../Config/Url.config';
+import {toFarsiNumber} from '../../../Utilities/function/ConvertToPersianNumber'
 import style from './ShoppingCard.module.scss';
 
 export default function ShoppingCard({ productobj,count }) {
@@ -25,12 +25,12 @@ export default function ShoppingCard({ productobj,count }) {
         </div>
         <div className={`${style["card-product-count"]}`}>
             <Counterbtn plus={true} />
-            {count&&<span>{count.value}</span>}
+            {count&&<span>{toFarsiNumber(count.value)}</span>}
             <Counterbtn plus={false} />
 
         </div>
         <div className={`${style["card-product-price"]}`}>
-            <strong>{productobj.price} تومان</strong>
+            <strong>{toFarsiNumber(productobj.price)} تومان</strong>
         </div>
         <div>
         </div>
