@@ -24,14 +24,16 @@ function App() {
 }, [])
   return (
     <>
-      {/* <Router>
+      <Router>
         <AppRoute />
-      </Router> */}
+      </Router>
       {/* <EditableModal/> */}
       <ToastContainer
         rtl
       />
+      {/* <SkeletonCard/>
       <SkeletonCard/>
+      <SkeletonCard/> */}
     </>
   )
 }

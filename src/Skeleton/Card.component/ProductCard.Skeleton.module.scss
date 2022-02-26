@@ -1,5 +1,5 @@
 .card-container {
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
     width: 26%;
     margin: 2rem 1rem;
@@ -24,10 +24,34 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 1.25rem .5rem;
+            background-color: var(--third-color);
             div {
                 width: 25%;
             }
         }
     }
     background-color: var(--txt-color3);
+}
+
+// responsive
+@media only screen and (min-width: 769px) {
+    .card-container {
+        width: 25%;
+        margin: 1.1rem auto;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .card-container {
+        width: 47%;
+        margin: 1.1rem auto;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .card-container {
+        width: 90%;
+        margin: 1.5rem auto;
+    }
 }
