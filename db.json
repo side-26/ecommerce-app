@@ -13,7 +13,7 @@
       ],
       "thumbnail": "/files/d36dfd5d7333bd2c22ceae8329b6f8a3",
       "price": 340000,
-      "count": 11,
+      "count": 20009,
       "createdAt": 1643373068134,
       "id": 2,
       "SubCategory": {
@@ -35,7 +35,7 @@
       ],
       "thumbnail": "/files/349000ebbb2f43e9fd85a32f125306b7",
       "price": 36000,
-      "count": 10,
+      "count": 100,
       "createdAt": 1643373068134,
       "id": 4,
       "SubCategory": {
@@ -56,7 +56,7 @@
       ],
       "thumbnail": "/files/7a60b33fd21e53750d18314891ce5902",
       "price": 40000,
-      "count": 12,
+      "count": 122,
       "createdAt": 1643373068134,
       "id": 5,
       "SubCategory": {
@@ -78,7 +78,7 @@
       ],
       "thumbnail": "/files/1dfe48d776c789bc829542faaa03eef8",
       "price": 60000,
-      "count": 32,
+      "count": 323,
       "createdAt": 1643373068134,
       "id": 6,
       "SubCategory": {

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux';
 import AppRoute from './Routes/App.Route'
+import SkeletonCard from './Skeleton/Card.component/ProductCard.Skeleton.Component'
 // import Productcard from './Components/ProductCard.Component/ProductCard.Component';
 // import Sidebar from './Layout/SideBar.layout/SideBar';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,13 +24,14 @@ function App() {
 }, [])
   return (
     <>
-      <Router>
+      {/* <Router>
         <AppRoute />
-      </Router>
+      </Router> */}
       {/* <EditableModal/> */}
       <ToastContainer
         rtl
       />
+      <SkeletonCard/>
     </>
   )
 }

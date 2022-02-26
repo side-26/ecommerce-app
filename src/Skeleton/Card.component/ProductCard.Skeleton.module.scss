@@ -1,0 +1,33 @@
+.card-container {
+    border-radius: 10px;
+    overflow: hidden;
+    width: 26%;
+    margin: 2rem 1rem;
+    .Skeleton-card {
+        &-header {
+            height: 200px;
+            width: 100%;
+        }
+        &-body {
+            padding: 1.25rem .5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            &-title {
+                width: 90%;
+                div {
+                    width: 40%;
+                }
+            }
+        }
+        &-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            div {
+                width: 25%;
+            }
+        }
+    }
+    background-color: var(--txt-color3);
+}
