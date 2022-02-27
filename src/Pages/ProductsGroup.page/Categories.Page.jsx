@@ -6,36 +6,44 @@ import Sidebar from '../../Layout/SideBar.layout/SideBar';
 import IconButton from '@mui/material/IconButton';
 import DoubleArrowSharpIcon from '@mui/icons-material/DoubleArrowSharp';
 import ProductSsection from '../../Layout/Products-Section.layout/ProductSection';
-import { fetchCategoryRequest, fetchProductsRequest,fetchProductsLengthRequest } from '../../Redux/Actions.Redux/Products.Action/Products.Action';
+import { fetchCategoryRequest, fetchProductsRequest, fetchProductsLengthRequest } from '../../Redux/Actions.Redux/Products.Action/Products.Action';
 import { BASE_URL } from '../../Config/Url.config';
 import Polygon from '../../Components/ProductCard.Component/modules/polygon.Component'
 import style from './Categories.page.module.scss';
 import ReactPaginate from 'react-paginate';
+import { Helmet } from 'react-helmet';
 
 
 const CategoriesPage = () => {
     const [Show, setShow] = useState(true);
-    const [currentPage, setCurrnetPage] = useState(0);
+    const [currentPage, setCurrnetPage] = useSearchParams({});
     const dispatch = useDispatch()
     const products = useSelector(state => state.products.products);
     const productsLength = useSelector(state => state.products.length);
-    const [categoryParams, setCategoryParams] = useSearchParams();
+    const [categoryParams, setCategoryParams] = useSearchParams({});
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
     // ?SubCategory.name=کراس%20اوور&_page=1&_limit=20
     useEffect(() => {
-        dispatch(fetchProductsLengthRequest(BASE_URL,`SubCategory.name=${categoryParams.get("SubCategory")}&_page=${currentPage + 1}&_limit=6`));
-        dispatch(fetchProductsRequest(BASE_URL, `SubCategory.name=${categoryParams.get("SubCategory")}&_page=${currentPage + 1}&_limit=6`));
+        dispatch(fetchProductsLengthRequest(BASE_URL, `SubCategory.name=${categoryParams.get("SubCategory") ? categoryParams.get("SubCategory") : "کراس اوور"}&_page=${currentPage.get("page")}&_limit=6`));
+        dispatch(fetchProductsRequest(BASE_URL, `SubCategory.name=${categoryParams.get("SubCategory") ? categoryParams.get("SubCategory") : "کراس اوور"}&_page=${currentPage.get("page")}&_limit=6`));
     }, [currentPage, categoryParams])
     console.log(categoryParams.get("SubCategory"));
     const handelShowSideBar = () => {
         setShow(!Show);
     }
     const handlePageClick = (event) => {
-        setCurrnetPage(event.selected);
+        setCurrnetPage({ SubCategory: `${categoryParams.get("SubCategory")}`, page: `${event.selected + 1}` });
+
     };
+    console.log(currentPage.get("page"))
     return (
         <>
+            <Helmet>
+                <title>
+                    فروشگاه اینترنتی خودرو | صفحه محصولات
+                </title>
+            </Helmet>
             <Navbar />
             <div className={style["container"]}>
                 <Sidebar show={Show} />
@@ -44,7 +52,7 @@ const CategoriesPage = () => {
                 </IconButton>
                 <main className={style["main"]}>
                     <div className={style["header-main"]}>
-                        <h3>کالاهای گروه <span className={style["hidden-title"]}>{categoryParams.get("SubCategory")}</span> <Polygon clss={style["title"]} childern={categoryParams.get("SubCategory")} /></h3>
+                        <h3>کالاهای گروه <span className={style["hidden-title"]}>{categoryParams.get("SubCategory")}</span> <Polygon clss={style["title"]} childern={categoryParams.get("SubCategory") ? categoryParams.get("SubCategory") : "کراس اوور"} /></h3>
                     </div>
                     <ProductSsection obj={products} />
                     <ReactPaginate
