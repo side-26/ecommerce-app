@@ -46,8 +46,8 @@ function App() {
                 <input type="number" id='card-password' />
               </div>
               <div className='btn-container'>
-                <button>پرداخت</button>
-                <button>انصراف</button>
+                <a href='http://localhost:3000/payresult?result=successfull'>پرداخت</a>
+                <a href='http://localhost:3000/payresult?result=failed'>انصراف</a>
               </div>
             </form>
           </div>

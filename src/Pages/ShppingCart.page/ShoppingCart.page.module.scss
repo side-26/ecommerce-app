@@ -41,6 +41,10 @@
         display: flex;
         justify-content: space-between;
         .main {
+            p {
+                font-size: 2.3rem;
+                text-align: center
+            }
             width: 70%;
             background-color: var(--txt-color3);
             max-height: 30rem;

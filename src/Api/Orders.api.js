@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const orders = {
-  async get(BASE_URL) {
-    return await axios.get(`${BASE_URL}/Orders`)
+  async get(BASE_URL,filterOption="") {
+    return await axios.get(`${BASE_URL}/Orders?${filterOption}`)
       .then(res => {
         const Orders = res.data;
         return Orders

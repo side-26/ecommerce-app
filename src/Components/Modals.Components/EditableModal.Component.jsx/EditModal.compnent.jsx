@@ -59,7 +59,7 @@ const EditmodalCompnent = ({ setShow, show, productobj,setEdited,edit }) => {
     const handel = (e, editor) => {
         const data = editor.getData();
         // htmlparser2()
-        setData({ ...Data, "description": ReactHtmlParser(data) })
+        setData({ ...Data, "description": (data) })
     }
     console.log(value);
     // alert(ReactHtmlParser(Data.description));

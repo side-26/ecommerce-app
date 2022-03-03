@@ -18,7 +18,7 @@ export const Product = {
     })
   },
   async post(BASE_URL,data){
-    return axios.post(BASE_URL, data).then(res => {
+    return axios.post(`${BASE_URL}/products`, data).then(res => {
       return res
   }).catch(err=>err)
   },

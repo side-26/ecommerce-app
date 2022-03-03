@@ -14,23 +14,27 @@ import { fetchProductsRequest } from '../../Redux/Actions.Redux/Products.Action/
 import { BASE_URL } from '../../Config/Url.config'
 import { toFarsiNumber } from '../../Utilities/function/ConvertToPersianNumber';
 import { useNavigate } from 'react-router-dom';
-import {PATHS} from '../../Config/Route.config'
+import { PATHS } from '../../Config/Route.config'
 import { IconButton } from '@mui/material';
 import style from './ShoppingCart.page.module.scss';
 // ?id=1&id=2&id=5
 export default function ShoppingCart() {
-  const product = useSelector(state => state.products.products);
+  let product = useSelector(state => state.products.products);
+  const [totalPrice,setTotalPrice]=useState(0)
   const dispatch = useDispatch();
   const counter = useSelector(state => state.customerCount.count);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const [deleted, setDeleted] = useState(false)
   const [data, setdata] = useState([])
   const [anchorEl, setAnchorEl] = useState(null);
-  const handleBuy=()=>{
+  const [changed,setChanged]=useState(false)
+  const handleBuy = () => {
     navigate(PATHS.USERFORM)
   }
   useEffect(() => {
     const purchasedProducts = localStorage.getItem("order");
     if (purchasedProducts !== null) {
+      console.log(purchasedProducts);
       let dataArr = JSON.parse(purchasedProducts);
       const dataCount = [...dataArr];
       setdata(dataCount)
@@ -40,17 +44,14 @@ export default function ShoppingCart() {
       dataUrl = `id=${dataUrl}`;
       // console.log(dataCount);
       dispatch(fetchProductsRequest(BASE_URL, dataUrl));
-      console.log(dataCount);
-      
-
-      // console.log(concatedArr);
-
+      // console.log("hello");
     }
     else {
-      dispatch(calculateCounter(0));
+      dispatch(fetchProductsRequest(BASE_URL, "id=-2"));
+
     }
 
-  }, [])
+  }, [changed])
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -61,8 +62,10 @@ export default function ShoppingCart() {
   };
   const handleDeleteAll = () => {
     localStorage.removeItem("order");
-    // dispatch(calculateCounter(0))
+    dispatch(calculateCounter(-counter))
     // alert("hello")
+    dispatch(fetchProductsRequest(BASE_URL, "?id=-1"))
+    setDeleted(true)
     handleClose();
   }
 
@@ -71,30 +74,48 @@ export default function ShoppingCart() {
   //       if (item.id === arr2[i].id&&arr1 !== undefined && arr2 !== undefined) {
   //         //merging two objects
   //         return Object.assign({}, item, arr2[i])
-        
+
   //       }
-        
+
   //   })
   // }
-
-
-  const concatedArr = data&&product&&[...data,...product];
-  let newArr=[];
-  for(let i=0;i<concatedArr.length/2;i++){
-    for(let j=0;j<concatedArr.length;j++){
-        if(concatedArr[i].id===concatedArr[j].id){
-          newArr.push({...concatedArr[i],...concatedArr[j]})
+  // console.log(product);
+  useEffect(() => {
+    const concatedArr = data && product && [...data, ...product];
+    let newArr = [];
+    for (let i = 0; i < concatedArr.length / 2; i++) {
+      for (let j = 0; j < concatedArr.length; j++) {
+        if (concatedArr[i].id === concatedArr[j].id) {
+          newArr.push({ ...concatedArr[i], ...concatedArr[j] })
         }
+      }
     }
-  }
-  newArr=newArr.filter(item=>item.price!==undefined&&item.value!==undefined)
-  // concatedArr=concatedArr.splice(0,concatedArr.length/2)
-  // const make
-  let totalPrice = newArr.reduce(
-    (previousValue, currentValue) => previousValue + currentValue.value*currentValue.price
-    , 0
-)
-  console.log(totalPrice,newArr);
+    newArr = newArr.filter(item => item.price !== undefined && item.value !== undefined)
+    // concatedArr=concatedArr.splice(0,concatedArr.length/2)
+    // const make
+    
+    setTotalPrice(newArr.reduce(
+      (previousValue, currentValue) => previousValue + currentValue.value * currentValue.price
+      , 0
+    ))
+    // setChanged(!changed)
+    // console.log(concatedArr);
+  }, [data,product]);
+  useEffect(() => {
+    const LocalStorage=localStorage.getItem("order");
+    if(LocalStorage!==null){
+      let localArr=JSON.parse(LocalStorage);
+      if(localArr.find(item=>item.value===0)){
+        localArr=localArr.filter(item=>item.value!==0); 
+        console.log(localArr);
+        setdata(localArr)
+        localStorage.setItem("order",JSON.stringify(localArr))
+        setChanged(!changed)
+      }
+    }
+      
+  }, [counter]);
+  console.log(totalPrice);
   return <>
     <Helmet>
       <title>
@@ -140,10 +161,10 @@ export default function ShoppingCart() {
             </div>
           </div>
 
-          {product && product.map(item => (<ShoppingCard key={item.id} count={data.find(quntity => quntity.id === item.id)} productobj={item} />))}
-          {product.length === 0 && "سبد خرید شما خالی هست."}
+          {(product && !deleted) && product.map(item => (<ShoppingCard setData={setdata} key={item.id} count={data.find(quntity => quntity.id === item.id)} productobj={item} />))}
+          {(product.length === 0 || deleted) && <p>سبد خرید شما خالی هست.</p>}
         </main>
-        <aside className={`${style["sidebar"]}`}>
+        {!deleted && <aside className={`${style["sidebar"]}`}>
           <div className={`${style["price-container"]}`}>
             <span>{`قیمت کالاها (${counter})`}</span>
             <strong>{toFarsiNumber((totalPrice / 1000).toFixed(3))} تومان</strong>
@@ -157,9 +178,9 @@ export default function ShoppingCart() {
             <strong>{toFarsiNumber((totalPrice / 1000).toFixed(3))} تومان</strong>
           </div>
           <span className={`${style['description']}`}>هزینه‌ی ارسال در ادامه بر اساس آدرس، زمان و نحوه‌ی ارسال انتخابی شما‌ محاسبه و به این مبلغ اضافه خواهد شد</span>
-          <Button onClick={handleBuy}  size='large' className={`${style['buy-btn']}`} variant="contained">ادامه فرایند خرید</Button>
+          <Button onClick={handleBuy} disabled={localStorage.getItem("order") === null} size='large' className={`${style['buy-btn']}`} variant="contained">ادامه فرایند خرید</Button>
           <span className={`${style["warn-btn"]}`}>توجه :کالا ها بعد از 24 ساعت از سبد کالا حذف خواهند شد</span>
-        </aside>
+        </aside>}
       </section>
     </div>
 

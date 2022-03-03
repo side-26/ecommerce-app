@@ -29,7 +29,7 @@ const Userform = () => {
         }else{
             setDisabled(true)
         }
-        alert("hello")
+        
     }
     const handleChange = (e, callback) => {
         callback(e.target.value)
@@ -44,13 +44,13 @@ const Userform = () => {
         }
         else if (type === "address") {
             if (e.target.value.length < 15 || !e.target.value.includes("-")) {
-                alert("حاجی چشاتو واکن اینپوت رو نگاه کن😂😂")
+                alert("")
                 e.target.value = ""
             }
         } else if (type === "mobile") {
             if (e.target.value.length !== 11 || e.target.value[0] !== "0") {
-                alert("حاجی چشاتو واکن اینپوت رو نگاه کن😂😂")
-                e.target.value = ""
+                alert("شماره باید 11 رقم و با صفر شروع شود.")
+                e.target.value = " "
             }
             // alert(e.target.value.length)
         } else if (type === "orderTime") {
@@ -58,7 +58,7 @@ const Userform = () => {
             const inputTime = Date.parse(e.target.value);
             if (inputTime < todayTime) {
                 alert("حاجی چشاتو واکن اینپوت رو نگاه کن😂😂")
-                e.target.value = ""
+                e.target.value = " "
             }
         }
         handleActiveSubmit([name,family,address,mobilNumber,date])

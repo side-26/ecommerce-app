@@ -13,7 +13,8 @@ import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Rating from '@mui/material/Rating';
-import { Button, IconButton, valueToPercent } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
+import ReactHtmlParser from 'react-html-parser';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { FreeMode, Navigation, Thumbs } from "swiper";
@@ -23,8 +24,9 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "./styles.css";
 import style from './ProductSsection.module.scss';
-import { useSearchParams } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { PATHS } from '../../Config/Route.config';
 
 const ProductPage = ({ props }) => {
     const product = useSelector(state => state.products.product);
@@ -122,13 +124,11 @@ const ProductPage = ({ props }) => {
                                     <Link underline="hover" color="inherit" href="/">
                                         خودرو
                                     </Link>
-                                    <Link
-                                        underline="hover"
-                                        color="inherit"
-                                        href="/getting-started/installation/"
+                                    <NavLink
+                                        to={`${PATHS.PRODUCTS}?SubCategory=${product.SubCategory["name"] && product.SubCategory["name"]}`}
                                     >
-                                        {/* {product.SubCategory["name"] && product.SubCategory["name"]} */}
-                                    </Link>
+                                        {product.SubCategory["name"] && product.SubCategory["name"]}
+                                    </NavLink>
                                     <Typography color="text.primary">{product.modelName}</Typography>
                                 </Breadcrumbs>
                             </div>
@@ -140,7 +140,7 @@ const ProductPage = ({ props }) => {
                                 <span>{product.price} تومان </span>
                             </div>
                             <div className={style["product-description"]}>
-                                <p>{product.description}</p>
+                                { ReactHtmlParser(product.description)}
                             </div>
                             <div className={style["product-price-container"]}>
                                 {localObj && (localObj.value > 0 || Val > 0) && <div className={style["product-price"]}>

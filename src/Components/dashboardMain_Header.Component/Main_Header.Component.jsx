@@ -14,8 +14,8 @@ const MainHeader = ({ clss, clss2, bg, fs, txt, txt2,Isorder,deliverd,deliverdFu
                 {txt}
             </Button>:
             <BtnGroup variant="contained" aria-label="outlined button group">
-                <Button onClick={()=>deliverdFu(true)} sx={{borderTopRightRadius:"3rem",borderBottomRightRadius:"3rem",fontFamily:"IranSansRegular",fontSize:"1rem"}} variant={deliverd&&"contained"}>تحویل داده شده</Button>
-                <Button onClick={()=>deliverdFu(false)} sx={{borderTopLeftRadius:"3rem",borderBottomLeftRadius:"3rem",fontFamily:"IranSansRegular",fontSize:"1rem"}} variant={!deliverd&&"contained"}>در انتظار تحویل</Button>
+                <Button onClick={()=>deliverdFu(true)} sx={{borderTopRightRadius:"3rem",borderBottomRightRadius:"3rem",fontFamily:"IranSansRegular",fontSize:"1rem",}} variant={deliverd&&"contained"}>تحویل داده شده</Button>
+                <Button onClick={()=>deliverdFu(false)} sx={{borderTopLeftRadius:"3rem",borderBottomLeftRadius:"3rem",fontFamily:"IranSansRegular",fontSize:"1rem",}} variant={!deliverd&&"contained"}>در انتظار تحویل</Button>
             </BtnGroup>}
         </header>
     );
