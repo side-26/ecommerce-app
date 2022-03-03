@@ -178,7 +178,7 @@ export default function ShoppingCart() {
             <strong>{toFarsiNumber((totalPrice / 1000).toFixed(3))} تومان</strong>
           </div>
           <span className={`${style['description']}`}>هزینه‌ی ارسال در ادامه بر اساس آدرس، زمان و نحوه‌ی ارسال انتخابی شما‌ محاسبه و به این مبلغ اضافه خواهد شد</span>
-          <Button onClick={handleBuy} disabled={localStorage.getItem("order") === null} size='large' className={`${style['buy-btn']}`} variant="contained">ادامه فرایند خرید</Button>
+          <Button onClick={handleBuy} disabled={localStorage.getItem("order") === null||JSON.parse(localStorage.getItem("order")).length===0} size='large' className={`${style['buy-btn']}`} variant="contained">ادامه فرایند خرید</Button>
           <span className={`${style["warn-btn"]}`}>توجه :کالا ها بعد از 24 ساعت از سبد کالا حذف خواهند شد</span>
         </aside>}
       </section>

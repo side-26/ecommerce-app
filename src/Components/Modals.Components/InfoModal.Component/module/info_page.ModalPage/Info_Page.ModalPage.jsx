@@ -1,6 +1,5 @@
-import React, { useState,useEffect } from 'react';
+import React from 'react';
 import moment from 'jalali-moment'
-import {toPersian} from '../../../../../../node_modules/persian/dist/persian';
 import {toFarsiNumber} from '../../../../../Utilities/function/ConvertToPersianNumber'
 import style from './Info_Page.module.scss'
 const InfoPage = ({orderObj}) => {

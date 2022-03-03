@@ -144,7 +144,7 @@ const ProductPage = ({ props }) => {
                             </div>
                             <div className={style["product-price-container"]}>
                                 {localObj && (localObj.value > 0 || Val > 0) && <div className={style["product-price"]}>
-                                    <IconButton disabled={localObj.value >= product.price} sx={{ color: "var(--main-color)" }} onClick={() => handelBuy(1)}>
+                                    <IconButton disabled={localObj.value >= product.count} sx={{ color: "var(--main-color)" }} onClick={() => handelBuy(1)}>
                                         <AddIcon />
                                     </IconButton>
                                     <span>{localObj.length === 0 ? Val : localObj.value}</span>

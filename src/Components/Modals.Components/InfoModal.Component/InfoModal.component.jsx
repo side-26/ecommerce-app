@@ -14,8 +14,6 @@ import Typography from '@mui/material/Typography';
 import style from './InfoModal.module.scss';
 import InfoPage from './module/info_page.ModalPage/Info_Page.ModalPage';
 import OrdersSection from './module/Orders_page.ModulPage/Orders_section.modalPage';
-import { Product } from '../../../Api/Product.api';
-import { orders } from '../../../Api/Orders.api';
 import { order } from '../../../Api/Order.api';
 const DeliverdBtn = styled(Button)({
     backgroundColor: "red"

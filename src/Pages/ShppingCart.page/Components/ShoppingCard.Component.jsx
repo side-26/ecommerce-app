@@ -64,9 +64,9 @@ export default function ShoppingCard({ productobj,setData }) {
             <strong>{productobj.Gearbox}</strong>
         </div>
         <div className={`${style["card-product-count"]}`}>
-            <Counterbtn  onClickFu={handleCounter} val={1}  plus={true} />
+            {count&&<Counterbtn disabled={count.value>=productobj.count}  onClickFu={handleCounter} val={1}  plus={true} />}
             {count&&<span>{toFarsiNumber(count.value)}</span>}
-            <Counterbtn  onClickFu={handleCounter} val={-1} plus={false} />
+            <Counterbtn  disabled={false} onClickFu={handleCounter} val={-1} plus={false} />
 
         </div>
         <div className={`${style["card-product-price"]}`}>

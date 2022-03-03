@@ -5,6 +5,7 @@ import createCache from '@emotion/cache';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
@@ -13,6 +14,7 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { CacheProvider } from '@emotion/react';
+import {PATHS} from '../../Config/Route.config'
 
 const AdminNavbar = ({onclickFu}) => {
 const navigate=useNavigate();
@@ -22,7 +24,7 @@ const navigate=useNavigate();
     });
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
-    const settings = ['صفحه اصلی', 'خروج از حساب کاربری'];
+    const settings = ['خروج از حساب کاربری'];
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -33,7 +35,10 @@ const navigate=useNavigate();
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
-
+    const handleExitAccount=()=>{
+        localStorage.setItem("IsRegister",JSON.stringify(false))
+        navigate(PATHS.HOME)
+    }
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
@@ -94,7 +99,7 @@ const navigate=useNavigate();
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                    <Button onClick={handleExitAccount} sx={{color:"var(--text-color)"}} variant="text">{setting}</Button>
                                 </MenuItem>
                             ))}
                         </Menu>

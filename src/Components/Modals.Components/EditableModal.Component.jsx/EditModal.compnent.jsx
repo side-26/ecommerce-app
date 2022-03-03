@@ -11,7 +11,6 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import ReactHtmlParser from 'react-html-parser';
 import CancelSharpIcon from '@mui/icons-material/CancelSharp';
 import { TextField } from '@mui/material';
 import { Image } from '../../../Api/Upload.api'
