@@ -7,7 +7,12 @@ import rtlPlugin from 'stylis-plugin-rtl';
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
+import { DateTimeInput, DateTimeInputSimple, DateInput, DateInputSimple } from 'react-hichestan-datetimepicker';
 import style from './UserForm.page.module.scss';
+import e from 'cors';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from '../../Config/Route.config';
+import { replace } from 'stylis';
 
 
 const Userform = () => {
@@ -21,15 +26,16 @@ const Userform = () => {
     const [date, setDate] = useState("");
     const [disabled, setDisabled] = useState(true);
     const [mobilNumber, setMobileNumber] = useState("");
+    const navigate = useNavigate()
     const handleActiveSubmit = ([...arr]) => {
         if (
             arr.every(item => item.trim() !== "")
-        ){
+        ) {
             setDisabled(false)
-        }else{
+        } else {
             setDisabled(true)
         }
-        
+
     }
     const handleChange = (e, callback) => {
         callback(e.target.value)
@@ -44,24 +50,42 @@ const Userform = () => {
         }
         else if (type === "address") {
             if (e.target.value.length < 15 || !e.target.value.includes("-")) {
-                alert("")
+                alert("آدرس شما باید حداقل 15 حرف و شامل - باشد")
                 e.target.value = ""
             }
         } else if (type === "mobile") {
             if (e.target.value.length !== 11 || e.target.value[0] !== "0") {
                 alert("شماره باید 11 رقم و با صفر شروع شود.")
-                e.target.value = " "
+                setMobileNumber("")
             }
             // alert(e.target.value.length)
         } else if (type === "orderTime") {
             const todayTime = Date.now();
             const inputTime = Date.parse(e.target.value);
             if (inputTime < todayTime) {
-                alert("حاجی چشاتو واکن اینپوت رو نگاه کن😂😂")
-                e.target.value = " "
+                alert("شما نمی توانید روز سفارش را قبل از امروز بزنید!!");
+                setDate("")
+                setDisabled(true)
             }
+
         }
-        handleActiveSubmit([name,family,address,mobilNumber,date])
+        handleActiveSubmit([name, family, address, mobilNumber, date])
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = {
+            "name": name,
+            "lastName": family,
+            "address": address,
+            "orderTime": date
+        }
+        if (localStorage.getItem("order") !== null) {
+            data["orders"] = JSON.parse(localStorage.getItem("order"));
+            localStorage.setItem("orders", JSON.stringify(data))
+            window.location.href="http://localhost:3001"
+        } else {
+            navigate(PATHS.HOME,replace)
+        }
     }
     console.log();
     return (
@@ -74,10 +98,9 @@ const Userform = () => {
             </Helmet>
             <Navbar />
             <CacheProvider value={cacheRtl}>
-
                 <div className={`${style["container"]}`}>
                     <main className={`${style["main"]}`}>
-                        <form className={`${style["form"]}`}>
+                        <form onSubmit={(e) => handleSubmit(e)} className={`${style["form"]}`}>
                             <div className={`${style["input-container"]}`}>
                                 <TextField
                                     size='large'
@@ -139,7 +162,15 @@ const Userform = () => {
                                     value={date}
                                     onChange={e => handleChange(e, setDate)}
                                     onBlur={e => handleValidate(e, "orderTime")}
+
                                 />
+                                {/* <DateTimeInput
+                                    value={date}
+                                    name={'myDateTime'}
+                                    onChange={(e)=>handleChange(e,setDate)}
+                                     onBlur={(e)=>handleValidate(e,"orderTime")}
+                                     /> */}
+
                             </div>
                             <div className={`${style["btn-container"]}`}>
                                 <Button disabled={disabled} type='submit' variant="contained" className={`${style["btn"]}`}>

@@ -8,6 +8,8 @@ const ResultPage = () => {
     useEffect(() => {
         if(result.get("result")==="successfull")
             localStorage.removeItem("order")
+            localStorage.removeItem("orders")
+            
         
     }, [result]);
     return (

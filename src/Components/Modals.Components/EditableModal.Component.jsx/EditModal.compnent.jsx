@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
-import {Product} from '../../../Api/Product.api'
+import { Product } from '../../../Api/Product.api'
 import createCache from '@emotion/cache';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -22,7 +22,7 @@ import { BASE_URL } from '../../../Config/Url.config';
 import { toast } from 'react-toastify';
 import style from './EditModal.module.scss'
 
-const EditmodalCompnent = ({ setShow, show, productobj,setEdited,edit }) => {
+const EditmodalCompnent = ({ setShow, show, productobj, setEdited, edit }) => {
     const dispatch = useDispatch();
     const subCategory = useSelector(state => state.products.subCategory);
     const [value, setValue] = useState("");
@@ -67,6 +67,7 @@ const EditmodalCompnent = ({ setShow, show, productobj,setEdited,edit }) => {
         setData({ ...Data, "SubCategory": { "id": subCategory.length + 1, "name": e.target.value } })
 
     }
+    
     const handleShow = () => {
         setShow(false)
     }
@@ -116,35 +117,34 @@ const EditmodalCompnent = ({ setShow, show, productobj,setEdited,edit }) => {
     const handlePostData = (e) => {
         e.preventDefault()
         if (length === 0) {
-           Product.post(BASE_URL,Data).then(result=>{
-               if(result.status>=200&&result.status<=299){
-                   toast.success("با موفقیت اضافه شد", {
-                       position: "top-right",
-                       autoClose: 5000,
-                       hideProgressBar: false,
-                       closeOnClick: true,
-                       pauseOnHover: true,
-                       draggable: true,
-                       progress: undefined,
-                   });
-               }
-           })
+            Product.post(BASE_URL, Data).then(result => {
+                if (result.status >= 200 && result.status <= 299) {
+                    toast.success("با موفقیت اضافه شد", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
+            })
         } else {
-               Product.patch(BASE_URL,productobj.id,Data).then(result=>
-                {
-                       if(result.status>=200&&result.status<=299){
-                        toast.success("با موفقیت ویرایش شد", {
-                            position: "top-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                        });
-                    }
+            Product.patch(BASE_URL, productobj.id, Data).then(result => {
+                if (result.status >= 200 && result.status <= 299) {
+                    toast.success("با موفقیت ویرایش شد", {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                }
 
-                })
+            })
 
         }
         setEdited(!edit)
@@ -154,7 +154,7 @@ const EditmodalCompnent = ({ setShow, show, productobj,setEdited,edit }) => {
         display: 'none',
     });
     const length = Object.keys(productobj).length;
-    console.log(length===0);
+    console.log(length === 0);
     const handleChangeName = (e, type) => {
         setData({ ...Data, [type]: `${e.target.value}` })
         // console.log(type);
@@ -169,7 +169,7 @@ const EditmodalCompnent = ({ setShow, show, productobj,setEdited,edit }) => {
                     <div className={style["modal"]}>
                         <div className={style["modal-header"]}>
                             <span>{length > 0 ? "ویرایش" : "افزودن"} کالا</span>
-                            <IconButton onClick={(e) => handleShow(e)} sx={{ color: "var(--main-color)" }} size='large' aria-label="delete">
+                            <IconButton onClick={(e) => handleShow(e)} sx={{ color: "const(--main-color)" }} size='large' aria-label="delete">
                                 <CancelSharpIcon />
                             </IconButton>
                         </div>
@@ -180,14 +180,14 @@ const EditmodalCompnent = ({ setShow, show, productobj,setEdited,edit }) => {
 
                                         <label htmlFor="icon-button-file">
                                             <Input accept="image/*" name='image' id="icon-button-file" type="file" />
-                                            <IconButton sx={{ color: "var(--main-color)" }} aria-label="upload picture" component="span">
+                                            <IconButton sx={{ color: "const(--main-color)" }} aria-label="upload picture" component="span">
                                                 <PhotoCamera />
                                             </IconButton>
                                             <span className={style["choosen-file-name"]}>فایل انتخاب شده {length > 0 && productobj.thumbnail}</span>
                                         </label>
                                     </Stack>
 
-                                    <Button type='submit' sx={{ backgroundColor: "var(--main-color)", fontFamily: "IranSansBold" }} variant="contained">ارسال عکس</Button>
+                                    <Button type='submit' sx={{ backgroundColor: "const(--main-color)", fontFamily: "IranSansBold" }} variant="contained">ارسال عکس</Button>
                                 </form>
                             </div>
                             <form onSubmit={(e) => { handlePostData(e) }} >
@@ -202,13 +202,13 @@ const EditmodalCompnent = ({ setShow, show, productobj,setEdited,edit }) => {
                                             value={value}
                                         />}
                                     </div>
-                                    <Button onClick={handelclick} sx={{ backgroundColor: "var(--main-color)", fontFamily: "IranSansRegular" }} variant="contained">مقدار {newvalue ? "پیش فرض" : "جدید"}</Button>
+                                    <Button onClick={handelclick} sx={{ backgroundColor: "const(--main-color)", fontFamily: "IranSansRegular" }} variant="contained">مقدار {newvalue ? "پیش فرض" : "جدید"}</Button>
                                 </div>
                                 <div className={style["discription"]}>
                                     <CKEditor onChange={handel} editor={ClassicEditor} />
                                 </div>
                                 <div className={style["modal-submit"]}>
-                                    <Button type="submit" size='large' sx={{ backgroundColor: "var(--main-color)", width: "60%", fontFamily: "IranSansBold" }} variant="contained">{length > 0 ? "ثبت تغییرات" : "افزودن کالا"}</Button>
+                                    <Button type="submit" size='large' sx={{ backgroundColor: "const(--main-color)", width: "60%", fontFamily: "IranSansBold" }} variant="contained">{length > 0 ? "ثبت تغییرات" : "افزودن کالا"}</Button>
                                 </div>
                             </form>
                         </div>
