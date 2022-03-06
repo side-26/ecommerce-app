@@ -142,7 +142,10 @@ const ProductPage = ({ props }) => {
                             <div className={style["product-description"]}>
                                 { ReactHtmlParser(product.description)}
                             </div>
-                            <div className={style["product-price-container"]}>
+                            {product.count===0&&<div>
+                                <span>اتمام موجودی</span>
+                            </div>}
+                           { product.count>0&&<div className={style["product-price-container"]}>
                                 {localObj && (localObj.value > 0 || Val > 0) && <div className={style["product-price"]}>
                                     <IconButton disabled={localObj.value >= product.count} sx={{ color: "var(--main-color)" }} onClick={() => handelBuy(1)}>
                                         <AddIcon />
@@ -156,7 +159,7 @@ const ProductPage = ({ props }) => {
                                     (!localObj?Val === 0 : localObj.value === 0) &&
                                     <Button onClick={() => handelBuy(1)} sx={{ backgroundColor: "var(--main-color)", fontFamily: "IranSansBold", height: "3rem" }} variant="contained">افزودن به سبد</Button>
                                 }
-                            </div>
+                            </div>}
                         </div>
                         <div className={style["slidebar-container"]}>
                             <Swiper

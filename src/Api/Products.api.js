@@ -2,12 +2,9 @@ import axios from 'axios';
 
 export const Products = {
   async Get(BASE_URL,pageInfo="") {
-
     return await axios.get(`${BASE_URL}/products?${pageInfo}`)
       .then(res => {
         const products = res.data
-        
-        
         return products;
       }).catch(err => {
         return err
