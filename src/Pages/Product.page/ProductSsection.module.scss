@@ -61,7 +61,47 @@
     }
 }
 
+// for loading section
+.loading-container {
+    // background-color: red;
+    figure {
+        width: 500px;
+        height: 500px;
+        animation: move 2s infinite ease-in-out alternate-reverse;
+        margin-right: auto;
+    }
+    overflow-x: hidden;
+}
+
+// animations
+@keyframes move {
+    100% {
+        transform: translateX(200%);
+    }
+}
+
 // 
 .hidden {
     display: none
+}
+
+// responsive
+@media only screen and (max-width: 870px) {
+    .loading-container {
+        figure {
+            width: 350px;
+            height: 350px;
+            ;
+        }
+    }
+}
+
+@media only screen and (max-width: 470px) {
+    .loading-container {
+        figure {
+            width: 200px;
+            height: 200px;
+            ;
+        }
+    }
 }

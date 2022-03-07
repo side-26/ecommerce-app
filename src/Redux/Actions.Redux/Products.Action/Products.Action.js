@@ -36,7 +36,7 @@ export const fetchProductRequest = (BASE_URL, ID) => {
         }
         )
         product = response;
-       await dispatch({ type: FETCHING_SPESEFIC_PRODOCT, payload: product });
+        dispatch({ type: FETCHING_SPESEFIC_PRODOCT, payload: product });
         // products= Get(BASE_URL);
     };
 }

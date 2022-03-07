@@ -1,13 +1,13 @@
 import React from 'react';
 import {  Route, Routes } from 'react-router-dom'
+import {PATHS} from '../Config/Route.config';
 import HomePage from '../Pages/Home.page/Home.Page'
 import LoginPage from '../Pages/Login.page/Login.page'
 import PublicRoute from './Public.Route/Public.Route'
 import PrivateRoute from './Private.Route/Private.Route'
-import {ErrorPage} from '../Pages/404.page/404.page'
+import {ErrorPage} from '../Pages/NotFound.page/errorPage';
 import ProtetedRoute from './Protected.Route/Protected.Route'
 import DashboardPage from '../Pages/Admin-Dashboard.page/Dashboard.page'
-import {PATHS} from '../Config/Route.config';
 import ShoppingCart from '../Pages/ShppingCart.page/ShoppingCart.page';
 import Userform from '../Pages/UserForm.page/UserForm.page';
 import ProductPage from '../Pages/Product.page/Product.page';

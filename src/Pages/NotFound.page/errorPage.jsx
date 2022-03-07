@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 // import ppi from '../../Services/http.service';
 import {PATHS} from '../../Config/Route.config'
-import style from './404.page.module.scss'
+import style from './errorPage.module.scss'
 import { Helmet } from 'react-helmet';
 export const ErrorPage=()=> {
    useEffect(() => {
