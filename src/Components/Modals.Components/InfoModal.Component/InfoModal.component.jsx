@@ -15,10 +15,11 @@ import style from './InfoModal.module.scss';
 import InfoPage from './module/info_page.ModalPage/Info_Page.ModalPage';
 import OrdersSection from './module/Orders_page.ModulPage/Orders_section.modalPage';
 import { order } from '../../../Api/Order.api';
+import { toast } from 'react-toastify';
 const DeliverdBtn = styled(Button)({
     backgroundColor: "red"
 })
-const Infomodal = ({ orderId, show }) => {
+const Infomodal = ({ orderId, hidden,setHidden,setDeliverd }) => {
     const [place, setPlace] = useState(1);
     const [value, setValue] = useState(0);
     const [changed, setChanged] = useState(false)
@@ -29,7 +30,7 @@ const Infomodal = ({ orderId, show }) => {
         dispatch(fetchOrderRequest(BASE_URL, orderId));
     }, [changed])
     const handelCloseModal = () => {
-        dispatch(changeModalsState(false))
+        setHidden(true)
     }
     const handelChangePlace = (val) => {
         setPlace(val);
@@ -52,16 +53,18 @@ const Infomodal = ({ orderId, show }) => {
         }
         order.patch(BASE_URL, id, data).then(res => {
             if (res.status >= 200 && res.status <= 299) {
-                alert("hello")
+                toast.success("با موفقیت تغییر یافت")
             }
         })
-        setChanged(!changed)
+        setChanged(!changed);
+        setDeliverd(false);
+        setHidden(true)
         // alert(id)
     }
-    console.log(convertDate())
+    console.log(orderObj)
 
     return (
-        <section className={`${style["modal-container"]} ${!modalState && style["hidden"]}`}>
+        <section className={`${style["modal-container"]} ${hidden && style["hidden"]}`}>
             <div className={style["modal-layer"]}>
             </div>
             <div onClick={() => handelCloseModal()} className={style["modal-body"]}>
@@ -86,7 +89,7 @@ const Infomodal = ({ orderId, show }) => {
                                 onChange={handleChange}
                                 textColor="primary"
                                 className={style["tab-group"]}
-                                indicatorColor="secondery"
+                                indicatorColor="primary"
                                 aria-label="secondary tabs example"
                                 sx={{ color: "#aaa", fontFamily: "IranSansRegular" }}
                             >
@@ -97,7 +100,7 @@ const Infomodal = ({ orderId, show }) => {
                         </Box>
                         <section className={style["modal-inner-body-container"]}>
                             {!!place && <InfoPage orderObj={orderObj} />}
-                            {!!!place && <OrdersSection />}
+                            {!!!place && <OrdersSection orders={orderObj.orders} />}
 
                         </section>
                         {!!!orderObj.deliverd && <section className={style["modal-inner-body-footer"]}>

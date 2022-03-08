@@ -23,12 +23,18 @@ export default function ShoppingCart() {
   const [totalPrice,setTotalPrice]=useState(0)
   const dispatch = useDispatch();
   const counter = useSelector(state => state.customerCount.count);
+  const [orderArr,setOrderArr]=useState([])
   const navigate = useNavigate();
   const [deleted, setDeleted] = useState(false)
   const [data, setdata] = useState([])
   const [anchorEl, setAnchorEl] = useState(null);
   const [changed,setChanged]=useState(false)
   const handleBuy = () => {
+    localStorage.setItem("orders",JSON.stringify({
+    "totalPrice": totalPrice,
+    "deliverd": false,
+    "timeDeliverd": "",
+  "orders":orderArr}))
     navigate(PATHS.USERFORM)
   }
   useEffect(() => {
@@ -83,6 +89,7 @@ export default function ShoppingCart() {
   useEffect(() => {
     const concatedArr = data && product && [...data, ...product];
     let newArr = [];
+
     for (let i = 0; i < concatedArr.length / 2; i++) {
       for (let j = 0; j < concatedArr.length; j++) {
         if (concatedArr[i].id === concatedArr[j].id) {
@@ -91,6 +98,7 @@ export default function ShoppingCart() {
       }
     }
     newArr = newArr.filter(item => item.price !== undefined && item.value !== undefined)
+    setOrderArr(newArr)
     // concatedArr=concatedArr.splice(0,concatedArr.length/2)
     // const make
     
@@ -125,7 +133,7 @@ export default function ShoppingCart() {
     <Navbar />
     <div className={`${style["container"]}`}>
       <div className={`${style["container-header"]}`}>
-        <span className={`${style["container-header-title"]}`}> سبد خرید <span className={`${style["container-header-title-countProduct"]}`}>{toFarsiNumber(counter)}</span></span>
+        <span className={`${style["container-header-title"]}`}> سبد خرید <span className={`${style["container-header-title-countProduct"]}`}>{toFarsiNumber(data.length)}</span></span>
       </div>
       <section className={`${style["main_sidebar_container"]}`}>
         <main className={`${style["main"]}`}>

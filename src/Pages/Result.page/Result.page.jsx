@@ -6,9 +6,11 @@ import style from './Result.page.module.scss'
 const ResultPage = () => {
     const [result, setResult] = useSearchParams();
     useEffect(() => {
-        if(result.get("result")==="successfull")
+        if(result.get("result")==="successfull"){
             localStorage.removeItem("order")
             localStorage.removeItem("orders")
+            
+        }
             
         
     }, [result]);

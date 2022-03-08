@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductsRequest } from '../../../../../Redux/Actions.Redux/Products.Action/Products.Action';
 import { BASE_URL } from '../../../../../Config/Url.config'
@@ -12,11 +12,13 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import style from './Orders_section.module.scss'
 import { TableFooter } from '@mui/material';
-const OrdersSection = ({ OrderData }) => {
+const OrdersSection = ({ orders }) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(3);
-    const products = useSelector(state => state.products.products);
-    const handelProducts = useDispatch()
+    // const[Products,setProducts]=useState([])
+    // const products = useSelector(state => state.products.products);
+
+    // const handelProducts = useDispatch()
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -25,10 +27,30 @@ const OrdersSection = ({ OrderData }) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+    
     useEffect(() => {
-        handelProducts(fetchProductsRequest(BASE_URL))
+        // const idArr=orders.map(item=>item.id);
+        // idArr.toString();
+        // const idString=`id=${idArr.toString().replace(/,/g, "&id=")}`;
+        // handelProducts(fetchProductsRequest(BASE_URL,idString))
+
+        // console.log(idString);
     }, []);
-    console.log(products);
+    // useEffect(() => {
+    //     // const idArr=orders.map(item=>item.id);
+    //     // let sum = [...orders,...products].reduce(function (previousValue, currentValue) {
+    //     //     return previousValue + currentValue.x
+    //     // }, initialValue)
+    //     let x={};
+    //      x=[...orders,...products].sort((a,b)=>a.id-b.id);
+    //      x=x.map((item,index)=>{
+    //             return {...x[index+1],...item}
+    //    })
+    // //    x=new setPage(x);
+    // x = [...new Set(x)];
+    //     console.log(x);
+       
+    // }, []);
     return (
         <div className={style["table-container"]}>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -48,8 +70,8 @@ const OrdersSection = ({ OrderData }) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(item => (
-                                <TableRow >
+                            {orders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(item => (
+                                <TableRow key={item.id}>
                                     <TableCell align='right'>
                                         {item.modelName}
                                     </TableCell>
@@ -57,7 +79,7 @@ const OrdersSection = ({ OrderData }) => {
                                         {item.price}
                                     </TableCell>
                                     <TableCell align='right'>
-                                        {item.count}
+                                        {item.value}
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -69,7 +91,7 @@ const OrdersSection = ({ OrderData }) => {
                 <TablePagination
                     rowsPerPageOptions={[3, 6, 12]}
                     component="div"
-                    count={products.length}
+                    count={orders.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

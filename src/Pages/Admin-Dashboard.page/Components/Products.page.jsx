@@ -70,7 +70,7 @@ const ProductsPage = () => {
         }
     }
     useEffect(() => {
-        dispatch(fetchProductsRequest(BASE_URL));
+        dispatch(fetchProductsRequest(BASE_URL,"_sort=createdAt&_order=desc"));
     }, [deleted]);
     return (
         <>

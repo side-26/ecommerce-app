@@ -10,8 +10,8 @@ export const orders = {
         return err
       });
   },
-  async Post(BASE_URL, data, ProductId) {
-    await axios.post(`${BASE_URL}/Orders/${ProductId}`, data)
+  async Post(BASE_URL, data) {
+    await axios.post(`${BASE_URL}/Orders`, data)
       .then(res => {
         return res.statusText;
       }).catch(err => {

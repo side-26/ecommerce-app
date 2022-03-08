@@ -16,6 +16,18 @@
     overflow-y: auto;
 }
 
+.empty-message {
+    text-align: center;
+    figure {
+        max-width: 350px;
+        height: 300px;
+        margin: 1rem auto;
+    }
+    overflow: hidden;
+    animation: scaleAnime 1.5s .5s infinite ease-in-out alternate;
+    transform: scale(0);
+}
+
 tfoot {
     div {
         direction: ltr !important;
@@ -28,4 +40,11 @@ tfoot {
 table thead {
     position: sticky;
     top: 0;
+}
+
+// animation
+@keyframes scaleAnime {
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
 }

@@ -12,30 +12,33 @@ import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import AssignmentTurnedInSharpIcon from '@mui/icons-material/AssignmentTurnedInSharp';
+import InfoSharpIcon from '@mui/icons-material/InfoSharp';
 import Tooltip from '@mui/material/Tooltip';
-import { IconButton } from '@mui/material';
+import { Avatar, IconButton, Typography } from '@mui/material';
 import { fetchOrdersRequest } from '../../../Redux/Actions.Redux/Orders.Actions/Orders.Action';
-import { changeModalsState } from '../../../Redux/Actions.Redux/Modals.Actions/Modals';
+// import { changeModalsState } from '../../../Redux/Actions.Redux/Modals.Actions/Modals';
+import src from '../../../Asset/img/NODATA.png';
 import { BASE_URL } from '../../../Config/Url.config';
-import style from './Styles.Pages/OrderProduct.module.scss';
 import moment from 'jalali-moment'
 import Infomodal from '../../../Components/Modals.Components/InfoModal.Component/InfoModal.component';
+import style from './Styles.Pages/OrderProduct.module.scss';
 const OrderproductPage = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [deliverd, setDeliverd] = useState(true)
+    const [deliverd, setDeliverd] = useState(true);
+    const [hidden, setHidden] = useState(true)
     // const [filterd, setFilterd] = useState([]);
     const [orderId, setorderId] = useState(0);
     const orders = useSelector(state => state.orders.orders);
-    const modalState = useSelector(state => state.modalBool.infoModal);
+    // const modalState = useSelector(state => state.modalBool.infoModal);
     const dispatch = useDispatch();
     // const [search,setSearch] = useSearchParams()
     const persian = require('persian');
     useEffect(() => {
-        dispatch(fetchOrdersRequest(BASE_URL,`deliverd=${deliverd}`));
+        dispatch(fetchOrdersRequest(BASE_URL, `deliverd=${deliverd}&_sort=timeDeliverd&_order=desc`));
     }, [deliverd]);
     const handelShowModal = (id) => {
-        dispatch(changeModalsState(true))
+        setHidden(false)
         setorderId(id)
     }
 
@@ -43,6 +46,7 @@ const OrderproductPage = () => {
         setPage(newPage);
     };
     const handelDeliverd = (val) => {
+        setHidden(true)
         setDeliverd(!deliverd)
     }
     // console.log(search.get("deliverd"))
@@ -58,7 +62,7 @@ const OrderproductPage = () => {
                 </title>
             </Helmet>
             <MainHeader deliverdFu={handelDeliverd} deliverd={deliverd} Isorder={true} clss={style["header"]} clss2={style["header-title"]} txt="ذخیره" txt2="مدیریت سفارش ها" bg="Default" fs="1.4rem" />
-            <TableContainer component={Paper} className={style["table-container"]}>
+            {orders.length > 0 && <TableContainer component={Paper} className={style["table-container"]}>
                 <Table sx={{ minWidth: 350 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -69,10 +73,6 @@ const OrderproductPage = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {/* rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) 
-          ) */}
                         {(
                             orders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 
@@ -81,9 +81,15 @@ const OrderproductPage = () => {
                                 <TableCell align='right'>{item.name}</TableCell>
                                 <TableCell align='right'>{persian.toPersian(item.totalPrice)}</TableCell>
                                 <TableCell align='right'>{persian.toPersian(moment(item.orderTime, 'DDD/MM/YYYY').locale('fa').format('YYYY/MM/DD'))}</TableCell>
-                                <TableCell align='right'><Tooltip title="بررسی سفارشات">
-                                    <IconButton onClick={() => handelShowModal(item.id)} sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
-                                </Tooltip></TableCell>
+                                <TableCell align='right'>
+                                    {
+                                        deliverd ? <Tooltip title="اطلاعات سفارش">
+                                            <IconButton onClick={() => handelShowModal(item.id)} sx={{ ml: 1, color: "#1565C0" }}><InfoSharpIcon /></IconButton>
+                                        </Tooltip> :
+                                            <Tooltip title="بررسی سفارش">
+                                                <IconButton onClick={() => handelShowModal(item.id)} sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
+                                            </Tooltip>
+                                    }</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -100,8 +106,10 @@ const OrderproductPage = () => {
                         />
                     </TableFooter>
                 </Table>
-            </TableContainer>
-            {modalState && <Infomodal orderId={orderId} />}
+            </TableContainer>}
+            {orders.length === 0 && <div className={style["empty-message"]}><figure><img src={src} alt='emptyTableImg' /></figure><Typography sx={{ color: "var(--main-color)", fontFamily: "IranSansBold", fontSize: "2.3rem" }}>گشتم نبود، نگرد نیست</Typography></div>}
+
+            {!hidden && <Infomodal setDeliverd={setDeliverd} hidden={hidden} setHidden={setHidden} orderId={orderId} />}
         </>
     );
 }

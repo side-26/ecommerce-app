@@ -7,12 +7,15 @@ import rtlPlugin from 'stylis-plugin-rtl';
 import TextField from '@mui/material/TextField';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
-// import { DateTimeInput, DateTimeInputSimple, DateInput, DateInputSimple } from 'react-hichestan-datetimepicker';
-import style from './UserForm.page.module.scss';
-// import e from 'cors';
+import AdapterJalali from '@date-io/date-fns-jalali';
+import DatePicker from '@mui/lab/DatePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../Config/Route.config';
 import { replace } from 'stylis';
+import style from './UserForm.page.module.scss';
+import { orders } from '../../Api/Orders.api';
+import { BASE_URL } from '../../Config/Url.config';
 
 
 const Userform = () => {
@@ -23,7 +26,7 @@ const Userform = () => {
     const [name, setName] = useState("");
     const [family, setFamily] = useState("");
     const [address, setAddress] = useState("");
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState(new Date());
     const [disabled, setDisabled] = useState(true);
     const [mobilNumber, setMobileNumber] = useState("");
     const navigate = useNavigate()
@@ -60,13 +63,15 @@ const Userform = () => {
             }
             // alert(e.target.value.length)
         } else if (type === "orderTime") {
+            // alert("hello")
             const todayTime = Date.now();
-            const inputTime = Date.parse(e.target.value);
+            const inputTime = Date.parse(e);
             if (inputTime < todayTime) {
                 alert("شما نمی توانید روز سفارش را قبل از امروز بزنید!!");
                 setDate("")
                 setDisabled(true)
             }
+            // alert("hello")
 
         }
         handleActiveSubmit([name, family, address, mobilNumber, date])
@@ -77,17 +82,35 @@ const Userform = () => {
             "name": name,
             "lastName": family,
             "address": address,
-            "orderTime": date
+            "orderTime": date,
+            "tel": mobilNumber,
         }
         if (localStorage.getItem("order") !== null) {
-            data["orders"] = JSON.parse(localStorage.getItem("order"));
-            localStorage.setItem("orders", JSON.stringify(data))
-            window.location.href="http://localhost:3001"
+            // data["orders"] = JSON.parse(localStorage.getItem("order"));
+            let oldLocal=localStorage.getItem("orders")
+            oldLocal=JSON.parse(oldLocal) 
+            localStorage.setItem("orders", JSON.stringify({...oldLocal,...data}))
+            orders.Post(BASE_URL,{...oldLocal,...data})
+            window.location.href = "http://localhost:3001";
         } else {
-            navigate(PATHS.HOME,replace)
+            navigate(PATHS.HOME, replace)
         }
     }
-    console.log();
+    const handleDate = (value) => {
+        // alert("hello")
+        const todayTime = Date.now();
+        const inputTime = Date.parse(value);
+        if (inputTime <= todayTime) {
+            alert("شما نمی توانید روز سفارش را قبل از امروز بزنید!!");
+            setDate("")
+            setDisabled(true)
+        } else {
+            setDate(value)
+            setDisabled(false)
+            // handleActiveSubmit([name, family, address, mobilNumber, date])
+        }
+    }
+    console.log(date);
     return (
         <>
 
@@ -138,6 +161,7 @@ const Userform = () => {
                                     onChange={e => handleChange(e, setAddress)}
                                     onBlur={e => handleValidate(e, "address")}
                                 />
+                                <span></span>
                                 <TextField
                                     size='medium'
                                     variant="filled"
@@ -152,7 +176,7 @@ const Userform = () => {
                             </div>
                             <div className={`${style["input-container"]}`}>
 
-                                <TextField
+                                {/* <TextField
                                     size='medium'
                                     variant="filled"
                                     required
@@ -163,7 +187,16 @@ const Userform = () => {
                                     onChange={e => handleChange(e, setDate)}
                                     onBlur={e => handleValidate(e, "orderTime")}
 
-                                />
+                                /> */}
+                                <LocalizationProvider dateAdapter={AdapterJalali}>
+                                    <DatePicker
+                                        mask="__/__/____"
+                                        value={date}
+                                        onChange={(newValue) => handleDate(newValue)}
+                                        // onClose={()=>handleValidate(date,"orderTime")}
+                                        renderInput={(params) => <TextField  {...params} />}
+                                    />
+                                </LocalizationProvider>
                                 {/* <DateTimeInput
                                     value={date}
                                     name={'myDateTime'}
