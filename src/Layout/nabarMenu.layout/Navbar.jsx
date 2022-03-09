@@ -29,7 +29,7 @@ export default function Navbar() {
     const dispatch=useDispatch();
     const [counterState,setcounterState]=useState(0)
     const Navigate = () => {
-        const path = JSON.parse(localStorage.getItem("IsRegister")) ? PATHS.DASHBOARD : PATHS.LOGIN;
+        const path = JSON.parse(localStorage.getItem("IsRegister")) ? `${PATHS.DASHBOARD}/${PATHS.NestedRoute.PRODUCTS}` : PATHS.LOGIN;
         navigate(path);
     }
     
@@ -37,7 +37,7 @@ export default function Navbar() {
         // console.log("hello");
         // if()
         // dispatch(calculateCounter(counterState));
-        console.log("hello")
+
     }, [counter]);
 
     const navigate = useNavigate()
@@ -166,28 +166,6 @@ export default function Navbar() {
                 </IconButton>
                 <a href="/" className={`${style["location-link"]}`}>لطفا شهر و استان خود را انتخاب کنید <AddLocationIcon /></a>
             </Toolbar>}
-            {/* <section className={`${style["product-type-menu"]}`}>
-                    <div className={`${style["faction-product"]}`}>
-                        <ul className={`${style["faction-product-menu"]}`}>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                        </ul>
-                    </div>
-                    <div className={`${style["product-type"]}`}>
-                        <ul className={`${style["product-type"]}`}>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                        </ul>
-                    </div>
-                </section> */}
         </AppBar>
     </CacheProvider>)
 

@@ -26,7 +26,8 @@ const InventoryPage = () => {
     const persian = require('persian');
     const [Changed, setChanged] = useState(false);
     const [BtnAble, SetBtnAble] = useState(false);
-    const [newArr, setnewArr] = useState([]);
+    const [newCountArr, setNewCountArr] = useState([]);
+    const [newPriceArr,setNewPriceArr]=useState([])
     const dispatch = useDispatch();
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -35,6 +36,29 @@ const InventoryPage = () => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+    const sendData=(newArr,setNewArr,BASE_URL,property,lable)=>{
+        if(newArr.length>0){
+            newArr.forEach(item => {
+                if (item[property] !== item.defaultCount) {
+                    const data = { "id": item.id, [property]: item[property] }
+                    Product.patch(BASE_URL, item.id, data).then(res => {
+                        if (res.status >= 200 & res.status <= 299)
+                            setChanged(!Changed)
+                        toast.success(`${lable} محصول ${item.id} تغییر یافت`, {
+                        });
+                    })
+                    
+                    console.log(data)
+                } else {
+                    toast.info(`لطفا مقدار را تغییر دهید سپس اقدام به ذخیره کنید`, {
+                    });
+                    
+                }
+                
+            })
+            setNewArr([]);
+        }
+    }
     const handleChangeCountInput = (evt) => {
 
         if (evt.target.value.trim() !== "") {
@@ -43,43 +67,16 @@ const InventoryPage = () => {
             SetBtnAble(true)
         }
     }
-    const handleSendData=()=>{
-        newArr.forEach(item=>{
-            if(item.count!==item.defaultCount){
-                const data={"id":item.id,"count":item.count}
-                Product.patch(BASE_URL,item.id,data).then(res=>{
-                    if(res.status>=200&res.status<=299)
-                        setChanged(!Changed)
-                        toast.success(`اطلاعات محصول ${item.id}تغییر یافت`, {
-                            position: "top-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            });
-                })
-            }else{
-                toast.info(`لطفا مقدار را تغییر دهید سپس اقدام به ذخیره کنید`, {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
-            }
-            
-        })
+    const handleSendData = () => {
+        sendData(newCountArr,setNewCountArr,BASE_URL,"count","موجودی");
+        sendData(newPriceArr,setNewPriceArr,BASE_URL,"price","قیمت");
         SetBtnAble(false)
     }
     // const toPersian = require('persian');
     useEffect(() => {
         dispatch(fetchProductsRequest(BASE_URL));
     }, [Changed]);
-    console.log(newArr);
+    console.log(newCountArr,newPriceArr);
     // console.log(product);
     return (
         <>
@@ -88,7 +85,7 @@ const InventoryPage = () => {
                     قسمت مدیریت | صفحه موجودی و قیمت محصولات
                 </title>
             </Helmet>
-            <MainHeader  clickFu={handleSendData}  btnActive={!BtnAble} bg="#ff1313e5" fs="1.3rem" clss={style["header"]} clss2={style["header-title"]} txt="ذخیره" txt2="مدیریت موجودی و قیمت ها" />
+            <MainHeader clickFu={handleSendData} btnActive={!BtnAble} bg="#ff1313e5" fs="1.3rem" clss={style["header"]} clss2={style["header-title"]} txt="ذخیره" txt2="مدیریت موجودی و قیمت ها" />
             <TableContainer component={Paper} className={style["table-container"]}>
                 <Table sx={{ minWidth: 350 }} aria-label="simple table">
                     <TableHead>
@@ -109,9 +106,9 @@ const InventoryPage = () => {
                                 <TableCell align="right" scope="row">
                                     {item["modelName"]}
                                 </TableCell>
-                                <TableCell align="right">{persian.toPersian(item["price"])}</TableCell>
-                                <TableCell sx={{ cursor: "pointer" }}  align="right">
-                                    <Toggle SetBtnAble={SetBtnAble}  newArr={newArr} setnewArr={setnewArr} defaultValue={item.count} id={item.id}/>
+                                <TableCell align="right"> <Toggle value="price" SetBtnAble={SetBtnAble} newArr={newPriceArr} setnewArr={setNewPriceArr} defaultValue={item.price} id={item.id} /></TableCell>
+                                <TableCell sx={{ cursor: "pointer" }} align="right">
+                                    <Toggle value="count" SetBtnAble={SetBtnAble} newArr={newCountArr} setnewArr={setNewCountArr} defaultValue={item.count} id={item.id} />
                                 </TableCell>
 
                             </TableRow>
@@ -121,7 +118,7 @@ const InventoryPage = () => {
                         <TableRow>
                             <TablePagination
                                 rowsPerPageOptions={[5, 10, 20]}
-                                colSpan={window.innerWidth<=480?3:2}
+                                colSpan={window.innerWidth <= 480 ? 3 : 2}
                                 count={products.length}
                                 rowsPerPage={rowsPerPage}
                                 page={page}

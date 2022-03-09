@@ -80,7 +80,7 @@ const ProductsPage = () => {
                 </title>
             </Helmet>
             
-           { show&&<Editmodal productobj={details} edit={deleted} setEdited={setDeleted} show={show} setShow={setShow} />}
+           { show&&<Editmodal productObj={details} edit={deleted} setEdited={setDeleted} show={show} setShow={setShow} />}
             <MainHeader  clickFu={handelChangeShowState}  setShow={setShow} bg="#ff1313e5" fs="1.3rem" clss={style["header"]} clss2={style["header-title"]} txt="افزودن کالا" txt2="مدیریت کالاها" />
             <TableContainer component={Paper} className={style["table-container"]}>
                 <Table sx={{ minWidth: 350 }} aria-label="simple table">

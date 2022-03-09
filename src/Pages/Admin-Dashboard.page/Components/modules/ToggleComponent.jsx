@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import style from './ToggleComponent.module.scss'
-const Togglecomponent = ({id,defaultValue,setnewArr,newArr,SetBtnAble}) => {
+const Togglecomponent = ({id,defaultValue,setnewArr,newArr,SetBtnAble,value}) => {
     const [Toggle, setToggle] = useState(false);
     const [count, setcount] = useState(defaultValue);
-    const data={"id":id,"count":count,"defaultCount":defaultValue}
+    const persian = require('persian');
+    const data={"id":id,[value]:count,"defaultCount":defaultValue}
     const handleOnChange=(e)=>{
         if(e.target.value.trim()===""){
             e.target.value=0
@@ -25,7 +26,7 @@ const Togglecomponent = ({id,defaultValue,setnewArr,newArr,SetBtnAble}) => {
             <label className={style["toggle-body"]} onClick={(e=>e.stopPropagation())} htmlFor={`input${id}`} >
                 <input oncl className={!Toggle&&style["hidden"]} onBlur={handleSendObj} onChange={handleOnChange} defaultValue={defaultValue} type="number" name={`input${id}`} />
                 <span className={Toggle&&style["hidden"]}>
-                    {count}
+                    {persian.toPersian(count)}
                 </span>
             </label>
         </div>

@@ -1,4 +1,6 @@
 .Card {
+    cursor: pointer;
+    position: relative;
     .card-photo-container {
         position: relative;
         transition: all .8s ease-in-out;
@@ -115,6 +117,23 @@
             }
         }
     }
+}
+
+// renderringStyle
+.outOfOrder::after {
+    content: "عدم موجودی";
+    background-color: #515151;
+    opacity: 0.9;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: var(--main-color);
 }
 
 // responsive

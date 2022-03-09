@@ -14,7 +14,7 @@ import TablePagination from '@mui/material/TablePagination';
 import AssignmentTurnedInSharpIcon from '@mui/icons-material/AssignmentTurnedInSharp';
 import InfoSharpIcon from '@mui/icons-material/InfoSharp';
 import Tooltip from '@mui/material/Tooltip';
-import { Avatar, IconButton, Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { fetchOrdersRequest } from '../../../Redux/Actions.Redux/Orders.Actions/Orders.Action';
 // import { changeModalsState } from '../../../Redux/Actions.Redux/Modals.Actions/Modals';
 import src from '../../../Asset/img/NODATA.png';
@@ -78,9 +78,9 @@ const OrderproductPage = () => {
 
                         ).map((item) => (
                             <TableRow key={item.id}>
-                                <TableCell align='right'>{item.name}</TableCell>
+                                <TableCell align='right'>{item.name} {item.lastName}</TableCell>
                                 <TableCell align='right'>{persian.toPersian(item.totalPrice)}</TableCell>
-                                <TableCell align='right'>{persian.toPersian(moment(item.orderTime, 'DDD/MM/YYYY').locale('fa').format('YYYY/MM/DD'))}</TableCell>
+                                <TableCell align='right'>{persian.toPersian(moment(item.orderTime, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD'))}</TableCell>
                                 <TableCell align='right'>
                                     {
                                         deliverd ? <Tooltip title="اطلاعات سفارش">
@@ -113,5 +113,4 @@ const OrderproductPage = () => {
         </>
     );
 }
-
 export default OrderproductPage;

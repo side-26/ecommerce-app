@@ -21,7 +21,7 @@ import { BASE_URL } from '../../../Config/Url.config';
 import { toast } from 'react-toastify';
 import style from './EditModal.module.scss'
 
-const EditmodalCompnent = ({ setShow, show, productobj, setEdited, edit }) => {
+const EditmodalCompnent = ({ setShow, show, productObj, setEdited, edit }) => {
     const dispatch = useDispatch();
     const subCategory = useSelector(state => state.products.subCategory);
     const [value, setValue] = useState("");
@@ -72,13 +72,13 @@ const EditmodalCompnent = ({ setShow, show, productobj, setEdited, edit }) => {
     }
     const handelclick = () => {
         setNewvalue(!newvalue);
-        if (productobj)
-            setValue(productobj.SubCategory["name"])
+        if (productObj)
+            setValue(productObj.SubCategory["name"])
         else {
             setValue("")
         }
     }
-
+    console.log(productObj)
     const cacheRtl = createCache({
         key: 'muirtl',
         stylisPlugins: [rtlPlugin],
@@ -130,7 +130,7 @@ const EditmodalCompnent = ({ setShow, show, productobj, setEdited, edit }) => {
                 }
             })
         } else {
-            Product.patch(BASE_URL, productobj.id, Data).then(result => {
+            Product.patch(BASE_URL, productObj.id, Data).then(result => {
                 if (result.status >= 200 && result.status <= 299) {
                     toast.success("با موفقیت ویرایش شد", {
                         position: "top-right",
@@ -152,7 +152,7 @@ const EditmodalCompnent = ({ setShow, show, productobj, setEdited, edit }) => {
     const Input = styled('input')({
         display: 'none',
     });
-    const length = Object.keys(productobj).length;
+    const length = Object.keys(productObj).length;
     console.log(length === 0);
     const handleChangeName = (e, type) => {
         setData({ ...Data, [type]: `${e.target.value}` })
@@ -168,7 +168,7 @@ const EditmodalCompnent = ({ setShow, show, productobj, setEdited, edit }) => {
                     <div className={style["modal"]}>
                         <div className={style["modal-header"]}>
                             <span>{length > 0 ? "ویرایش" : "افزودن"} کالا</span>
-                            <IconButton onClick={(e) => handleShow(e)} sx={{ color: "const(--main-color)" }} size='large' aria-label="delete">
+                            <IconButton onClick={(e) => handleShow(e)} sx={{ color: "var(--main-color)" }} size='large' aria-label="delete">
                                 <CancelSharpIcon />
                             </IconButton>
                         </div>
@@ -179,19 +179,19 @@ const EditmodalCompnent = ({ setShow, show, productobj, setEdited, edit }) => {
 
                                         <label htmlFor="icon-button-file">
                                             <Input accept="image/*" name='image' id="icon-button-file" type="file" />
-                                            <IconButton sx={{ color: "const(--main-color)" }} aria-label="upload picture" component="span">
+                                            <IconButton sx={{ color: "var(--main-color)" }} aria-label="upload picture" component="span">
                                                 <PhotoCamera />
                                             </IconButton>
-                                            <span className={style["choosen-file-name"]}>فایل انتخاب شده {length > 0 && productobj.thumbnail}</span>
+                                            <span className={style["choosen-file-name"]}>فایل انتخاب شده {length > 0 && productObj.thumbnail}</span>
                                         </label>
                                     </Stack>
 
-                                    <Button type='submit' sx={{ backgroundColor: "const(--main-color)", fontFamily: "IranSansBold" }} variant="contained">ارسال عکس</Button>
+                                    <Button type='submit' sx={{ backgroundColor: "var(--main-color)", fontFamily: "IranSansBold" }} variant="contained">ارسال عکس</Button>
                                 </form>
                             </div>
                             <form onSubmit={(e) => { handlePostData(e) }} >
                                 <div className={style["product-name-container"]}>
-                                    <TextField onChange={(e) => handleChangeName(e, "modelName")} defaultValue={length > 0 ? productobj.modelName : ""} size='small' sx={{ borderColor: "#191919", color: "red" }} fullWidth id="filled-basic" label="نام کالا را وارد کنید" variant="outlined" />
+                                    <TextField onChange={(e) => handleChangeName(e, "modelName")} defaultValue={length > 0 ? productObj.modelName : ""} size='small' sx={{ borderColor: "#191919", color: "red" }} fullWidth id="filled-basic" label="نام کالا را وارد کنید" variant="outlined" />
                                 </div>
                                 <div className={style["sub-category-container"]}>
                                     <div className={style["sub-category-sect"]}>
@@ -201,13 +201,13 @@ const EditmodalCompnent = ({ setShow, show, productobj, setEdited, edit }) => {
                                             value={value}
                                         />}
                                     </div>
-                                    <Button onClick={handelclick} sx={{ backgroundColor: "const(--main-color)", fontFamily: "IranSansRegular" }} variant="contained">مقدار {newvalue ? "پیش فرض" : "جدید"}</Button>
+                                    <Button onClick={handelclick} sx={{ backgroundColor: "var(--main-color)", fontFamily: "IranSansRegular" }} variant="contained">مقدار {newvalue ? "پیش فرض" : "جدید"}</Button>
                                 </div>
                                 <div className={style["discription"]}>
                                     <CKEditor onChange={handel} editor={ClassicEditor} />
                                 </div>
                                 <div className={style["modal-submit"]}>
-                                    <Button type="submit" size='large' sx={{ backgroundColor: "const(--main-color)", width: "60%", fontFamily: "IranSansBold" }} variant="contained">{length > 0 ? "ثبت تغییرات" : "افزودن کالا"}</Button>
+                                    <Button type="submit" size='large' sx={{ backgroundColor: "var(--main-color)", width: "60%", fontFamily: "IranSansBold" }} variant="contained">{length > 0 ? "ثبت تغییرات" : "افزودن کالا"}</Button>
                                 </div>
                             </form>
                         </div>
