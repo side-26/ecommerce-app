@@ -16,6 +16,8 @@ import { replace } from 'stylis';
 import style from './UserForm.page.module.scss';
 import { orders } from '../../Api/Orders.api';
 import { BASE_URL } from '../../Config/Url.config';
+import { UseForm } from '../../hook/useForm.hook';
+import { toast } from 'react-toastify';
 
 
 const Userform = () => {
@@ -28,72 +30,55 @@ const Userform = () => {
     const [address, setAddress] = useState("");
     const [date, setDate] = useState(new Date());
     const [disabled, setDisabled] = useState(true);
-    const [mobilNumber, setMobileNumber] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("");
+    const dataObj={name,family,address,date,mobileNumber};
     const navigate = useNavigate()
-    const handleActiveSubmit = ([...arr]) => {
-        if (
-            arr.every(item => item.trim() !== "")
-        ) {
-            setDisabled(false)
-        } else {
-            setDisabled(true)
-        }
-
-    }
     const handleChange = (e, callback) => {
         callback(e.target.value)
     }
-    const handleValidate = (e, type) => {
-        if (type === "name" || type === "family") {
-            if (e.target.value.trim().length < 3) {
-                alert("حاجی چشاتو واکن اینپوت رو نگاه کن😂😂")
-                e.target.value = ""
-            }
-
-        }
-        else if (type === "address") {
-            if (e.target.value.length < 15 || !e.target.value.includes("-")) {
-                alert("آدرس شما باید حداقل 15 حرف و شامل - باشد")
-                e.target.value = ""
-            }
-        } else if (type === "mobile") {
-            if (e.target.value.length !== 11 || e.target.value[0] !== "0") {
-                alert("شماره باید 11 رقم و با صفر شروع شود.")
-                setMobileNumber("")
-            }
-            // alert(e.target.value.length)
-        } else if (type === "orderTime") {
-            // alert("hello")
-            const todayTime = Date.now();
-            const inputTime = Date.parse(e);
-            if (inputTime < todayTime) {
-                alert("شما نمی توانید روز سفارش را قبل از امروز بزنید!!");
-                setDate("")
-                setDisabled(true)
-            }
-            // alert("hello")
-
-        }
-        handleActiveSubmit([name, family, address, mobilNumber, date])
+    const validate = (fieldValues=dataObj) => {
+        const temp={};
+        if("firstname" in fieldValues)
+        temp.firstname=name.length>2?"":"بیشتر از دو حرف وارد کنید";
+        if("lastname" in fieldValues)
+        temp.lastname=family.length>2?"":"بیشتر از دو حرف وارد کنید";
+        temp.address=address.length>15&&address.includes("-")?"":"ادرس باید شامل - باشد و حتما بیشتر از 15 حرف  وارد کنید";
+        
+        temp.date=date?"":"";
+        if("mobileNumber" in fieldValues)
+            temp.mobileNumber=mobileNumber.length===11&&mobileNumber[0]==="0"?"":"شماره تلفن باید با 0 شروع شود و حتما 11 عدد باشد.";
+        
+        setErrors({
+            ...temp
+        })
+        console.log(temp);
+        return Object.values(temp).every(item=>item=="");
     }
+    const {errors,setErrors,handleValidate}=UseForm(true,validate);
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = {
+        
+        if(validate()){
+           const data = {
             "name": name,
             "lastName": family,
             "address": address,
             "orderTime": date,
-            "tel": mobilNumber,
+            "tel": mobileNumber,
         }
         if (localStorage.getItem("order") !== null) {
             // data["orders"] = JSON.parse(localStorage.getItem("order"));
-            let oldLocal=localStorage.getItem("orders")
-            oldLocal=JSON.parse(oldLocal) 
-            localStorage.setItem("orders", JSON.stringify({...oldLocal,...data}))
-            orders.Post(BASE_URL,{...oldLocal,...data})
+            let oldLocal = localStorage.getItem("orders")
+            oldLocal = JSON.parse(oldLocal)
+            localStorage.setItem("orders", JSON.stringify({ ...oldLocal, ...data }))
+            toast.success("با موفقیت ثبت شد")
+            orders.Post(BASE_URL, { ...oldLocal, ...data })
             window.location.href = "http://localhost:3001";
         } else {
             navigate(PATHS.HOME, replace)
+        } 
+        
         }
     }
     const handleDate = (value) => {
@@ -110,7 +95,7 @@ const Userform = () => {
             // handleActiveSubmit([name, family, address, mobilNumber, date])
         }
     }
-    console.log(date);
+    console.log(dataObj);
     return (
         <>
 
@@ -126,6 +111,7 @@ const Userform = () => {
                         <form onSubmit={(e) => handleSubmit(e)} className={`${style["form"]}`}>
                             <div className={`${style["input-container"]}`}>
                                 <TextField
+                                    focused={errors.firstname}
                                     size='large'
                                     variant="filled"
                                     required
@@ -133,11 +119,13 @@ const Userform = () => {
                                     label="نام"
                                     type="text"
                                     onChange={e => handleChange(e, setName)}
-                                    onBlur={e => handleValidate(e, "name")}
-
+                                    onBlur={e => handleValidate(e)}
+                                    name="firstname"
                                     autoComplete="current-password"
+                                    {...(errors.firstname&&{error:true,helperText:errors.firstname})}
                                 /><TextField
                                     variant="filled"
+                                    focused={errors.lastname}
                                     size='medium'
                                     required
                                     className={`${style["input"]}`}
@@ -147,7 +135,8 @@ const Userform = () => {
                                     value={family}
                                     onChange={e => handleChange(e, setFamily)}
                                     onBlur={e => handleValidate(e, "family")}
-
+                                    name="lastname"
+                                    {...(errors.lastname&&{error:true,helperText:errors.lastname})}
                                 />
                             </div>
                             <div className={`${style["input-container"]}`}>
@@ -160,8 +149,10 @@ const Userform = () => {
                                     value={address}
                                     onChange={e => handleChange(e, setAddress)}
                                     onBlur={e => handleValidate(e, "address")}
+                                    name="address"
+                                    
+                                    {...(errors.address&&{error:true,helperText:errors.address})}
                                 />
-                                <span></span>
                                 <TextField
                                     size='medium'
                                     variant="filled"
@@ -169,25 +160,15 @@ const Userform = () => {
                                     className={`${style["input"]}`}
                                     label="تلفن همراه"
                                     type="number"
-                                    value={mobilNumber}
+                                    value={mobileNumber}
                                     onChange={e => handleChange(e, setMobileNumber)}
                                     onBlur={e => handleValidate(e, "mobile")}
+                                    name="mobileNumber"
+                                    focused={!errors.mobileNumber}
+                                    {...(errors.mobileNumber&&{error:true,helperText:errors.mobileNumber})}
                                 />
                             </div>
                             <div className={`${style["input-container"]}`}>
-
-                                {/* <TextField
-                                    size='medium'
-                                    variant="filled"
-                                    required
-                                    className={`${style["input"]}`}
-                                    type="date"
-                                    autoComplete="current-password"
-                                    value={date}
-                                    onChange={e => handleChange(e, setDate)}
-                                    onBlur={e => handleValidate(e, "orderTime")}
-
-                                /> */}
                                 <LocalizationProvider dateAdapter={AdapterJalali}>
                                     <DatePicker
                                         mask="__/__/____"
@@ -195,18 +176,14 @@ const Userform = () => {
                                         onChange={(newValue) => handleDate(newValue)}
                                         // onClose={()=>handleValidate(date,"orderTime")}
                                         renderInput={(params) => <TextField  {...params} />}
+                                        name="Date"
+                                        error
                                     />
                                 </LocalizationProvider>
-                                {/* <DateTimeInput
-                                    value={date}
-                                    name={'myDateTime'}
-                                    onChange={(e)=>handleChange(e,setDate)}
-                                     onBlur={(e)=>handleValidate(e,"orderTime")}
-                                     /> */}
-
+                              <span>بیا با پشمام بازی کن</span>
                             </div>
                             <div className={`${style["btn-container"]}`}>
-                                <Button disabled={disabled} type='submit' variant="contained" className={`${style["btn"]}`}>
+                                <Button disabled={!Object.values(dataObj).every(item=>item!="") } type='submit' variant="contained" className={`${style["btn"]}`}>
                                     پرداخت
                                 </Button>
                             </div>

@@ -122,7 +122,7 @@
 // renderringStyle
 .outOfOrder::after {
     content: "عدم موجودی";
-    background-color: #515151;
+    background-color: var(--txt-color);
     opacity: 0.9;
     width: 100%;
     height: 100%;
