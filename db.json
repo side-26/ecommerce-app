@@ -34,7 +34,7 @@
       ],
       "thumbnail": "/files/7a60b33fd21e53750d18314891ce5902",
       "price": 60000,
-      "count": 0,
+      "count": 20,
       "createdAt": 1643373068134,
       "id": 5,
       "SubCategory": {
@@ -1028,8 +1028,8 @@
     },
     {
       "totalPrice": 30000,
-      "deliverd": false,
-      "timeDeliverd": "",
+      "deliverd": true,
+      "timeDeliverd": "10/3/2022",
       "orders": [
         {
           "id": 10,

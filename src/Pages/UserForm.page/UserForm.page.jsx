@@ -31,54 +31,54 @@ const Userform = () => {
     const [date, setDate] = useState(new Date());
     const [disabled, setDisabled] = useState(true);
     const [mobileNumber, setMobileNumber] = useState("");
-    const dataObj={name,family,address,date,mobileNumber};
+    const dataObj = { name, family, address, date, mobileNumber };
     const navigate = useNavigate()
     const handleChange = (e, callback) => {
         callback(e.target.value)
     }
-    const validate = (fieldValues=dataObj) => {
-        const temp={};
-        if("firstname" in fieldValues)
-        temp.firstname=name.length>2?"":"بیشتر از دو حرف وارد کنید";
-        if("lastname" in fieldValues)
-        temp.lastname=family.length>2?"":"بیشتر از دو حرف وارد کنید";
-        temp.address=address.length>15&&address.includes("-")?"":"ادرس باید شامل - باشد و حتما بیشتر از 15 حرف  وارد کنید";
-        
-        temp.date=date?"":"";
-        if("mobileNumber" in fieldValues)
-            temp.mobileNumber=mobileNumber.length===11&&mobileNumber[0]==="0"?"":"شماره تلفن باید با 0 شروع شود و حتما 11 عدد باشد.";
-        
+    const validate = (fieldValues = dataObj) => {
+        const temp = {};
+        if ("firstname" in fieldValues)
+            temp.firstname = name.length > 2 ? "" : "بیشتر از دو حرف وارد کنید";
+        if ("lastname" in fieldValues)
+            temp.lastname = family.length > 2 ? "" : "بیشتر از دو حرف وارد کنید";
+        temp.address = address.length > 15 && address.includes("-") ? "" : "ادرس باید شامل - باشد و حتما بیشتر از 15 حرف  وارد کنید";
+
+        temp.date = date ? "" : "";
+        if ("mobileNumber" in fieldValues)
+            temp.mobileNumber = mobileNumber.length === 11 && mobileNumber[0] === "0" ? "" : "شماره تلفن باید با 0 شروع شود و حتما 11 عدد باشد.";
+
         setErrors({
             ...temp
         })
         console.log(temp);
-        return Object.values(temp).every(item=>item=="");
+        return Object.values(temp).every(item => item == "");
     }
-    const {errors,setErrors,handleValidate}=UseForm(true,validate);
-    
+    const { errors, setErrors, handleValidate } = UseForm(true, validate);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        
-        if(validate()){
-           const data = {
-            "name": name,
-            "lastName": family,
-            "address": address,
-            "orderTime": date,
-            "tel": mobileNumber,
-        }
-        if (localStorage.getItem("order") !== null) {
-            // data["orders"] = JSON.parse(localStorage.getItem("order"));
-            let oldLocal = localStorage.getItem("orders")
-            oldLocal = JSON.parse(oldLocal)
-            localStorage.setItem("orders", JSON.stringify({ ...oldLocal, ...data }))
-            toast.success("با موفقیت ثبت شد")
-            orders.Post(BASE_URL, { ...oldLocal, ...data })
-            window.location.href = "http://localhost:3001";
-        } else {
-            navigate(PATHS.HOME, replace)
-        } 
-        
+
+        if (validate()) {
+            const data = {
+                "name": name,
+                "lastName": family,
+                "address": address,
+                "orderTime": date,
+                "tel": mobileNumber,
+            }
+            if (localStorage.getItem("order") !== null) {
+                // data["orders"] = JSON.parse(localStorage.getItem("order"));
+                let oldLocal = localStorage.getItem("orders")
+                oldLocal = JSON.parse(oldLocal)
+                localStorage.setItem("orders", JSON.stringify({ ...oldLocal, ...data }))
+                toast.success("با موفقیت ثبت شد")
+                orders.Post(BASE_URL, { ...oldLocal, ...data })
+                window.location.href = "http://localhost:3001";
+            } else {
+                navigate(PATHS.HOME, replace)
+            }
+
         }
     }
     const handleDate = (value) => {
@@ -122,7 +122,7 @@ const Userform = () => {
                                     onBlur={e => handleValidate(e)}
                                     name="firstname"
                                     autoComplete="current-password"
-                                    {...(errors.firstname&&{error:true,helperText:errors.firstname})}
+                                    {...(errors.firstname && { error: true, helperText: errors.firstname })}
                                 /><TextField
                                     variant="filled"
                                     focused={errors.lastname}
@@ -136,7 +136,7 @@ const Userform = () => {
                                     onChange={e => handleChange(e, setFamily)}
                                     onBlur={e => handleValidate(e, "family")}
                                     name="lastname"
-                                    {...(errors.lastname&&{error:true,helperText:errors.lastname})}
+                                    {...(errors.lastname && { error: true, helperText: errors.lastname })}
                                 />
                             </div>
                             <div className={`${style["input-container"]}`}>
@@ -150,8 +150,8 @@ const Userform = () => {
                                     onChange={e => handleChange(e, setAddress)}
                                     onBlur={e => handleValidate(e, "address")}
                                     name="address"
-                                    
-                                    {...(errors.address&&{error:true,helperText:errors.address})}
+
+                                    {...(errors.address && { error: true, helperText: errors.address })}
                                 />
                                 <TextField
                                     size='medium'
@@ -165,7 +165,7 @@ const Userform = () => {
                                     onBlur={e => handleValidate(e, "mobile")}
                                     name="mobileNumber"
                                     focused={!errors.mobileNumber}
-                                    {...(errors.mobileNumber&&{error:true,helperText:errors.mobileNumber})}
+                                    {...(errors.mobileNumber && { error: true, helperText: errors.mobileNumber })}
                                 />
                             </div>
                             <div className={`${style["input-container"]}`}>
@@ -180,10 +180,10 @@ const Userform = () => {
                                         error
                                     />
                                 </LocalizationProvider>
-                              <span>بیا با پشمام بازی کن</span>
+                                <span>بیا با پشمام بازی کن</span>
                             </div>
                             <div className={`${style["btn-container"]}`}>
-                                <Button disabled={!Object.values(dataObj).every(item=>item!="") } type='submit' variant="contained" className={`${style["btn"]}`}>
+                                <Button disabled={!Object.values(dataObj).every(item => item != "")} type='submit' variant="contained" className={`${style["btn"]}`}>
                                     پرداخت
                                 </Button>
                             </div>

@@ -35,7 +35,7 @@ const OrderproductPage = () => {
     // const [search,setSearch] = useSearchParams()
     const persian = require('persian');
     useEffect(() => {
-        dispatch(fetchOrdersRequest(BASE_URL, `deliverd=${deliverd}&_sort=timeDeliverd&_order=desc`));
+        dispatch(fetchOrdersRequest(BASE_URL, `deliverd=${deliverd}&_sort=timeDeliverd&_order=asc`));
     }, [deliverd]);
     const handelShowModal = (id) => {
         setHidden(false)
@@ -109,7 +109,7 @@ const OrderproductPage = () => {
             </TableContainer>}
             {orders.length === 0 && <div className={style["empty-message"]}><figure><img src={src} alt='emptyTableImg' /></figure><Typography sx={{ color: "var(--main-color)", fontFamily: "IranSansBold", fontSize: "2.3rem" }}>گشتم نبود، نگرد نیست</Typography></div>}
 
-            {!hidden && <Infomodal setDeliverd={setDeliverd} hidden={hidden} setHidden={setHidden} orderId={orderId} />}
+            {!hidden && <Infomodal deliverd={deliverd} setDeliverd={setDeliverd} hidden={hidden} setHidden={setHidden} orderId={orderId} />}
         </>
     );
 }

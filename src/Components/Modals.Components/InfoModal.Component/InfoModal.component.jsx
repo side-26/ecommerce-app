@@ -19,7 +19,7 @@ import { toast } from 'react-toastify';
 const DeliverdBtn = styled(Button)({
     backgroundColor: "red"
 })
-const Infomodal = ({ orderId, hidden,setHidden,setDeliverd }) => {
+const Infomodal = ({ orderId, hidden,setHidden,setDeliverd,deliverd }) => {
     const [place, setPlace] = useState(1);
     const [value, setValue] = useState(0);
     const [changed, setChanged] = useState(false)
@@ -57,7 +57,7 @@ const Infomodal = ({ orderId, hidden,setHidden,setDeliverd }) => {
             }
         })
         setChanged(!changed);
-        setDeliverd(false);
+        setDeliverd(!deliverd);
         setHidden(true)
         // alert(id)
     }
