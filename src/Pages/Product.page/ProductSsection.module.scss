@@ -41,18 +41,22 @@
             .product-description {
                 position: relative;
                 margin: 2rem 0;
+                padding: 0 1rem;
                 p {
-                    line-height: 30px;
+                    line-height: 32px;
                 }
                 &::after {
+                    margin-right: .5rem;
                     position: absolute;
                     content: "";
-                    height: 100%;
+                    min-height: 100%;
                     width: 3px;
-                    left: 0;
+                    right: -1%;
                     top: 0;
                     background-color: var(--main-color);
                 }
+                height: 9rem;
+                overflow-y: auto;
             }
         }
         .slidebar-container {

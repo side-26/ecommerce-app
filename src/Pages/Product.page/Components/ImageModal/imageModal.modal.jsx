@@ -6,7 +6,7 @@ const imageModal = ({ srcImage, hidden, setHidden }) => {
     }
     return (
         <div id="myModal" className={`${style["modal"]} ${hidden && style["hidden"]}`}>
-            <span onClick={handleClose} className={style["close"]}>close</span>
+            <span onClick={handleClose} className={style["close"]}>بستن</span>
             <img src={srcImage} className={style["modal-content"]} alt='img' id="img01" />
         </div>
     );

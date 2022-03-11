@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
+import {orders} from '../../Api/Orders.api'
 import { Helmet } from 'react-helmet';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Successfull from './modules/successfull.components';
 import style from './Result.page.module.scss'
+import { BASE_URL } from '../../Config/Url.config';
 const ResultPage = () => {
     const [result, setResult] = useSearchParams();
     useEffect(() => {
-        if(result.get("result")==="successfull"){
+        if (result.get("result") === "successfull"){
+            const data=localStorage.getItem("orders");
+            orders.Post(BASE_URL,JSON.parse(data))
             localStorage.removeItem("order")
-            localStorage.removeItem("orders")
-            
         }
-            
-        
+        localStorage.removeItem("orders")
     }, [result]);
     return (
         <>

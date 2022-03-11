@@ -20,21 +20,22 @@ import style from './ShoppingCart.page.module.scss';
 // ?id=1&id=2&id=5
 export default function ShoppingCart() {
   let product = useSelector(state => state.products.products);
-  const [totalPrice,setTotalPrice]=useState(0)
+  const [totalPrice, setTotalPrice] = useState(0)
   const dispatch = useDispatch();
   const counter = useSelector(state => state.customerCount.count);
-  const [orderArr,setOrderArr]=useState([])
+  const [orderArr, setOrderArr] = useState([])
   const navigate = useNavigate();
   const [deleted, setDeleted] = useState(false)
   const [data, setdata] = useState([])
   const [anchorEl, setAnchorEl] = useState(null);
-  const [changed,setChanged]=useState(false)
+  const [changed, setChanged] = useState(false)
   const handleBuy = () => {
-    localStorage.setItem("orders",JSON.stringify({
-    "totalPrice": totalPrice,
-    "deliverd": false,
-    "timeDeliverd": "",
-  "orders":orderArr}))
+    localStorage.setItem("orders", JSON.stringify({
+      "totalPrice": totalPrice,
+      "deliverd": false,
+      "timeDeliverd": "",
+      "orders": orderArr
+    }))
     navigate(PATHS.USERFORM)
   }
   useEffect(() => {
@@ -54,7 +55,7 @@ export default function ShoppingCart() {
     }
     else {
       dispatch(fetchProductsRequest(BASE_URL, "id=-2"));
-
+      dispatch(calculateCounter(-counter))
     }
 
   }, [changed])
@@ -71,7 +72,7 @@ export default function ShoppingCart() {
     dispatch(calculateCounter(-counter))
     // alert("hello")
     dispatch(fetchProductsRequest(BASE_URL, "?id=-1"))
-    setDeleted(true)
+    setChanged(!changed)
     handleClose();
   }
 
@@ -101,27 +102,27 @@ export default function ShoppingCart() {
     setOrderArr(newArr)
     // concatedArr=concatedArr.splice(0,concatedArr.length/2)
     // const make
-    
+
     setTotalPrice(newArr.reduce(
       (previousValue, currentValue) => previousValue + currentValue.value * currentValue.price
       , 0
     ))
     // setChanged(!changed)
     // console.log(concatedArr);
-  }, [data,product]);
+  }, [data, product]);
   useEffect(() => {
-    const LocalStorage=localStorage.getItem("order");
-    if(LocalStorage!==null){
-      let localArr=JSON.parse(LocalStorage);
-      if(localArr.find(item=>item.value===0)){
-        localArr=localArr.filter(item=>item.value!==0); 
+    const LocalStorage = localStorage.getItem("order");
+    if (LocalStorage !== null) {
+      let localArr = JSON.parse(LocalStorage);
+      if (localArr.find(item => item.value === 0)) {
+        localArr = localArr.filter(item => item.value !== 0);
         console.log(localArr);
         setdata(localArr)
-        localStorage.setItem("order",JSON.stringify(localArr))
+        localStorage.setItem("order", JSON.stringify(localArr))
         setChanged(!changed)
       }
     }
-      
+
   }, [counter]);
   console.log(totalPrice);
   return <>
@@ -133,7 +134,7 @@ export default function ShoppingCart() {
     <Navbar />
     <div className={`${style["container"]}`}>
       <div className={`${style["container-header"]}`}>
-        <span className={`${style["container-header-title"]}`}> سبد خرید <span className={`${style["container-header-title-countProduct"]}`}>{toFarsiNumber(data.length)}</span></span>
+        <span className={`${style["container-header-title"]}`}> سبد خرید <span className={`${style["container-header-title-countProduct"]}`}>{toFarsiNumber(product.length)}</span></span>
       </div>
       <section className={`${style["main_sidebar_container"]}`}>
         <main className={`${style["main"]}`}>
@@ -186,7 +187,7 @@ export default function ShoppingCart() {
             <strong>{toFarsiNumber((totalPrice / 1000).toFixed(3))} تومان</strong>
           </div>
           <span className={`${style['description']}`}>هزینه‌ی ارسال در ادامه بر اساس آدرس، زمان و نحوه‌ی ارسال انتخابی شما‌ محاسبه و به این مبلغ اضافه خواهد شد</span>
-          <Button onClick={handleBuy} disabled={localStorage.getItem("order") === null||JSON.parse(localStorage.getItem("order")).length===0} size='large' className={`${style['buy-btn']}`} variant="contained">ادامه فرایند خرید</Button>
+          <Button onClick={handleBuy} disabled={localStorage.getItem("order") === null || JSON.parse(localStorage.getItem("order")).length === 0} size='large' className={`${style['buy-btn']}`} variant="contained">ادامه فرایند خرید</Button>
           <span className={`${style["warn-btn"]}`}>توجه :کالا ها بعد از 24 ساعت از سبد کالا حذف خواهند شد</span>
         </aside>}
       </section>

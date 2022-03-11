@@ -14,11 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../Config/Route.config';
 import { replace } from 'stylis';
 import style from './UserForm.page.module.scss';
-import { orders } from '../../Api/Orders.api';
-import { BASE_URL } from '../../Config/Url.config';
+import { GATEWAY_URL } from '../../Config/Url.config';
 import { UseForm } from '../../hook/useForm.hook';
-import { toast } from 'react-toastify';
-
 
 const Userform = () => {
     const cacheRtl = createCache({
@@ -71,10 +68,8 @@ const Userform = () => {
                 // data["orders"] = JSON.parse(localStorage.getItem("order"));
                 let oldLocal = localStorage.getItem("orders")
                 oldLocal = JSON.parse(oldLocal)
-                localStorage.setItem("orders", JSON.stringify({ ...oldLocal, ...data }))
-                toast.success("با موفقیت ثبت شد")
-                orders.Post(BASE_URL, { ...oldLocal, ...data })
-                window.location.href = "http://localhost:3001";
+                localStorage.setItem("orders", JSON.stringify({ ...oldLocal, ...data }));
+                window.location.href =GATEWAY_URL ;
             } else {
                 navigate(PATHS.HOME, replace)
             }
