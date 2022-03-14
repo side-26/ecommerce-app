@@ -4,10 +4,10 @@ import { Products } from '../../../Api/Products.api';
 import { Product } from '../../../Api/Product.api';
 import { category } from '../../../Api/Category.api';
 import { subCategory } from '../../../Api/subCategory.api';
-export const fetchProductsRequest = (pageInfo) => {
+export const fetchProductsRequest = (BASE_URL,pageInfo) => {
     return async (dispatch, getState) => {
         let products = [...getState().products.products];
-        const responses = await Products.Get(pageInfo).then(res => {
+        const responses = await Products.Get(BASE_URL,pageInfo).then(res => {
             return res
         }
         )
@@ -16,10 +16,10 @@ export const fetchProductsRequest = (pageInfo) => {
         // products= Get(BASE_URL);
     };
 }
-export const fetchProductsLengthRequest = (pageInfo) => {
+export const fetchProductsLengthRequest = (BASE_URL,pageInfo) => {
     return async (dispatch, getState) => {
         let products = getState().products.length;
-        const responses = await Products.getLength(pageInfo).then(res => {
+        const responses = await Products.getLength(BASE_URL,pageInfo).then(res => {
             return res;
         }
         )

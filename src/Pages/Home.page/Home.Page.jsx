@@ -28,7 +28,7 @@ const HomePage = () => {
   const products = useSelector(state => state.products.products);
   const SubCategory = useSelector(state => state.products.subCategory)
   useEffect(() => {
-    dispatch(fetchProductsRequest( `SubCategory.name=${currentSubCategory}&_page=1&_limit=6`));
+    dispatch(fetchProductsRequest( BASE_URL,`SubCategory.name=${currentSubCategory}&_page=1&_limit=6`));
     dispatch(fetchsubCategoryRequest(BASE_URL));
     
   }, [currentSubCategory]);
