@@ -4,9 +4,9 @@ const http = axios.create({ baseURL: BASE_URL });
 // http.interceptors.request.use(()=>{
 //     console.log("hello")
 // })
-http.interceptors.response.use(()=>{
-    console.log("hello")
-})
+// http.interceptors.response.use(()=>{
+//     console.log("hello")
+// })
 // class Http{
 //     constructor() {
 //         axios.defaults.baseURL=BASE_URL
