@@ -7,6 +7,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { BASE_URL } from '../../Config/Url.config';
 import style from './ProductCard.module.scss'
 import { useNavigate } from 'react-router-dom';
+import { handleSprateNumber } from '../../Utilities/function/seprateNumbers';
 // import { useDispatch } from 'react-redux';
 // import { fetchProductRequest } from '../../Redux/Actions.Redux/Products.Action/Products.Action';
 const ProductCard = ({ productObj }) => {
@@ -33,7 +34,7 @@ const ProductCard = ({ productObj }) => {
                     <h6>{productObj.brand}</h6>
                 </div>
                 <div onClick={() => handelProductPage(productObj.id)} className={style["Card-price-container"]}>
-                    <Polygon clss={style["card-price"]} childern={productObj.count>0?`${persian.toPersian(productObj.price)} تومان`:"عدم موجودی"} />
+                    <Polygon clss={style["card-price"]} childern={productObj.count>0?`${persian.toPersian((handleSprateNumber(productObj.price)))} تومان`:"عدم موجودی"} />
                 </div>
 
             </div>

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Navbar from '../../Layout/nabarMenu.layout/Navbar';
-import { fetchProductsRequest,fetchsubCategoryRequest } from '../../Redux/Actions.Redux/Products.Action/Products.Action';
+import { fetchProductsRequest, fetchsubCategoryRequest } from '../../Redux/Actions.Redux/Products.Action/Products.Action';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
@@ -15,8 +15,8 @@ import { IconButton } from '@mui/material';
 import { PATHS } from '../../Config/Route.config'
 import Polygon from '../../Components/ProductCard.Component/modules/polygon.Component';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import { BASE_URL } from '../../Config/Url.config'
+import { BASE_URL } from '../../Config/Url.config';
+import http from '../../Services/http.service'
 import style from './Home.Page.module.scss';
 
 // ?SubCategory.name=کوپه&_limit=6
@@ -26,10 +26,11 @@ const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector(state => state.products.products);
-  const SubCategory=useSelector(state=>state.products.subCategory)
+  const SubCategory = useSelector(state => state.products.subCategory)
   useEffect(() => {
-    dispatch(fetchProductsRequest(BASE_URL, `SubCategory.name=${currentSubCategory}&_page=1&_limit=6`));
+    dispatch(fetchProductsRequest( `SubCategory.name=${currentSubCategory}&_page=1&_limit=6`));
     dispatch(fetchsubCategoryRequest(BASE_URL));
+    
   }, [currentSubCategory]);
   const handelSubCategory = (e) => {
     setcurrentSubCategory(e.target.textContent);
@@ -63,18 +64,18 @@ const HomePage = () => {
           </div>
           <div className={style["btn-group-container"]}>
             <div className={style["btn-group"]}>
-            {SubCategory.filter(item=>item.category===1).map(sub=>(
-              <Button key={sub.id}  onClick={(e) => handelSubCategory(e)}  sx={{ borderColor: "#212121", color: `${currentSubCategory===sub.name?"#fff":"#212121"}`, fontFamily: "IranSansBold", fontSize: "1.1rem",backgroundColor:`${currentSubCategory===sub.name?"#212121":"#f2f2f2f"}` }}  variant="outlined">{sub.name}</Button>
-            ))
-}
-              </div>
+              {SubCategory.filter(item => item.category === 1).map(sub => (
+                <Button key={sub.id} onClick={(e) => handelSubCategory(e)} sx={{ borderColor: "#212121", color: `${currentSubCategory === sub.name ? "#fff" : "#212121"}`, fontFamily: "IranSansBold", fontSize: "1.1rem", backgroundColor: `${currentSubCategory === sub.name ? "#212121" : "#f2f2f2f"}` }} variant="outlined">{sub.name}</Button>
+              ))
+              }
+            </div>
             <NavLink to={PATHS.PRODUCTS}>
               محصولات بیشتر
             </NavLink>
           </div>
           <section className={style["product-part-container"]}>
-          {products.length>0&& <ProductSection obj={products} />}
-          {products.length<=0&& <SkeletonCard/>}
+            {products.length > 0 && <ProductSection obj={products} />}
+            {products.length <= 0 && <SkeletonCard />}
           </section>
         </div>
         <div className={style["third-section"]}>
@@ -94,7 +95,4 @@ const HomePage = () => {
     </>
   );
 }
-
 export default HomePage;
-
-

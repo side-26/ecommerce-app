@@ -7,6 +7,7 @@ import Avatar from '../../../Components/imageLogo.Component/Avatar';
 import { BASE_URL } from '../../../Config/Url.config';
 import { calculateCounter } from '../../../Redux/Actions.Redux/ordersCount.Actions/Count.Actions';
 import {toFarsiNumber} from '../../../Utilities/function/ConvertToPersianNumber'
+import { handleSprateNumber } from '../../../Utilities/function/seprateNumbers';
 import style from './ShoppingCard.module.scss';
 
 export default function ShoppingCard({ productobj,setData }) {
@@ -70,7 +71,7 @@ export default function ShoppingCard({ productobj,setData }) {
 
         </div>
         <div className={`${style["card-product-price"]}`}>
-            <strong>{toFarsiNumber(productobj.price)} تومان</strong>
+            <strong>{toFarsiNumber(handleSprateNumber(productobj.price))} تومان</strong>
         </div>
         <div>
         </div>

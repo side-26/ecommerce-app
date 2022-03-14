@@ -16,26 +16,24 @@ import InfoSharpIcon from '@mui/icons-material/InfoSharp';
 import Tooltip from '@mui/material/Tooltip';
 import { IconButton, Typography } from '@mui/material';
 import { fetchOrdersRequest } from '../../../Redux/Actions.Redux/Orders.Actions/Orders.Action';
-// import { changeModalsState } from '../../../Redux/Actions.Redux/Modals.Actions/Modals';
 import src from '../../../Asset/img/NODATA.png';
 import { BASE_URL } from '../../../Config/Url.config';
 import moment from 'jalali-moment'
 import Infomodal from '../../../Components/Modals.Components/InfoModal.Component/InfoModal.component';
+import { toFarsiNumber } from '../../../Utilities/function/ConvertToPersianNumber';
+import { handleSprateNumber } from '../../../Utilities/function/seprateNumbers';
 import style from './Styles.Pages/OrderProduct.module.scss';
 const OrderproductPage = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [deliverd, setDeliverd] = useState(true);
     const [hidden, setHidden] = useState(true)
-    // const [filterd, setFilterd] = useState([]);
     const [orderId, setorderId] = useState(0);
     const orders = useSelector(state => state.orders.orders);
-    // const modalState = useSelector(state => state.modalBool.infoModal);
     const dispatch = useDispatch();
-    // const [search,setSearch] = useSearchParams()
     const persian = require('persian');
     useEffect(() => {
-        dispatch(fetchOrdersRequest(BASE_URL, `deliverd=${deliverd}&_sort=timeDeliverd&_order=asc`));
+        dispatch(fetchOrdersRequest(BASE_URL, `deliverd=${deliverd}&_sort=createdAt&_order=desc`));
     }, [deliverd]);
     const handelShowModal = (id) => {
         setHidden(false)
@@ -79,7 +77,7 @@ const OrderproductPage = () => {
                         ).map((item) => (
                             <TableRow key={item.id}>
                                 <TableCell align='right'>{item.name} {item.lastName}</TableCell>
-                                <TableCell align='right'>{persian.toPersian(item.totalPrice)}</TableCell>
+                                <TableCell align='right'>{toFarsiNumber(handleSprateNumber(item.totalPrice))} تومان</TableCell>
                                 <TableCell align='right'>{persian.toPersian(moment(item.orderTime, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD'))}</TableCell>
                                 <TableCell align='right'>
                                     {

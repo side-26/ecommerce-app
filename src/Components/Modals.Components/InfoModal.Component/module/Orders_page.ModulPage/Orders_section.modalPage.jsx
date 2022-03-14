@@ -12,6 +12,8 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import style from './Orders_section.module.scss'
 import { TableFooter } from '@mui/material';
+import { toFarsiNumber } from '../../../../../Utilities/function/ConvertToPersianNumber';
+import { handleSprateNumber } from '../../../../../Utilities/function/seprateNumbers';
 const OrdersSection = ({ orders }) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(3);
@@ -76,7 +78,7 @@ const OrdersSection = ({ orders }) => {
                                         {item.modelName}
                                     </TableCell>
                                     <TableCell align='right'>
-                                        {item.price}
+                                        {toFarsiNumber(handleSprateNumber(item.price))} تومان
                                     </TableCell>
                                     <TableCell align='right'>
                                         {item.value}

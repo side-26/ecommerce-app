@@ -1,8 +1,15 @@
-// import {BASE_URL} from '../Config/Url.config';
-// const { default: axios } = require("axios");
-// class HttpService{
+import { BASE_URL } from '../Config/Url.config';
+const { default: axios } = require("axios");
+const http = axios.create({ baseURL: BASE_URL });
+// http.interceptors.request.use(()=>{
+//     console.log("hello")
+// })
+http.interceptors.response.use(()=>{
+    console.log("hello")
+})
+// class Http{
 //     constructor() {
-//         // axios.defaults.baseURL=BASE_URL
+//         axios.defaults.baseURL=BASE_URL
 //         axios.interceptors.request.use(()=>{
 //             console.log("interceptors request is");
 //         })
@@ -26,4 +33,4 @@
 //         return axios.delete(URL,config)
 //     }
 // }
-// export default new  HttpService();
+export default http;

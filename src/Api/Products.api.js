@@ -1,8 +1,9 @@
 import axios from 'axios';
+import http from '../Services/http.service';
 
 export const Products = {
-  async Get(BASE_URL,pageInfo="") {
-    return await axios.get(`${BASE_URL}/products?${pageInfo}`)
+  async Get(pageInfo="") {
+    return await http.get(`/products?${pageInfo}`)
       .then(res => {
         const products = res.data
         return products;
@@ -11,9 +12,9 @@ export const Products = {
       });
 
 
-  },async getLength(BASE_URL,pageInfo="") {
+  },async getLength(pageInfo="") {
 
-    return await axios.get(`${BASE_URL}/products?${pageInfo}`)
+    return await http.get(`/products?${pageInfo}`)
       .then(res => {
         const productsLength = res.headers["x-total-count"];
         return productsLength;

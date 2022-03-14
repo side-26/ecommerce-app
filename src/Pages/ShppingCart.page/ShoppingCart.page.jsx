@@ -13,6 +13,7 @@ import { calculateCounter } from '../../Redux/Actions.Redux/ordersCount.Actions/
 import { fetchProductsRequest } from '../../Redux/Actions.Redux/Products.Action/Products.Action';
 import { BASE_URL } from '../../Config/Url.config'
 import { toFarsiNumber } from '../../Utilities/function/ConvertToPersianNumber';
+import { handleSprateNumber } from '../../Utilities/function/seprateNumbers';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '../../Config/Route.config'
 import { IconButton } from '@mui/material';
@@ -38,6 +39,7 @@ export default function ShoppingCart() {
     }))
     navigate(PATHS.USERFORM)
   }
+  
   useEffect(() => {
     const purchasedProducts = localStorage.getItem("order");
     if (purchasedProducts !== null) {
@@ -86,7 +88,6 @@ export default function ShoppingCart() {
 
   //   })
   // }
-  // console.log(product);
   useEffect(() => {
     const concatedArr = data && product && [...data, ...product];
     let newArr = [];
@@ -124,7 +125,7 @@ export default function ShoppingCart() {
     }
 
   }, [counter]);
-  console.log(totalPrice);
+  console.log(toFarsiNumber(handleSprateNumber("25000000000")));
   return <>
     <Helmet>
       <title>
@@ -176,7 +177,7 @@ export default function ShoppingCart() {
         {!deleted && <aside className={`${style["sidebar"]}`}>
           <div className={`${style["price-container"]}`}>
             <span>{`قیمت کالاها (${counter})`}</span>
-            <strong>{toFarsiNumber((totalPrice / 1000).toFixed(3))} تومان</strong>
+            <strong>{toFarsiNumber(handleSprateNumber(totalPrice))} تومان</strong>
           </div>
           <div className={`${style["dicount-container"]}`}>
             <span>تخفیف کالا ها</span>
@@ -184,7 +185,7 @@ export default function ShoppingCart() {
           </div>
           <div className={`${style["total_price-container"]}`}>
             <strong>جمع سبد خرید</strong>
-            <strong>{toFarsiNumber((totalPrice / 1000).toFixed(3))} تومان</strong>
+            <strong>{toFarsiNumber(handleSprateNumber(totalPrice))} تومان</strong>
           </div>
           <span className={`${style['description']}`}>هزینه‌ی ارسال در ادامه بر اساس آدرس، زمان و نحوه‌ی ارسال انتخابی شما‌ محاسبه و به این مبلغ اضافه خواهد شد</span>
           <Button onClick={handleBuy} disabled={localStorage.getItem("order") === null || JSON.parse(localStorage.getItem("order")).length === 0} size='large' className={`${style['buy-btn']}`} variant="contained">ادامه فرایند خرید</Button>
