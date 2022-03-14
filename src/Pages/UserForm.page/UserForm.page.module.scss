@@ -2,7 +2,6 @@
     padding: 0 10%;
     margin: 0auto;
     min-height: 82vh;
-    background-image: url("../../Asset//img/257008.jpg");
     background-position: center;
     background-size: cover;
     position: relative;
@@ -10,7 +9,7 @@
         content: "";
         width: 100%;
         height: 100%;
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: #f2f2f2;
         position: absolute;
         left: 0;
         // z-index: 2;
@@ -40,6 +39,19 @@
                     font-size: 1.1rem;
                     padding-right: .5rem;
                     z-index: 2;
+                }
+                &-date {
+                    width: 48%;
+                    height: 3.1rem;
+                    input {
+                        border-radius: 5px;
+                        border: 1px solid #aaa;
+                        background-color: #ccc;
+                        padding: 0 .5rem;
+                        height: 4rem;
+                        width: 100%;
+                    }
+                    margin-bottom:2rem;
                 }
             }
             .btn-container {

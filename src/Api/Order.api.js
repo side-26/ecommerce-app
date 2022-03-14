@@ -9,5 +9,10 @@ export const order = {
       }).catch(err => {
         return err
       });
+  },
+  async patch(BASE_URL,id,data){
+    return await axios.patch(`${BASE_URL}/Orders/${id}`, data).then(res => {
+      return res
+  }).catch(err=>err)
   }
 }

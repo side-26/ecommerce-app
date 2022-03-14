@@ -1,0 +1,15 @@
+.toggle-container {
+    .toggle-body {
+        input {
+            border: 2px solid var(--third-color);
+            padding: .2rem .5rem;
+            border-radius: 2rem;
+            color: var(--txt-color);
+        }
+    }
+}
+
+// condition styling
+.hidden {
+    display: none;
+}

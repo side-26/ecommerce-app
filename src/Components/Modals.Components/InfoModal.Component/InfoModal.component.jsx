@@ -14,17 +14,23 @@ import Typography from '@mui/material/Typography';
 import style from './InfoModal.module.scss';
 import InfoPage from './module/info_page.ModalPage/Info_Page.ModalPage';
 import OrdersSection from './module/Orders_page.ModulPage/Orders_section.modalPage';
+import { order } from '../../../Api/Order.api';
+import { toast } from 'react-toastify';
 const DeliverdBtn = styled(Button)({
     backgroundColor: "red"
 })
-const Infomodal = ({orderId,show}) => {
+const Infomodal = ({ orderId, hidden,setHidden,setDeliverd,deliverd }) => {
     const [place, setPlace] = useState(1);
     const [value, setValue] = useState(0);
+    const [changed, setChanged] = useState(false)
     const orderObj = useSelector(state => state.orders.order);
-    const modalState=useSelector(state=>state.modalBool.infoModal);
+    const modalState = useSelector(state => state.modalBool.infoModal);
     const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchOrderRequest(BASE_URL, orderId));
+    }, [changed])
     const handelCloseModal = () => {
-        dispatch(changeModalsState(false))
+        setHidden(true)
     }
     const handelChangePlace = (val) => {
         setPlace(val);
@@ -32,13 +38,40 @@ const Infomodal = ({orderId,show}) => {
     const handleChange = (event, newValue) => {
         setValue(modalState);
     };
+<<<<<<< HEAD
     useEffect(() => {
         // dispatch(fetchOrderRequest(BASE_URL, orderId));
     }, [])
     console.log(orderId)
+=======
+    const convertDate = () => {
+        const dateObj = new Date();
+        const month = dateObj.getUTCMonth() + 1; //months from 1-12
+        const day = dateObj.getUTCDate();
+        const year = dateObj.getUTCFullYear();
+        const newdate = `${day}/${month}/${year}`;
+        return newdate
+    }
+    const handleChageStatus = (id) => {
+        const data = {
+            "deliverd": true,
+            "timeDeliverd": convertDate()
+        }
+        order.patch(BASE_URL, id, data).then(res => {
+            if (res.status >= 200 && res.status <= 299) {
+                toast.success("با موفقیت تغییر یافت")
+            }
+        })
+        setChanged(!changed);
+        setDeliverd(!deliverd);
+        setHidden(true)
+        // alert(id)
+    }
+    console.log(orderObj)
+>>>>>>> 9a112dd1d8ce5070825ba1bb82c7502068e8d9c0
 
     return (
-        <section className={`${style["modal-container"]} ${!modalState && style["hidden"]}`}>
+        <section className={`${style["modal-container"]} ${hidden && style["hidden"]}`}>
             <div className={style["modal-layer"]}>
             </div>
             <div onClick={() => handelCloseModal()} className={style["modal-body"]}>
@@ -63,7 +96,7 @@ const Infomodal = ({orderId,show}) => {
                                 onChange={handleChange}
                                 textColor="primary"
                                 className={style["tab-group"]}
-                                indicatorColor="secondery"
+                                indicatorColor="primary"
                                 aria-label="secondary tabs example"
                                 sx={{ color: "#aaa", fontFamily: "IranSansRegular" }}
                             >
@@ -74,11 +107,11 @@ const Infomodal = ({orderId,show}) => {
                         </Box>
                         <section className={style["modal-inner-body-container"]}>
                             {!!place && <InfoPage orderObj={orderObj} />}
-                            {!!!place && <OrdersSection />}
+                            {!!!place && <OrdersSection orders={orderObj.orders} />}
 
                         </section>
                         {!!!orderObj.deliverd && <section className={style["modal-inner-body-footer"]}>
-                            <DeliverdBtn variant="contained" color='success' sx={{ backgroundColor: "transparent", fontFamily: "IranSansBold", color: "#fff" }} >تحویل داده شد</DeliverdBtn>
+                            <DeliverdBtn onClick={()=>handleChageStatus(orderObj.id)} variant="contained" color='success' sx={{ backgroundColor: "transparent", fontFamily: "IranSansBold", color: "#fff" }} >تحویل داده شد</DeliverdBtn>
                         </section>}
                     </div>
                 </section>

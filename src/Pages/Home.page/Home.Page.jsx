@@ -4,19 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Navbar from '../../Layout/nabarMenu.layout/Navbar';
-import { fetchProductsRequest } from '../../Redux/Actions.Redux/Products.Action/Products.Action';
+import { fetchProductsRequest, fetchsubCategoryRequest } from '../../Redux/Actions.Redux/Products.Action/Products.Action';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
+import SkeletonCard from '../../Skeleton/Card.component/ProductCard.Skeleton.Component'
 import ProductSection from '../../Layout/Products-Section.layout/ProductSection';
 import SendIcon from '@mui/icons-material/Send';
 import { IconButton } from '@mui/material';
 import { PATHS } from '../../Config/Route.config'
 import Polygon from '../../Components/ProductCard.Component/modules/polygon.Component';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import { BASE_URL } from '../../Config/Url.config'
+import { BASE_URL } from '../../Config/Url.config';
+import http from '../../Services/http.service'
 import style from './Home.Page.module.scss';
+
 // ?SubCategory.name=کوپه&_limit=6
 
 const HomePage = () => {
@@ -24,12 +26,16 @@ const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector(state => state.products.products);
+  const SubCategory = useSelector(state => state.products.subCategory)
   useEffect(() => {
-    dispatch(fetchProductsRequest(BASE_URL, `SubCategory.name=${currentSubCategory}&_page=1&_limit=6`))
+    dispatch(fetchProductsRequest( BASE_URL,`SubCategory.name=${currentSubCategory}&_page=1&_limit=6`));
+    dispatch(fetchsubCategoryRequest(BASE_URL));
+    
   }, [currentSubCategory]);
   const handelSubCategory = (e) => {
     setcurrentSubCategory(e.target.textContent);
   }
+  console.log();
   const cacheRtl = createCache({
     key: 'muirtl',
     stylisPlugins: [rtlPlugin],
@@ -58,16 +64,22 @@ const HomePage = () => {
           </div>
           <div className={style["btn-group-container"]}>
             <div className={style["btn-group"]}>
-              <Button proId={1} onClick={(e) => handelSubCategory(e)} sx={{ borderColor: "#212121", color: "#212121", fontFamily: "IranSansBold", fontSize: "1.1rem" }} variant="outlined">کراس اوور</Button>
-              <Button proId={2} onClick={(e) => handelSubCategory(e)} sx={{ borderColor: "#212121", color: "#212121", fontFamily: "IranSansBold", fontSize: "1.1rem" }} variant="outlined">سدان</Button>
-              <Button proId={3} onClick={(e) => handelSubCategory(e)} sx={{ borderColor: "#212121", color: "#212121", fontFamily: "IranSansBold", fontSize: "1.1rem" }} variant="outlined">کوپه</Button>
+              {SubCategory.filter(item => item.category === 1).map(sub => (
+                <Button key={sub.id} onClick={(e) => handelSubCategory(e)} sx={{ borderColor: "#212121", color: `${currentSubCategory === sub.name ? "#fff" : "#212121"}`, fontFamily: "IranSansBold", fontSize: "1.1rem", backgroundColor: `${currentSubCategory === sub.name ? "#212121" : "#f2f2f2f"}` }} variant="outlined">{sub.name}</Button>
+              ))
+              }
             </div>
+<<<<<<< HEAD
             <NavLink to={`${PATHS.PRODUCTS}?category=خودرو&SubCategory=کراس اوور`}>
+=======
+            <NavLink to={PATHS.PRODUCTS}>
+>>>>>>> 9a112dd1d8ce5070825ba1bb82c7502068e8d9c0
               محصولات بیشتر
             </NavLink>
           </div>
           <section className={style["product-part-container"]}>
-            <ProductSection obj={products} />
+            {products.length > 0 && <ProductSection obj={products} />}
+            {products.length <= 0 && <SkeletonCard />}
           </section>
         </div>
         <div className={style["third-section"]}>
@@ -87,7 +99,4 @@ const HomePage = () => {
     </>
   );
 }
-
 export default HomePage;
-
-

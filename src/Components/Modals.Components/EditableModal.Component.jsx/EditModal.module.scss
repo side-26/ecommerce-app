@@ -37,7 +37,20 @@
                 }
             }
             .modal-body {
-                overflow-x: hidden;
+                overflow: hidden;
+                .img-uplodaer-container {
+                    form {
+                        .choosen-file-name {
+                            overflow-x: hidden;
+                            text-overflow: ellipsis;
+                            width: 30px;
+                        }
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                    margin: 1.5rem 0;
+                }
                 .discription {
                     width: 100%;
                     overflow-x: hidden;

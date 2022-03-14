@@ -1,0 +1,39 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    .main {
+        margin-top: 7rem;
+        height: 30%;
+        width: 50%;
+        padding: 1rem;
+        .success-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            figure {
+                width: 350px;
+                height: 250px;
+            }
+            h2 {
+                font-size: 2.5rem;
+                margin: 1.5rem;
+                color: var(--txt-color2);
+            }
+            a {
+                color: #00D257;
+                padding: 2rem;
+                font-family: "IranSansBold";
+            }
+        }
+        background: rgba(255, 255, 255, 0.55);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(10.5px);
+        -webkit-backdrop-filter: blur(10.5px);
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+}

@@ -28,15 +28,15 @@ export const fetchProductsLengthRequest = (BASE_URL,pageInfo) => {
         // products= Get(BASE_URL);
     };
 }
-export const fetchProductRequest = (BASE_URL, ID) => {
+export const fetchProductRequest = (ID) => {
     return async (dispatch, getState) => {
         let product = {...getState().product};
-        const response = await Product.Get(BASE_URL, ID).then(res => {
+        const response = await Product.Get(ID).then(res => {
             return res
         }
         )
         product = response;
-       await dispatch({ type: FETCHING_SPESEFIC_PRODOCT, payload: product });
+        dispatch({ type: FETCHING_SPESEFIC_PRODOCT, payload: product });
         // products= Get(BASE_URL);
     };
 }

@@ -1,0 +1,48 @@
+.page-container {
+    background-image: url("../../Asset/img/635123.jpg");
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgb(0, 0, 0);
+        opacity: .5;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(255, 19, 19, 1) 100%);
+        z-index: 0;
+        position: absolute;
+    }
+    .page {
+        position: relative;
+        z-index: 2;
+        h1 {
+            font-size: 3.3rem;
+            color: var(--txt-color3);
+            margin-bottom: 0.5rem;
+        }
+        h5 {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--fourth-color);
+            margin-bottom: 1.5rem;
+        }
+        a {
+            font-size: 1.5rem;
+            text-align: center;
+            display: block;
+            transition: all .35S ease;
+            color: #000;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

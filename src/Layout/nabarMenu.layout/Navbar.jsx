@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
@@ -12,24 +12,35 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
+import {calculateCounter} from '../../Redux/Actions.Redux/ordersCount.Actions/Count.Actions';
 import DirectionsCarFilledSharpIcon from '@mui/icons-material/DirectionsCarFilledSharp';
 import SettingsSuggestSharpIcon from '@mui/icons-material/SettingsSuggestSharp';
 import FeedSharpIcon from '@mui/icons-material/FeedSharp';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import style from './Navbar.module.scss';
 import logoSrc from '../../Asset/img/car-logo.png';
 import { PATHS } from '../../Config/Route.config';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import style from './Navbar.module.scss';
 
 
 export default function Navbar() {
-    const counter=useSelector(state=>state.customerCount.count)
-    const Navigate=()=>{
-        const path=JSON.parse(localStorage.getItem("IsRegister"))?PATHS.DASHBOARD:PATHS.LOGIN;
+    const counter = useSelector(state => state.customerCount.count);
+    const dispatch=useDispatch();
+    const [counterState,setcounterState]=useState(0)
+    const Navigate = () => {
+        const path = JSON.parse(localStorage.getItem("IsRegister")) ? `${PATHS.DASHBOARD}/${PATHS.NestedRoute.PRODUCTS}` : PATHS.LOGIN;
         navigate(path);
     }
-    const navigate=useNavigate()
+    
+    useEffect(() => {
+        // console.log("hello");
+        // if()
+        // dispatch(calculateCounter(counterState));
+
+    }, [counter]);
+
+    const navigate = useNavigate()
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -73,47 +84,49 @@ export default function Navbar() {
         key: 'muirtl',
         stylisPlugins: [rtlPlugin],
     });
+    // const orderCount=
     return (<CacheProvider value={cacheRtl}>
         <AppBar position="sticky" className={`${style["header"]}`}>
             <Toolbar className={`${style["top-nav"]}`}>
                 <div className={`${style["right-sect"]}`}>
-                <figure >
-                    <NavLink to={`${PATHS.HOME}`}><img src={logoSrc} alt="logo" /></NavLink>
-                </figure>
-                <Search className={`${style["search-bar"]}`}>
-                    <SearchIconWrapper>
-                        <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                        size='large'
-                        placeholder="جستجو..."
-                        inputProps={{ 'aria-label': 'search' }}
-                    />
-                </Search>
+                    <figure >
+                        <NavLink to={`${PATHS.HOME}`}><img src={logoSrc} alt="logo" /></NavLink>
+                    </figure>
+                    <Search className={`${style["search-bar"]}`}>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            size='large'
+                            placeholder="جستجو..."
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </Search>
                 </div>
                 <div className={`${style["left-sect"]}`}>
-                <IconButton onClick={()=>{Navigate()}} size="small"
-                    edge="start"
-                    color="inherit"
-                    aria-label="open drawer"
-                    sx={{ mr: 3 }}>
-                    <AccountCircleIcon sx={{mr:1}}/>
-                    <span>مدیریت</span>
-                </IconButton>
-                <IconButton onClick={()=>{
-                    navigate(PATHS.SHOPPING_CART)}} size="medium"
-                    edge="start"
-                    color="inherit"
-                    aria-label="open drawer"
-                    sx={{ mr: 0 }}>
-                    <Badge color="error" badgeContent={counter} max={10}>
-                        <ShoppingCartIcon />
+                    <IconButton onClick={() => { Navigate() }} size="small"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 3 }}>
+                        <AccountCircleIcon sx={{ mr: 1 }} />
+                        <span>مدیریت</span>
+                    </IconButton>
+                    <IconButton onClick={() => {
+                        navigate(PATHS.SHOPPING_CART)
+                    }} size="medium"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 0 }}>
+                        <Badge color="error" badgeContent={counter} max={100}>
+                            <ShoppingCartIcon />
 
-                    </Badge>
-                </IconButton>
+                        </Badge>
+                    </IconButton>
                 </div>
             </Toolbar >
-            {!JSON.parse(localStorage.getItem("IsRegister"))&& <Toolbar className={`${style["bottom-nav"]}`}>
+            {!JSON.parse(localStorage.getItem("IsRegister")) && <Toolbar className={`${style["bottom-nav"]}`}>
                 <IconButton
                     size="small"
                     edge="start"
@@ -140,7 +153,7 @@ export default function Navbar() {
                     sx={{ mr: 5 }}
                 >
                     <DirectionsCarFilledSharpIcon sx={{ mr: 1 }} />
-                   <span>محصولات پرفروش</span>
+                    <span>محصولات پرفروش</span>
                 </IconButton><IconButton
                     size="small"
                     edge="start"
@@ -151,30 +164,8 @@ export default function Navbar() {
                     <SettingsSuggestSharpIcon sx={{ mr: 1 }} />
                     <span>تیونینگ خودرو </span>
                 </IconButton>
-                <a href="/" className={`${style["location-link"]}`}>لطفا شهر و استان خود را انتخاب کنید <AddLocationIcon/></a>
+                <a href="/" className={`${style["location-link"]}`}>لطفا شهر و استان خود را انتخاب کنید <AddLocationIcon /></a>
             </Toolbar>}
-                {/* <section className={`${style["product-type-menu"]}`}>
-                    <div className={`${style["faction-product"]}`}>
-                        <ul className={`${style["faction-product-menu"]}`}>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                        </ul>
-                    </div>
-                    <div className={`${style["product-type"]}`}>
-                        <ul className={`${style["product-type"]}`}>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                            <li><a href="/">کراس اور</a></li>
-                        </ul>
-                    </div>
-                </section> */}
         </AppBar>
     </CacheProvider>)
 
