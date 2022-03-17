@@ -91,11 +91,32 @@
 
 // responsive
 @media only screen and (max-width: 870px) {
+    .container {
+        padding: 3rem .5rem;
+    }
     .loading-container {
         figure {
             width: 350px;
             height: 350px;
             ;
+        }
+    }
+}
+
+@media only screen and (max-width: 740px) {
+    .container {
+        padding: 3rem .5rem;
+        .main {
+            flex-direction: column;
+            padding: 1 0;
+            .product-title-container {
+                width: 100%;
+                order: 2;
+            }
+            .slidebar-container {
+                width: 100%;
+                order: 1;
+            }
         }
     }
 }
