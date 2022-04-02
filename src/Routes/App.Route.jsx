@@ -16,6 +16,7 @@ import ResultPage from '../Pages/Result.page/Result.page';
 import OrderproductPage from '../Pages/Admin-Dashboard.page/Components/OrderProduct.page';
 import InventoryPage from '../Pages/Admin-Dashboard.page/Components/Inventory.page';
 import ProductsPage from '../Pages/Admin-Dashboard.page/Components/Products.page';
+import CategoryPage from '../Pages/Admin-Dashboard.page/Components/SubCategory.page';
 
 
 export default function AppRoute() {
@@ -30,6 +31,8 @@ export default function AppRoute() {
                 <Route path={PATHS.NestedRoute.INVENTORY} element={<InventoryPage/>}/>
                 <Route path={PATHS.NestedRoute.ORDERS} element={<OrderproductPage/>}/>
                 <Route path={PATHS.NestedRoute.PRODUCTS} element={<ProductsPage/>}/>
+                <Route path={PATHS.NestedRoute.SUBCATEGORY} element={<CategoryPage/>}/>
+
             </Route>
             
         </Route>{' '}

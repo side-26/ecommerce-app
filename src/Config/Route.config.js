@@ -12,6 +12,7 @@ export const PATHS = {
     NestedRoute:{
         ORDERS:"orders",
         INVENTORY:"inventory",
-        PRODUCTS:"products"
+        PRODUCTS:"products",
+        SUBCATEGORY:"subCategory"
     }
 }
