@@ -6,7 +6,7 @@ import HomeSharpIcon from '@mui/icons-material/HomeSharp';
 import { useNavigate } from 'react-router-dom';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import rtlPlugin from 'stylis-plugin-rtl';
-import CategorySharpIcon from '@mui/icons-material/CategorySharp';
+// import CategorySharpIcon from '@mui/icons-material/CategorySharp';
 import createCache from '@emotion/cache';
 import { IconButton } from '@mui/material';
 import { CacheProvider } from '@emotion/react';
@@ -52,9 +52,9 @@ const SidebarnavbarLayout = ({ scale }) => {
                     <IconButton size='large' sx={{ color: "#fff" }} onClick={() => navigate(PATHS.NestedRoute.INVENTORY)}>
                         <InventorySharpIcon sx={{ mr: 2, fontSize: "2rem" }} /> {scale && <span className={`${style["navbar-sidebar-menu-item"]}`}>موجودی و قیمت</span>}
                     </IconButton>
-                    <IconButton size='large' sx={{ color: "#fff" }} onClick={() => navigate(PATHS.NestedRoute.SUBCATEGORY)}>
+                    {/* <IconButton size='large' sx={{ color: "#fff" }} onClick={() => navigate(PATHS.NestedRoute.SUBCATEGORY)}>
                         <CategorySharpIcon sx={{ mr: 2, fontSize: "2rem" }} /> {scale && <span className={`${style["navbar-sidebar-menu-item"]}`}>گروه ها</span>}
-                    </IconButton>
+                    </IconButton> */}
                 </ul>
             </aside>
         </CacheProvider>
