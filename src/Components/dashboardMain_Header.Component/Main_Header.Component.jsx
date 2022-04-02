@@ -2,14 +2,9 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import Title from './Components/Title.Component';
 import BtnGroup from './Components/Btn-group.Component';
-<<<<<<< HEAD
-const MainHeader = ({ clss, clss2, bg, fs, txt, txt2,Isorder,deliverd,deliverdFu,btnActive }) => {
-    console.log(deliverd)
-=======
 const MainHeader = ({ clss, clss2, bg, fs, txt, txt2,Isorder,deliverd,deliverdFu,btnActive,clickFu }) => {
     console.log(btnActive)
     
->>>>>>> 9a112dd1d8ce5070825ba1bb82c7502068e8d9c0
     return (
 
         <header className={clss}>

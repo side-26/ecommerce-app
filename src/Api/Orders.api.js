@@ -1,13 +1,8 @@
 import axios from "axios";
 
 export const orders = {
-<<<<<<< HEAD
-  async get(BASE_URL,filtering="") {
-    return await axios.get(`${BASE_URL}/Orders${filtering}`)
-=======
   async get(BASE_URL,filterOption="") {
     return await axios.get(`${BASE_URL}/Orders?${filterOption}`)
->>>>>>> 9a112dd1d8ce5070825ba1bb82c7502068e8d9c0
       .then(res => {
         const Orders = res.data;
         return Orders

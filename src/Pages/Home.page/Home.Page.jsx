@@ -69,11 +69,7 @@ const HomePage = () => {
               ))
               }
             </div>
-<<<<<<< HEAD
-            <NavLink to={`${PATHS.PRODUCTS}?category=خودرو&SubCategory=کراس اوور`}>
-=======
             <NavLink to={PATHS.PRODUCTS}>
->>>>>>> 9a112dd1d8ce5070825ba1bb82c7502068e8d9c0
               محصولات بیشتر
             </NavLink>
           </div>

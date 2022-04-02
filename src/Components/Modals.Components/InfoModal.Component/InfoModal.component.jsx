@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeModalsState } from '../../../Redux/Actions.Redux/Modals.Actions/Modals';
-// import { fetchOrderRequest } from "../../../Redux/Actions.Redux/Orders.Actions/Orders.Action";
+import { fetchOrderRequest } from "../../../Redux/Actions.Redux/Orders.Actions/Orders.Action";
 import { BASE_URL } from "../../../Config/Url.config";
 import { styled } from '@mui/material/styles';
 import CancelSharpIcon from '@mui/icons-material/CancelSharp';
@@ -38,12 +38,6 @@ const Infomodal = ({ orderId, hidden,setHidden,setDeliverd,deliverd }) => {
     const handleChange = (event, newValue) => {
         setValue(modalState);
     };
-<<<<<<< HEAD
-    useEffect(() => {
-        // dispatch(fetchOrderRequest(BASE_URL, orderId));
-    }, [])
-    console.log(orderId)
-=======
     const convertDate = () => {
         const dateObj = new Date();
         const month = dateObj.getUTCMonth() + 1; //months from 1-12
@@ -68,7 +62,6 @@ const Infomodal = ({ orderId, hidden,setHidden,setDeliverd,deliverd }) => {
         // alert(id)
     }
     console.log(orderObj)
->>>>>>> 9a112dd1d8ce5070825ba1bb82c7502068e8d9c0
 
     return (
         <section className={`${style["modal-container"]} ${hidden && style["hidden"]}`}>

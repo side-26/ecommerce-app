@@ -16,26 +16,6 @@ import InfoSharpIcon from '@mui/icons-material/InfoSharp';
 import Tooltip from '@mui/material/Tooltip';
 import { IconButton, Typography } from '@mui/material';
 import { fetchOrdersRequest } from '../../../Redux/Actions.Redux/Orders.Actions/Orders.Action';
-<<<<<<< HEAD
-import { BASE_URL } from '../../../Config/Url.config';
-import style from './Styles.Pages/OrderProduct.module.scss';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-const OrderproductPage = () => {
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [deliverd, setDeliverd] = useState(true)
-    const [searchParams] = useSearchParams();
-    const orders = useSelector(state => state.orders.orders);
-    // const products=useSelector(state=>state.orders.orders);
-    const dispatch = useDispatch();
-    const navigate=useNavigate()
-    const persian = require('persian');
-    useEffect(() => {
-        dispatch(fetchOrdersRequest(BASE_URL,`?deliverd=${searchParams.get("deliverd")?searchParams.get("deliverd"):true}`));
-        
-    }, [searchParams]);
-    
-=======
 import src from '../../../Asset/img/NODATA.png';
 import { BASE_URL } from '../../../Config/Url.config';
 import moment from 'jalali-moment'
@@ -60,22 +40,14 @@ const OrderproductPage = () => {
         setorderId(id)
     }
 
->>>>>>> 9a112dd1d8ce5070825ba1bb82c7502068e8d9c0
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
     const handelDeliverd = (val) => {
-<<<<<<< HEAD
-        setDeliverd(val)
-        navigate(`?deliverd=${val}`)
-    }
-    console.log(orders)
-=======
         setHidden(true)
         setDeliverd(!deliverd)
     }
     // console.log(search.get("deliverd"))
->>>>>>> 9a112dd1d8ce5070825ba1bb82c7502068e8d9c0
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
@@ -101,17 +73,6 @@ const OrderproductPage = () => {
                     <TableBody>
                         {(
                             orders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-<<<<<<< HEAD
-                            
-                        ).map((item) => (
-                            <TableRow key={item.id}>
-                                <TableCell align='right'>{item.name}</TableCell>
-                                <TableCell align='right'>{item.totalPrice}</TableCell>
-                                <TableCell align='right'>{item.orderTime}</TableCell>
-                                <TableCell align='right'><Tooltip title="بررسی سفارشات">
-                                    <IconButton sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
-                                </Tooltip></TableCell>
-=======
 
                         ).map((item) => (
                             <TableRow key={item.id}>
@@ -127,7 +88,6 @@ const OrderproductPage = () => {
                                                 <IconButton onClick={() => handelShowModal(item.id)} sx={{ ml: 1, color: "#1565C0" }}><AssignmentTurnedInSharpIcon /></IconButton>
                                             </Tooltip>
                                     }</TableCell>
->>>>>>> 9a112dd1d8ce5070825ba1bb82c7502068e8d9c0
                             </TableRow>
                         ))}
                     </TableBody>
@@ -144,14 +104,10 @@ const OrderproductPage = () => {
                         />
                     </TableFooter>
                 </Table>
-<<<<<<< HEAD
-            </TableContainer>
-=======
             </TableContainer>}
             {orders.length === 0 && <div className={style["empty-message"]}><figure><img src={src} alt='emptyTableImg' /></figure><Typography sx={{ color: "var(--main-color)", fontFamily: "IranSansBold", fontSize: "2.3rem" }}>گشتم نبود، نگرد نیست</Typography></div>}
 
             {!hidden && <Infomodal deliverd={deliverd} setDeliverd={setDeliverd} hidden={hidden} setHidden={setHidden} orderId={orderId} />}
->>>>>>> 9a112dd1d8ce5070825ba1bb82c7502068e8d9c0
         </>
     );
 }
